@@ -1,0 +1,27 @@
+.form-check{
+  font-size: 15px;
+}
+
+
+.container {
+  color: #659DBD;
+}
+
+input, select,.btn {
+  border: 1px solid  #659DBD;
+}
+
+
+.upload-img{
+  border: none;
+}
+
+.btn{
+  background-color: #659DBD;
+}
+
+
+a{
+  font-size: 18px;
+  color: #659DBD;
+}

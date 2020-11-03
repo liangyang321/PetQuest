@@ -1,0 +1,288 @@
+
+<div class="mt-4 ml-4">
+  <a routerLink="/pet-management" routerLinkActive="active"><i class="fas fa-chevron-left"></i> Back</a>
+</div>
+
+<div class="container mt-4">
+  <h3 class="text-center">Pet Information</h3>
+  <hr class="text-center">
+
+  <div class="row">
+    <div class="col-6 ">
+      <form class="pt-3 pl-3 pr-3 pb-3">
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="petID">Pet ID</label>
+            <input type="text" class="form-control" id="petID" value="4567889" disabled>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="petName">Pet name</label>
+            <input type="text" class="form-control" id="petName" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="type">Type</label>
+            <input type="text" class="form-control" id="type" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="species">Species</label>
+            <input type="text" class="form-control" id="species" required>
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="breed">Breed</label>
+            <input type="text" class="form-control" id="breed" placeholder="primary">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="breed"></label>
+            <input type="text" class="form-control mt-2" id="breed" placeholder="secondary">
+          </div>
+          <div class="form-check form-check-inline mt-3 ml-1">
+            <input class="form-check-input radio" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">Mixed</label>
+          </div>
+          <div class="form-check form-check-inline mt-3 ">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Unknown</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label>Color</label>
+            <input type="text" class="form-control" placeholder="primary">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label></label>
+            <input type="text" class="form-control mt-2" placeholder="secondary">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label></label>
+            <input type="text" class="form-control mt-2" placeholder="tertiary">
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="age">Age</label>
+            <select class="custom-select"  name="age" id="age" required>
+              <option value="1" selected>Baby</option>
+              <option value="2">Young</option>
+              <option value="3">Adult</option>
+              <option value="4">Senior</option>
+          </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="gender">Gender</label>
+            <select class="custom-select" id="gender" required>
+              <option selected>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="size">Size</label>
+            <select class="custom-select"  name="size" id="size" required>
+              <option value="1" selected>Small (0 - 6 lbs)</option>
+              <option value="2">Medium (7 - 11 lbs)</option>
+              <option value="3">Large (12 - 16 lbs)</option>
+              <option value="4">Extra Large (17 or above)</option>
+          </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="coat">Coat Length</label>
+            <select class="custom-select" id="coat" required>
+              <option value="1" selected>Hairless</option>
+              <option value="2">Short</option>
+              <option value="3">Medium</option>
+              <option value="4">Long</option>
+            </select>
+          </div>
+        </div>
+
+      </form>
+
+
+    </div>
+
+    <div class="col-6">
+      <form class="pt-3 pl-3 pr-3  pb-3 ">
+
+        <div class="form-row">
+          <div class="col-md-12 mb-12">
+            <div>
+              <label for="size">Care & Behavior</label>
+            </div>
+            <div class="col-md-12 mb-12">
+              <div class="form-check form-check-inline col-md-6 mb-2">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Spayed-neutered</label>
+              </div>
+              <div class="form-check form-check-inline col-md-5">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">House-trained</label>
+              </div>
+            </div>
+            <div class="col-md-12 mb-12">
+              <div class="form-check form-check-inline col-md-6 mb-3">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Special Needs</label>
+              </div>
+              <div class="form-check form-check-inline col-md-5 mb-3">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">Shorts current</label>
+              </div>
+            </div>
+        </div>
+      </div>
+
+
+
+
+        <div class="form-row">
+          <div class="col-md-12 mb-12">
+            <div>
+              <label for="size">Good with</label>
+            </div>
+
+            <div class="col-md-12 mb-12">
+              <div class="form-check form-check-inline col-md-4 mb-3">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Children</label>
+              </div>
+              <div class="form-check form-check-inline col-md-4">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">Dogs</label>
+              </div>
+
+              <div class="form-check form-check-inline col-md-3 mb-3">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Cats</label>
+              </div>
+            </div>
+        </div>
+      </div>
+
+        <div class="form-row">
+          <div class="col-md-12 mb-4">
+            <label for="type">Upload Images</label>
+            <input type="file" class="form-control-file upload-img">
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <label for="des">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+            <br>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mt-4">
+  <h3 class="text-center pt-3">Contact Information</h3>
+  <hr class="text-center">
+
+  <div class="row">
+    <div class="col-6">
+      <form class="pt-3 pl-3 pr-3 pb-3">
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="shelter">Organization Name</label>
+            <input type="text" class="form-control" id="shelter" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="organization">Organization ID</label>
+            <input type="text" class="form-control" id="organization" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="text">Text</label>
+            <input type="text" class="form-control" id="text" required>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-6">
+      <form class="pt-3 pl-3 pr-3 pb-3">
+
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="address-one">Address 1</label>
+            <input type="email" class="form-control" id="address-one" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="address-two">Address 2</label>
+            <input type="email" class="form-control" id="address-two" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" class="form-control" id="inputCity">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <select id="inputState" class="form-control">
+              <option selected>Choose...</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Zip</label>
+            <input type="text" class="form-control" id="inputZip">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4 pb-4">
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

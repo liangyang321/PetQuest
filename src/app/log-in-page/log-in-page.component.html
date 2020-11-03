@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" >
+    <style>
+
+        .logo img{
+            width: 100px;
+            float: left;
+        }
+
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .nav-wrapper{
+            width: 100%;
+            margin-top: -50px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 100px;
+        }
+
+        .nav{
+            height: 100px;
+            margin-top: 50px;
+            background-color:#659DBD;
+        }
+
+        .pet-nav, .home, .find-pets, .petcare, .user-info li, .m-user li, .m-pet li{
+            float: left;
+        }
+/*
+        .m-user{
+            visibility: hidden;
+        }
+
+        .m-pet{
+            visibility: hidden;
+        } */
+
+        .nav li {
+            display: inline;
+            color: white;
+        }
+
+        .nav a{
+            display: block;
+            color:white;
+            padding: 0px 30px;
+            text-decoration: none;
+        }
+
+        .user-info a{
+            padding: 0;
+        }
+
+        .user-info .register{
+            margin-right: 30px;
+        }
+
+        .user-info{
+            margin-right: 30px;
+        }
+
+
+        .pet-nav{
+            font-size: 24px;
+        }
+
+        .pet-nav a:hover{
+            background-color:rgba(255, 255,255, .2);
+        }
+
+
+        .m-pet a:hover, .m-user a:hover, .user-info a:hover{
+            color: #DAAD86;
+        }
+
+
+        .m-pet, .m-user, .user-info{
+            float: right;
+        }
+
+
+        .find-pets:hover > .petlist{
+            visibility: visible;
+        }
+
+        .petlist li {
+            height: 50px;
+        }
+
+        /* ------------------------------------------ */
+
+        main{
+            width: 100%;
+            /* height: 1000px; */
+            /* background-color:#bc986A; */
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        .form-table{
+            width: 100%;
+            color: #659DBD;
+            /*background-color: rosybrown;*/
+
+        }
+
+        h2{
+            margin-top: 30px;
+
+            text-align: center;
+            color: #8D8741;
+
+
+        }
+
+        form{
+            text-align: center;
+            width: 900px;
+            margin: 20px auto;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 25px;
+            padding-top: 30px;
+            /*padding-left: 80px;*/
+            padding-bottom: 20px;
+        }
+
+        .label-one{
+
+            display: block;
+            float: left;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            padding-top: 8px;
+            /* background-color: #DAAD86; */
+        }
+
+        .input-one{
+
+
+
+
+            padding-left: 10px;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+
+
+
+        .input-two{
+            padding-left: 10px;
+            width: 186px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .input-one, .input-two{
+            border: 2px solid #659DBD;
+            background-color:white;
+            /* color: #659DBD; */
+            /* color: #8D8741; */
+        }
+
+        button{
+            border: 2px solid #659DBD;
+            background-color:#659DBD;
+            color:white;
+            padding-left: 10px;
+            width: 612px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+
+
+        .gender, .care, .environment{
+            line-height: 50px;
+        }
+
+        .description{
+            width: 600px;
+            height: 200px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #659DBD;
+        }
+
+
+       .contact{
+            width: 100%;
+            /* background-color: aquamarine; */
+        }
+
+
+        #submit{
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+        }
+
+
+        #submit-button{
+            text-align: center;
+            width: 200px;
+            height: 50px;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+
+        .nav-m{
+            width: 900px;
+            height: 30px;
+            margin-top: 20px;
+            margin-left: 10px;
+            color:#8D8741
+        }
+
+        .nav-m a{
+            color:#8D8741;
+        }
+
+        .nav-m #p-info{
+            text-decoration: none;
+        }
+
+        .nav-m #pm:hover{
+            color:#BC986A;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-wrapper">
+            <div class="logo">
+                <img src="./image/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="pet-nav">
+                    <li><a class="home" href="./index.html">Home</a></li>
+
+
+
+                    <li class="find-pets">
+                        <a class="pets" href="javascript:;">
+                            Find a pet
+                        </a>
+
+                    </li>
+                    <li class="petcare"><a href="javascript:;">Pet care Blog</a></li>
+                </ul>
+
+                <ul class="user-info">
+                    <li><a href="./index.html">Sign out</a> </li>
+                </ul>
+
+                <ul class="m-pet">
+                    <li><a href="./petlist.html">Pet Management</a></li>
+                </ul>
+
+                <ul class="m-user">
+                    <li><a href="javascript:;">User Management</a></li>
+                </ul>
+
+
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="nav-m">
+            <a id="pm" href="./pet_management.html"> Pet Management</a> /
+            <a id="p-info" href="">Pet Information</a>
+        </div>
+
+        <div class="form-table">
+            <h2>Log In</h2>
+            <hr>
+
+            <form action="">
+
+                <input class="input-one" type="text" id="username"name="username" placeholder="Username" ><br><br>
+
+                <input class="input-one" type="password" id="password" name="password" placeholder="password"><br><br>
+
+
+                </form>
+
+            </div>
+
+
+            <div id="submit">
+                <button id="submit-button">Sign In</button>
+            </div>
+
+                    <br><br>
+
+
+
+    </main>
+
+</body>

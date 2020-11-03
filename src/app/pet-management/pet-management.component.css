@@ -1,0 +1,43 @@
+.list-group-item, .list-group-item a, td > a:hover {
+  color: #8D8741;
+}
+
+.custom-btn {
+  width: 100px;
+  background-color: #659DBD;
+  border: 1px solid #659DBD;
+}
+
+.form-control{
+  border: 1px solid #659DBD;
+  color:#659DBD
+}
+
+.search-icon{
+  border: 1px solid #659DBD;
+  background-color: #659DBD;
+  color: white;
+}
+
+.table-div{
+  border-radius: 10px;
+  color: #659DBD;
+  width: 98%;
+  margin: 0 auto;
+}
+
+.table, th , td > a, li>a, .table-hover tbody tr:hover td{
+  color:#659DBD;
+}
+
+
+
+.pet-img{
+  width: 50px; height: 60px;
+}
+
+td{
+  line-height: 50px;
+}
+
+

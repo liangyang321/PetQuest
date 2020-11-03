@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav left-menu">
+      <li class="nav-item active">
+        <a routerLink="/home-page" routerLinkActive="active" class="nav-item nav-link active left-a petquest">
+          <img src="assets/images/logo.png" alt="" width="50px"> PetQuest</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Find a Pet
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a routerLink="/dog-search" routerLinkActive="active" class="dropdown-item">Find a Dog</a>
+          <a routerLink="/cat-search" routerLinkActive="active" class="dropdown-item">Find a Cat</a>
+          <a href="#" class="dropdown-item">Find other pets</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/pet-care" routerLinkActive="active" class="nav-item nav-link left-a">Pet Care</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto right-menu">
+      <li class="nav-item">
+        <a routerLink = "/user-management" routerLinkActive = "active" class="nav-item nav-link"><i class="fas fa-users"></i> User Management</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/pet-management" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-paw"></i> Pet Management</a>
+      </li>
+      <li class="nav-item">
+       <a routerLink="/log-in-page" routerLinkActive="active" href="#" class="nav-item nav-link"><i class="fas fa-user"></i> Login/Signup</a>
+     </li>
+
+    </ul>
+  </div>
+
+
+</nav>

@@ -1,0 +1,85 @@
+
+<div class="container pt-4 pl-0 pr-0 pt-4">
+  <div class="row">
+    <div class="col-8">
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item border-0 bg-transparent pl-4"><a href="javascript:;">All (10)</a></li>
+        <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-dog"></i> Dog (5)</a></li>
+        <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-cat"></i> Cat (3)</a></li>
+        <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-frog"></i> Other Pets (2)</a></li>
+      </ul>
+    </div>
+
+    <div class="col-4">
+      <p class="list-group-item border-0 bg-transparent text-right pr-4 "><i class="fas fa-user-alt"></i> Administrator</p>
+    </div>
+  </div>
+
+ <div class="row">
+    <div class="col-10">
+      <div class="col-8 input-group ml-2 search-bar search-input">
+        <input type="text" class="form-control" placeholder="Name, Pet ID, or Organization ID" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary search-icon" type="button"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2 ">
+      <div class="text-right">
+        <button routerLink="/pet-management-add" routerLinkActive="active" type="button" class="btn btn-primary btn-default mr-4 custom-btn">Add a Pet</button>
+      </div>
+   </div>
+</div>
+
+<br>
+
+<div class="row pl-4 pr-4 pt-4">
+  <div class="table-div">
+    <table  class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th width="15%">Image</th>
+          <th width="15%">Name</th>
+          <th width="20%">ID</th>
+          <th width="15%">Type</th>
+          <th width="20%">Organization ID</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let animal of Animals">
+          <td>
+            <img src={{animal.image}} alt="" class="pet-img">
+          </td>
+          <td>{{animal.name}}</td>
+          <td>{{animal.id}}</td>
+          <td>{{animal.type}}</td>
+          <td>{{animal.oid}}</td>
+          <td>
+            <a routerLink="/pet-management-view" routerLinkActive="active">{{animal.actionv}}</a> /
+            <a href="">{{animal.actione}}</a> /
+            <a href="">{{animal.actiond}}</a>
+          </td>
+        </tr>
+    </table>
+  </div>
+</div>
+
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+  <li class="page-item">
+    <a class="page-link" href="#" aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  </li>
+  <li class="page-item"><a class="page-link" href="#">1</a></li>
+  <!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
+  <!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+  <li class="page-item">
+    <a class="page-link" href="#" aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+</ul>
+</nav>

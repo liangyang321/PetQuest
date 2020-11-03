@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" >
+    <link rel="icon" type="image/png" href="./image/logo.png">
+    <style>
+
+            /* ************* header ************* */
+        /* ************* Navigation Bar ************* */
+
+        header{
+            width: 100%;
+            height: 60px;
+            background-color:#659DBD;
+            margin: 0px auto;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .logo{
+            float: left;
+        }
+
+        .logo img{
+            width: 60px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        #userinfo{
+            float: right;
+            line-height: 30px;
+            font-size: 16px;
+        }
+
+        #userinfo ul{
+            list-style-type: none;
+        }
+
+        #userinfo li{
+            float: left;
+            margin-right: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color:white;
+        }
+
+        #userinfo  a:hover{
+            color:#DAAD86;
+        }
+/*
+        #user-manage, #pet-manage{
+             visibility: hidden;
+        }
+*/
+
+        .navbar a:hover, .dropdown:hover .petlist-btn {
+            background-color: #4A7F9D;
+        }
+
+        .navbar{
+            float: left;
+            line-height: 60px;
+        }
+
+        .navbar a {
+            float: left;
+            color: #f2f2f2;
+            padding: 0px 30px;
+            font-size: 22px;
+
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+
+        .dropdown .petlist-btn {
+            height: 60px;
+            border: none;
+            outline: none;
+            color: white;
+            padding-left: 30px;
+            padding-right: 30px;
+            background-color: inherit;
+            font-family: inherit;
+            font-size: 22px;
+        }
+
+
+        .findpet-list {
+            display: none;
+            position: absolute;
+            background-color:  #4A7F9D;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            margin-top: -1px;
+            margin-left: 2px;
+        }
+
+        .findpet-list a {
+            float: none;
+            color: white;
+            padding: 5px 30px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        .findpet-list a:hover{
+            background: rgba(250, 250, 250, .2);
+        }
+
+        .dropdown:hover .findpet-list {
+            display: block;
+        }
+
+
+        /* -------------------- MAIN ---------------------- */
+
+        main{
+            width: 100%;
+            margin-top: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        .back-nav a{
+            margin-left: 20px;
+            font-size: 20px;
+            color:#8D8741;
+        }
+
+        .back-nav a:hover{
+            color:#BC986A;
+        }
+
+
+
+        .form-table{
+            width: 100%;
+            color: #659DBD;
+        }
+
+
+        h2{
+            margin-top: 30px;
+            margin-left: 20px;
+            text-align: center;
+            color: #8D8741;
+        }
+
+
+        form{
+            width: 900px;
+            margin: 20px auto;
+            border-radius: 25px;
+            padding-top: 30px;
+            padding-left: 40px;
+            padding-bottom: 20px;
+        }
+
+        .label-one{
+           display: block;
+           float: left;
+           width: 200px;
+           height: 40px;
+           line-height: 40px;
+           padding-top: 8px;
+        }
+
+        .input-one{
+            padding-left: 10px;
+            width: 600px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .select-box{
+            padding-left: 10px;
+            width: 610px;
+            height: 45px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #659DBD;
+        }
+
+        .input-two{
+            padding-left: 10px;
+            width: 186px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .input-one, .input-two{
+            border: 2px solid #659DBD;
+            background-color:white;
+        }
+
+        .gender, .care, .environment{
+            line-height: 50px;
+        }
+
+        .description{
+            width: 600px;
+            height: 200px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #659DBD;
+        }
+
+
+       .contact{
+            width: 100%;
+        }
+
+
+        #submit{
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+        }
+
+
+        #submit-button{
+            width: 200px;
+            height: 50px;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+        .load-image{
+            border: 2px solid #659DBD;
+            background-color:#659DBD;
+            color:white;
+            padding-left: 10px;
+            width: 612px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+
+        }
+
+        .submit{
+            margin-top: 40px;
+            margin-left: 200px;
+            border: 2px solid #659DBD;
+            background-color:#659DBD;
+            color:white;
+            padding-left: 10px;
+            width: 612px;
+            line-height: 40px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+
+        <!-- /* ************* logo ************* */ -->
+        <div class="logo">
+            <img src="./image/logo.png" alt="" class="icon">
+         </div>
+
+
+        <!-- /* ************* Navigation Bar ************* */ -->
+        <div class="navbar">
+            <a href="./index.html">Home</a>
+            <div class="dropdown">
+              <button class="petlist-btn">Find a Pet </button>
+              <div class="findpet-list">
+                <a href="#">Find a Dog</a>
+                <a href="#">Find a Cat</a>
+                <a href="#">Find Other Pets</a>
+              </div>
+            </div>
+            <a href="javascript:;">Pet Care</a>
+        </div>
+
+        <div id="userinfo">
+            <ul class="managelist">
+                <li id="user-manage"><a href="javascript:;"><i class="fas fa-users"></i>&nbsp;User Management</a></li>
+                <li id="pet-manage"><a href="./pet_management.html"><i class="fas fa-paw"></i>&nbsp; Pet Management</a></li>
+                 <li id="login">
+                     <a href="./index.html">
+                        <i class="fas fa-user"></i>&nbsp;
+                        Sign Out
+                     </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+
+    <main>
+
+        <div class="back-nav">
+            <a href="./pet_management.html"> <i class="fas fa-angle-left"></i>&nbsp;&nbsp;back </a>
+        </div>
+
+        <div class="form-table">
+            <h2>Sign Up</h2>
+            <hr>
+
+            <form action="">
+                <label class="label-one"  for="name">Name</label>
+                <input class="input-one" type="text" id="name" name="name"><br><br>
+
+
+                    <label class="label-one"  for="username">UserName</label>
+                    <input class="input-one" type="text" id="username" name="username"><br><br>
+
+                    <label class="label-one" for="password">Password</label>
+                    <input class="input-one" type="password" id="password" name="password"><br><br>
+
+                    <label class="label-one"  for="email">Email</label>
+                    <input class="input-one" type="text" id="email" name="email"><br><br>
+
+                    <label class="label-one"  for="phone">Phone</label>
+                    <input class="input-one" type="tel" id="phone" name="phone"><br><br>
+
+                    <input class="submit" type="submit" value="Submit">
+                    <br>
+
+
+
+
+
+
+            </form>
+
+
+
+        </div>
+
+    </main>
+
+</body>
+</html>

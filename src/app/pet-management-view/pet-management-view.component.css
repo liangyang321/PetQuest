@@ -1,0 +1,18 @@
+a{
+  font-size: 18px;
+  color: #659DBD;
+}
+
+.describe{
+  color: #659DBD;
+  font-weight: bold;
+}
+
+td, li {
+  border: none;
+}
+
+
+h3, h4, .fa-check{
+  color: #659DBD;
+}

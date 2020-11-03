@@ -1,0 +1,93 @@
+<!-- Body content split into two sections one for search area other for search results -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Search bars area -->
+    <div class="col-lg-3 searchBar">
+      <form #petForm="ngForm" (ngSubmit)="onSubmit(petForm)">
+        <div class="form-group">
+          <label for="breed">Breed</label>
+          <select
+            class="form-control"
+            id="breed"
+            name="breed"
+            [(ngModel)]="model.breed"
+          >
+            <option value="any">Any</option>
+            <option *ngFor="let breed of Breeds" [value]="breed">
+              {{ breed }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="petAge">Age</label>
+          <select
+            class="form-control"
+            id="petAge"
+            name="age"
+            [(ngModel)]="model.age"
+          >
+            <option value="any">Any</option>
+            <option *ngIf="href === '/pet-search'">Puppy</option>
+            <option *ngIf="href === '/cat-search'">Kitten</option>
+            <option>Young</option>
+            <option>Adult</option>
+            <option>Senior</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="petSize">Size</label>
+          <select
+            class="form-control"
+            id="petSize"
+            name="size"
+            [(ngModel)]="model.size"
+          >
+            <option value="any">Any</option>
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+            <option>Extra Large</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select
+            class="form-control"
+            id="gender"
+            name="gender"
+            [(ngModel)]="model.gender"
+          >
+            <option value="any">Any</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">Submit</button>
+        </div>
+      </form>
+    </div>
+    <!-- Search Results Area -->
+    <div class="col-lg-9 displayResults">
+      <div class="row">
+        <div class="col-md-4 col-sm-6" *ngFor="let dog of Dogs">
+          <div class="card petBox">
+            <img
+              src="assets/images/puppy1.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{dog.name}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">{{dog.breed}}</li>
+              <li class="list-group-item">{{dog.age}}</li>
+              <li class="list-group-item">{{dog.gender}}</li>
+              <li class="list-group-item">{{dog.location}}</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
