@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "petQuest"
+    }
+  },
+  "defaultProject": "petQuest",
+  "cli": {
+    "analytics": false
+  }
 }
