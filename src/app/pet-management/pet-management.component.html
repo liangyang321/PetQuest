@@ -1,9 +1,8 @@
-
 <div class="container pt-4 pl-0 pr-0 pt-4">
   <div class="row">
     <div class="col-8">
       <ul class="list-group list-group-horizontal">
-        <li class="list-group-item border-0 bg-transparent pl-4"><a href="javascript:;">All (10)</a></li>
+        <li class="list-group-item border-0 bg-transparent pl-4"><a href="javascript:;">All ({{page?.total_count}})</a></li>
         <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-dog"></i> Dog (5)</a></li>
         <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-cat"></i> Cat (3)</a></li>
         <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-frog"></i> Other Pets (2)</a></li>
@@ -48,18 +47,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let animal of Animals">
+        <tr *ngFor="let animal of animals">
           <td>
-            <img src={{animal.image}} alt="" class="pet-img">
+            <img src={{animal.photos[0].small}}  onerror="this.onerror=null;this.src='assets/images/notfound.png';" alt="" class="pet-img">
           </td>
           <td>{{animal.name}}</td>
           <td>{{animal.id}}</td>
           <td>{{animal.type}}</td>
-          <td>{{animal.oid}}</td>
+          <td>{{animal.organization_id}}</td>
           <td>
-            <a routerLink="/pet-management-view" routerLinkActive="active">{{animal.actionv}}</a> /
-            <a href="">{{animal.actione}}</a> /
-            <a href="">{{animal.actiond}}</a>
+            <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">{{animal.view}}</a>
           </td>
         </tr>
     </table>
@@ -68,18 +65,20 @@
 
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
+
   <li class="page-item">
-    <a class="page-link" href="#" aria-label="Previous">
+    <a class="page-link" href="#" aria-label="Previous" routerLink="/pet-management"  (click)="previousPage()" >
       <span aria-hidden="true">&laquo;</span>
     </a>
   </li>
-  <li class="page-item"><a class="page-link" href="#">1</a></li>
-  <!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
-  <!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+
+  <li class="page-item"><a class="page-link" href="#">{{page?.current_page}}</a></li>
+
   <li class="page-item">
-    <a class="page-link" href="#" aria-label="Next">
+    <a class="page-link" href="#" aria-label="Next" routerLink="/pet-management" (click)="nextPage()">
       <span aria-hidden="true">&raquo;</span>
     </a>
   </li>
+
 </ul>
 </nav>
