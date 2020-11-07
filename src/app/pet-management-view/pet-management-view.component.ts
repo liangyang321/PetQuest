@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {PetService} from '../pet.service';
-import { Animal } from '../animal.model';
+import { Animal, Photo } from '../animal.model';
 
 @Component({
   selector: 'app-pet-management-view',
@@ -11,6 +11,13 @@ import { Animal } from '../animal.model';
 export class PetManagementViewComponent implements OnInit {
 
   pet: Animal;
+
+  image: Photo = {
+    small: 'assets/images/notfound.png',
+    medium: 'assets/images/notfound.png',
+    large: null,
+    full: null
+  };
 
   constructor(
     private router: Router,
@@ -26,6 +33,15 @@ export class PetManagementViewComponent implements OnInit {
   getAnimalById(id: any): void{
     this.petService.getAnimalById(id).subscribe(data => {
       this.pet = data.animal;
+
+      // if (element.photos.length === 0 || element.photos === undefined) {
+      //   element.photos.push(this.image);
+      // }
+
+      if (this.pet.photos.length === 0){
+        this.pet.photos.push(this.image);
+
+      }
       console.log(this.pet);
     });
   }
