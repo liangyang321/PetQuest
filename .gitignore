@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 gh-pages.pub
 gh-pages
+src/assets/credential.json

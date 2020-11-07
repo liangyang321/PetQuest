@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -14,6 +15,7 @@ import { LogInPageComponent } from './log-in-page/log-in-page.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { PetCareComponent } from './pet-care/pet-care.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -28,12 +30,14 @@ import { PetCareComponent } from './pet-care/pet-care.component';
     LogInPageComponent,
     SignUpPageComponent,
     UserManagementComponent,
-    PetCareComponent
+    PetCareComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
