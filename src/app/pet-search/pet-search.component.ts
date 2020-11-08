@@ -10,6 +10,9 @@ export class PetInfo {
   public age: string;
   public size: string;
   public gender: string;
+  public type: string;
+  public location: string;
+  public distance: string;
 }
 
 @Component({
@@ -48,8 +51,33 @@ export class PetSearchComponent implements OnInit {
 
   href  = '';
 
+  getAllPetsFromAPI(): void {
+    this.petService.getAnimalByType(this.model.type, this.model.location, '',
+      '', '', '', '').subscribe( data => {
+        this.animals = data.animals;
+        console.log(this.animals);
+        this.page = data.pagination;
+        this.animals.forEach(element => {
+          this.setAnimal(element);
+        });
+    });
+  }
+
   getPetsFromAPI(): void {
-    this.petService.getAnimalByType().subscribe( data => {
+    if (this.model.breed === 'any'){
+      this.model.breed = '';
+    }
+    if (this.model.age === 'any'){
+      this.model.age = '';
+    }
+    if (this.model.size === 'any'){
+      this.model.size = '';
+    }
+    if (this.model.gender === 'any'){
+      this.model.gender = '';
+    }
+    this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, this.model.breed,
+      this.model.age, this.model.size, this.model.gender).subscribe( data => {
         this.animals = data.animals;
         console.log(this.animals);
         this.page = data.pagination;
@@ -64,38 +92,58 @@ export class PetSearchComponent implements OnInit {
       element.photos.push(this.image);
     }
 
-    if (element.name.includes('-')){
-      const n = element.name;
-      element.name = n.split('-')[0];
+    // if (element.name.includes('-')){
+    //   const n = element.name;
+    //   element.name = n.split('-')[0];
+    // }
+
+    // if (element.name.includes(' is')){
+    //   const n = element.name;
+    //   element.name = n.split(' is')[0];
+    // }
+
+    // if (element.name.includes('~')){
+    //   const n = element.name;
+    //   element.name = n.split('~')[0];
+    // }
+
+
+    // element.view = 'View';
+  }
+
+  getLocation(): string{
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const long = position.coords.longitude;
+          const lat = position.coords.latitude;
+          const location = long.toString() + ',' + lat.toString();
+          console.log(location);
+          return location;
+          // this.callApi(longitude, latitude);
+        });
+    } else {
+       console.log('No support for geolocation');
+       return null;
     }
-
-    if (element.name.includes(' is')){
-      const n = element.name;
-      element.name = n.split(' is')[0];
-    }
-
-    if (element.name.includes('~')){
-      const n = element.name;
-      element.name = n.split('~')[0];
-    }
-
-
-    element.view = 'View';
   }
 
 
 
   ngOnInit(): void {
-    this.model.breed = 'any';
-    this.model.age = 'any';
-    this.model.gender = 'any';
-    this.model.size = 'any';
+    this.model.breed = '';
+    this.model.age = '';
+    this.model.gender = '';
+    this.model.size = '';
     this.href = this.router.url;
-    this.getPetsFromAPI();
-    console.log(this.href);
+    this.model.type = this.href.slice(1, 4);
+    this.model.distance = '10';
+    console.log(this.model.distance);
+    // this.model.location = this.getLocation();
+    // this.getAllPetsFromAPI();
   }
 
   onSubmit(petForm): void {
     console.log(petForm);
+    this.getPetsFromAPI();
   }
 }

@@ -15,11 +15,16 @@ export class PetService {
     private tokenService: TokenService)
     {}
 
-  getAnimalByType(): Observable<any> {
+  getAnimalByType(type: any, location: any, distance: any, breed: any, age: any, size: any, gender: any): Observable<any> {
     const headers = { Authorization: this.tokenService.get('token')};
     const params = new HttpParams()
-    .set('type', 'dog')
-    .set('breed', 'poodle');
+    .set('type', type)
+    .set('breed', breed)
+    .set('age', age)
+    .set('size', size)
+    .set('gender', gender)
+    .set('location', location)
+    .set('distance', distance);
     return this.http.get<Animals>('https://api.petfinder.com/v2/animals', { headers, params});
   }
 

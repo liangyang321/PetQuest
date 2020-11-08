@@ -3,7 +3,37 @@
   <div class="row">
     <!-- Search bars area -->
     <div class="col-lg-3 searchBar">
-      <form #petForm="ngForm" (ngSubmit)="onSubmit(petForm)">
+      <form #petForm="ngForm" (ngSubmit)="petForm.form.valid && onSubmit(petForm)">
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+          type="text"
+          placeholder="Zip Code"
+          required
+            class="form-control"
+            id="location"
+            name="location"
+            #location=ngModel
+            [(ngModel)]="model.location"
+            [ngClass]="{ 'is-invalid': petForm.submitted && location.invalid }" required
+          >
+        </div>
+        <div class="form-group">
+          <label for="distance">Distance</label>
+          <select
+            class="form-control"
+            id="distance"
+            name="distance"
+            [(ngModel)]="model.distance"
+          >
+            <option value="10">10 miles</option>
+            <option value="25">25 miles</option>
+            <option value="50">50 miles</option>
+            <option value="100">100 miles</option>
+            <option value="500">Anywhere</option>
+          </select>
+
+        </div>
         <div class="form-group">
           <label for="breed">Breed</label>
           <select
@@ -12,7 +42,7 @@
             name="breed"
             [(ngModel)]="model.breed"
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option *ngFor="let breed of Breeds" [value]="breed">
               {{ breed }}
             </option>
@@ -26,7 +56,7 @@
             name="age"
             [(ngModel)]="model.age"
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option *ngIf="href === '/pet-search'">Puppy</option>
             <option *ngIf="href === '/cat-search'">Kitten</option>
             <option>Young</option>
@@ -42,7 +72,7 @@
             name="size"
             [(ngModel)]="model.size"
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option>Small</option>
             <option>Medium</option>
             <option>Large</option>
@@ -57,7 +87,7 @@
             name="gender"
             [(ngModel)]="model.gender"
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option>Male</option>
             <option>Female</option>
           </select>
