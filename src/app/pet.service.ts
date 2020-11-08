@@ -2,7 +2,7 @@ import { TokenService } from './token.service';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Animals } from './animal.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -14,6 +14,14 @@ export class PetService {
     private http: HttpClient,
     private tokenService: TokenService)
     {}
+
+  getAnimalByType(): Observable<any> {
+    const headers = { Authorization: this.tokenService.get('token')};
+    const params = new HttpParams()
+    .set('type', 'dog')
+    .set('breed', 'poodle');
+    return this.http.get<Animals>('https://api.petfinder.com/v2/animals', { headers, params});
+  }
 
   getAnimal(): Observable<Animals> {
     const headers = { Authorization: this.tokenService.get('token') };

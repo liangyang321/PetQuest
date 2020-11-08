@@ -49,7 +49,7 @@ export class PetSearchComponent implements OnInit {
   href  = '';
 
   getPetsFromAPI(): void {
-    this.petService.getAnimal().subscribe( data => {
+    this.petService.getAnimalByType().subscribe( data => {
         this.animals = data.animals;
         console.log(this.animals);
         this.page = data.pagination;
