@@ -33,7 +33,7 @@ export class PetManagementViewComponent implements OnInit {
   getAnimalById(id: any): void{
     this.petService.getAnimalById(id).subscribe(data => {
       this.pet = data.animal;
-      
+
       if (this.pet.photos.length === 0){
         this.pet.photos.push(this.image);
 

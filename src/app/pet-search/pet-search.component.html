@@ -70,21 +70,21 @@
     <!-- Search Results Area -->
     <div class="col-lg-9 displayResults">
       <div class="row">
-        <div class="col-md-4 col-sm-6" *ngFor="let dog of Dogs">
+        <div class="col-md-4 col-sm-6" *ngFor="let animal of animals">
           <div class="card petBox">
             <img
-              src="assets/images/puppy1.jpg"
+              src="{{animal.photos[0].medium}}" onerror="this.onerror=null;this.src='assets/images/notfound.png';"
               class="card-img-top"
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title">{{dog.name}}</h5>
+              <h5 class="card-title">{{animal.name}}</h5>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">{{dog.breed}}</li>
-              <li class="list-group-item">{{dog.age}}</li>
-              <li class="list-group-item">{{dog.gender}}</li>
-              <li class="list-group-item">{{dog.location}}</li>
+              <li class="list-group-item">{{animal.breeds.primary}}</li>
+              <li class="list-group-item">{{animal.age}}</li>
+              <li class="list-group-item">{{animal.gender}}</li>
+              <li class="list-group-item">{{animal.contact.address.city}}, {{animal.contact.address.state}}</li>
             </ul>
           </div>
         </div>
