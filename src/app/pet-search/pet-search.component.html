@@ -3,7 +3,37 @@
   <div class="row">
     <!-- Search bars area -->
     <div class="col-lg-3 searchBar">
-      <form #petForm="ngForm" (ngSubmit)="onSubmit(petForm)">
+      <form #petForm="ngForm" (ngSubmit)="petForm.form.valid && onSubmit(petForm)">
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+          type="text"
+          placeholder="Zip Code"
+          required
+            class="form-control"
+            id="location"
+            name="location"
+            #location=ngModel
+            [(ngModel)]="model.location"
+            [ngClass]="{ 'is-invalid': petForm.submitted && location.invalid }" required
+          >
+        </div>
+        <div class="form-group">
+          <label for="distance">Distance</label>
+          <select
+            class="form-control"
+            id="distance"
+            name="distance"
+            [(ngModel)]="model.distance"
+          >
+            <option value="10">10 miles</option>
+            <option value="25">25 miles</option>
+            <option value="50">50 miles</option>
+            <option value="100">100 miles</option>
+            <option value="500">Anywhere</option>
+          </select>
+
+        </div>
         <div class="form-group">
           <label for="breed">Breed</label>
           <select
@@ -12,9 +42,9 @@
             name="breed"
             [(ngModel)]="model.breed"
           >
-            <option value="any">Any</option>
-            <option *ngFor="let breed of Breeds" [value]="breed">
-              {{ breed }}
+            <option value="">Any</option>
+            <option *ngFor="let breed of breeds" [value]="breed.name">
+              {{ breed.name }}
             </option>
           </select>
         </div>
@@ -26,9 +56,9 @@
             name="age"
             [(ngModel)]="model.age"
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option *ngIf="href === '/pet-search'">Puppy</option>
-            <option *ngIf="href === '/cat-search'">Kitten</option>
+            <option *ngIf="href === '/cat-search'" value="baby">Kitten</option>
             <option>Young</option>
             <option>Adult</option>
             <option>Senior</option>
@@ -42,7 +72,7 @@
             name="size"
             [(ngModel)]="model.size"
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option>Small</option>
             <option>Medium</option>
             <option>Large</option>
@@ -57,7 +87,7 @@
             name="gender"
             [(ngModel)]="model.gender"
           >
-            <option value="any">Any</option>
+            <option value="">Any</option>
             <option>Male</option>
             <option>Female</option>
           </select>
@@ -70,21 +100,21 @@
     <!-- Search Results Area -->
     <div class="col-lg-9 displayResults">
       <div class="row">
-        <div class="col-md-4 col-sm-6" *ngFor="let dog of Dogs">
-          <div class="card petBox">
+        <div class="col-md-4 col-sm-6" *ngFor="let animal of animals">
+          <div class="card petBox" [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">
             <img
-              src="assets/images/puppy1.jpg"
+              src="{{animal.photos[0].medium}}" onerror="this.onerror=null;this.src='assets/images/notfound.png';"
               class="card-img-top"
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title">{{dog.name}}</h5>
+              <h5 class="card-title">{{animal.name}}</h5>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">{{dog.breed}}</li>
-              <li class="list-group-item">{{dog.age}}</li>
-              <li class="list-group-item">{{dog.gender}}</li>
-              <li class="list-group-item">{{dog.location}}</li>
+              <li class="list-group-item">{{animal.breeds.primary}}</li>
+              <li class="list-group-item">{{animal.age}}</li>
+              <li class="list-group-item">{{animal.gender}}</li>
+              <li class="list-group-item">{{animal.contact.address.city}}, {{animal.contact.address.state}}</li>
             </ul>
           </div>
         </div>

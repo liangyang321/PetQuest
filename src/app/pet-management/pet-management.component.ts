@@ -27,7 +27,7 @@ export class PetManagementComponent implements OnInit {
   }
 
   previousPage(): void{
-    console.log("click previousPage");
+    console.log('click previousPage');
     console.log(this.page._links.previous);
     this.petService.getAnotherPage(this.page._links.previous.href).subscribe( data => {
         this.animals = data.animals;
@@ -39,7 +39,7 @@ export class PetManagementComponent implements OnInit {
   }
 
   nextPage(): void {
-    console.log("click nextpage");
+    console.log('click nextpage');
     console.log(this.page._links.next);
     this.petService.getAnotherPage(this.page._links.next.href).subscribe( data => {
         this.animals = data.animals;

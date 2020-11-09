@@ -1,0 +1,47 @@
+<div class="jumbotron inquire">
+  <div class="row">
+    <div class="col-md-3">
+      <img class="circleImg" src="{{pet.photos[0].medium}}">
+    </div>
+    <div class="col-md-9">
+      <h1>Inquire About {{pet.name}}</h1>
+      <h5>{{pet.breeds.primary}}</h5>
+      <h6>{{pet.gender}}  *  {{pet.size}}  *  {{pet.age}}</h6>
+    </div>
+  </div>
+</div>
+<div class="container-lg">
+  <div class="row">
+      <div class="col-md-10 mx-auto">
+          <div class="contact-form">
+              <form>
+                  <div class="row">
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="inputName">Name</label>
+                              <input type="text" class="form-control" id="inputName" required>
+                          </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="inputEmail">Email</label>
+                              <input type="email" class="form-control" id="inputEmail" required>
+                          </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="inputPhone">Phone</label>
+                              <input type="text" class="form-control" id="inputPhone" required>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="inputMessage">Message</label>
+                      <textarea class="form-control" id="inputMessage" rows="5" required placeholder="I'm wondering if {{pet.name}} is..."></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Send Message</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
