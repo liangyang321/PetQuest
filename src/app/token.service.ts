@@ -14,9 +14,9 @@ export class TokenService {
   };
 
   constructor(private http: HttpClient) {
-    this.http.post<any>('https://api.petfinder.com/v2/oauth2/token', this.credentials).subscribe(data => {
-      this.set('token', data.token_type + ' ' + data.access_token);
-    });
+    // this.http.post<any>('https://api.petfinder.com/v2/oauth2/token', this.credentials).subscribe(data => {
+    //   this.set('token', data.token_type + ' ' + data.access_token);
+    // });
   }
 
   set(token: string, value: string): void{
@@ -24,6 +24,7 @@ export class TokenService {
   }
 
   get(token: string): any {
+    console.log(sessionStorage.getItem(token));
     return sessionStorage.getItem(token);
   }
 }

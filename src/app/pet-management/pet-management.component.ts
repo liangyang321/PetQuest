@@ -23,7 +23,7 @@ export class PetManagementComponent implements OnInit {
   constructor(private petService: PetService) { }
 
   ngOnInit(): void {
-    this.getPetsFromAPI();
+    // this.getPetsFromAPI();
   }
 
   previousPage(): void{
@@ -83,6 +83,35 @@ export class PetManagementComponent implements OnInit {
 
 
     element.view = 'View';
+  }
+
+
+  showAll(): any {
+
+      console.log("click all");
+      console.log(this.page._links.next);
+      this.petService.getAnotherPage(this.page._links.next.href).subscribe( data => {
+          this.animals = data.animals;
+          this.page = data.pagination;
+          this.animals.forEach( element => {
+            this.setAnimal(element);
+          });
+      });
+
+
+
+  }
+
+  showDogs(): void {
+
+  }
+
+  showCats(): void {
+
+  }
+
+  showOthers(): void {
+
   }
 
 }
