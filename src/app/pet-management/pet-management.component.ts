@@ -23,7 +23,7 @@ export class PetManagementComponent implements OnInit {
   constructor(private petService: PetService) { }
 
   ngOnInit(): void {
-    // this.getPetsFromAPI();
+    this.getPetsFromAPI();
   }
 
   previousPage(): void{
