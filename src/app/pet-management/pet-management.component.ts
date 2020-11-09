@@ -3,6 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import {PetService} from '../pet.service';
 import { Animal } from '../animal.model';
 
+export class PetType {
+  type: string;
+  total: number;
+  param: string;
+
+}
+
 @Component({
   selector: 'app-pet-management',
   templateUrl: './pet-management.component.html',
@@ -13,6 +20,12 @@ export class PetManagementComponent implements OnInit {
 
   animals: Animal[];
   page: Pagination;
+  types = [];
+  isAll = true;
+  Others: Animal[];
+
+  pettype: PetType[] = [];
+
   image: Photo = {
     small: 'assets/images/notfound.png',
     medium: null,
@@ -23,43 +36,60 @@ export class PetManagementComponent implements OnInit {
   constructor(private petService: PetService) { }
 
   ngOnInit(): void {
-    this.getPetsFromAPI();
+    this.getPetsFromAPI('/v2/animals');
+    this.getAllPetTypes();
+  }
+
+  getAllPetTypes(): void{
+    this.petService.getTypes().subscribe( data => {
+      console.log('Types');
+      console.log(data.types);
+      this.types = data.types;
+      data.types.forEach(element => {
+          let param: string = element.name;
+          if (element.name === 'Small & Furry'){
+            param = 'Small-Furry';
+          }
+          if (element.name === 'Scales, Fins & Other'){
+            param = 'Scales-Fins-Other';
+          }
+          this.petService.getAnimal('/v2/animals?type=' + param).subscribe(data => {
+            const t = new PetType();
+            t.type = element.name;
+            t.total = data.pagination.total_count;
+            t.param = param;
+            this.pettype.push(t);
+          });
+      });
+    });
+  }
+
+
+  getPetsFromAPI(request: string): void {
+    this.petService.getAnimal(request).subscribe( data => {
+        this.animals = data.animals;
+        console.log(this.animals);
+        if (this.isAll) {
+          this.page = data.pagination;
+        }
+
+        this.animals.forEach(element => {
+          this.setAnimal(element);
+        });
+    });
   }
 
   previousPage(): void{
     console.log("click previousPage");
     console.log(this.page._links.previous);
-    this.petService.getAnotherPage(this.page._links.previous.href).subscribe( data => {
-        this.animals = data.animals;
-        this.page = data.pagination;
-        this.animals.forEach(element => {
-          this.setAnimal(element);
-        });
-    });
+    this.getPetsFromAPI(this.page._links.previous.href);
   }
 
   nextPage(): void {
     console.log("click nextpage");
     console.log(this.page._links.next);
-    this.petService.getAnotherPage(this.page._links.next.href).subscribe( data => {
-        this.animals = data.animals;
-        this.page = data.pagination;
-        this.animals.forEach( element => {
-          this.setAnimal(element);
-        });
-    });
+    this.getPetsFromAPI(this.page._links.next.href);
   }
-
-  getPetsFromAPI(): void {
-    this.petService.getAnimal().subscribe( data => {
-        this.animals = data.animals;
-        this.page = data.pagination;
-        this.animals.forEach(element => {
-          this.setAnimal(element);
-        });
-    });
-  }
-
 
   setAnimal(element: any): void{
     if (element.photos.length === 0 || element.photos === undefined) {
@@ -80,38 +110,27 @@ export class PetManagementComponent implements OnInit {
       const n = element.name;
       element.name = n.split('~')[0];
     }
-
-
     element.view = 'View';
   }
 
-
-  showAll(): any {
-
-      console.log("click all");
-      console.log(this.page._links.next);
-      this.petService.getAnotherPage(this.page._links.next.href).subscribe( data => {
-          this.animals = data.animals;
-          this.page = data.pagination;
-          this.animals.forEach( element => {
-            this.setAnimal(element);
-          });
+  search(id: any): void {
+    if (id){
+      this.petService.getAnimalById(id).subscribe(data => {
+         const pet = data.animal;
+         pet.view = 'View';
+         this.animals = [];
+         this.animals.push(pet);
       });
-
-
-
+    }
   }
 
-  showDogs(): void {
-
+  showAll(): void {
+      this.isAll = true;
+      this.getPetsFromAPI('/v2/animals/?');
   }
 
-  showCats(): void {
-
+  show(index): void{
+    this.isAll = false;
+    this.getPetsFromAPI('/v2/animals/?type=' + this.pettype[index].param);
   }
-
-  showOthers(): void {
-
-  }
-
 }

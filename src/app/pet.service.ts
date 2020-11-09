@@ -1,7 +1,7 @@
 import { TokenService } from './token.service';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Animals } from './animal.model';
+import { Animals, Types } from './animal.model';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -15,9 +15,10 @@ export class PetService {
     private tokenService: TokenService)
     {}
 
-  getAnimal(): Observable<Animals> {
+
+  getAnimal(link: any): Observable<Animals> {
     const headers = { Authorization: this.tokenService.get('token') };
-    return this.http.get<Animals>('https://api.petfinder.com/v2/animals', { headers});
+    return this.http.get<Animals>('https://api.petfinder.com' + link, { headers});
   }
 
   getAnimalById(id: any): Observable<any> {
@@ -25,10 +26,9 @@ export class PetService {
     return this.http.get<Animals>('https://api.petfinder.com/v2/animals/' + id, { headers});
   }
 
-  getAnotherPage(link: any): Observable<Animals> {
-    console.log('getAnotherpageServer');
-    console.log('https://api.petfinder.com' + link);
+  getTypes(): Observable<Types> {
     const headers = { Authorization: this.tokenService.get('token') };
-    return this.http.get<Animals>('https://api.petfinder.com' + link, { headers});
+    return this.http.get<Types>('https://api.petfinder.com/v2/types', { headers});
+
   }
 }

@@ -1,84 +1,94 @@
-<div class="container pt-4 pl-0 pr-0 pt-4">
+
+<div class="container-fluid pt-4 pl-0 pr-0 pt-4">
   <div class="row">
-    <div class="col-8">
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item border-0 bg-transparent pl-4"><a href="javascript:;" routerLink="/pet-management" (click)="showAll()">All ({{page?.total_count}})</a></li>
-        <li class="list-group-item border-0 bg-transparent"><a href="" routerLink="/pet-management" (click)="showDogs()"><i class="fas fa-dog"></i> Dog (5)</a></li>
-        <li class="list-group-item border-0 bg-transparent"><a href="" routerLink="/pet-management" (click)="showCats()"><i class="fas fa-cat"></i> Cat (3)</a></li>
-        <li class="list-group-item border-0 bg-transparent"><a href="" routerLink="/pet-management" (click)="showOthers()"><i class="fas fa-frog"></i> Other Pets (2)</a></li>
+
+    <div class="col-lg-3 display-pet-type">
+      <p class="list-group-item border-0 bg-transparent text-left"><i class="fas fa-user-alt"></i> Administrator</p>
+
+      <h6>
+        <a class="list-group-item border-0 bg-transparent pl-4" routerLink="/pet-management" (click)="showAll()">All Pets ({{page?.total_count}})</a>
+      </h6>
+
+      <ul class="list-group pl-2" *ngFor="let pet of pettype; let i = index">
+        <li class="list-group-item align-items-center">
+          <a href="javascript:;" routerLink="/pet-management"
+          (click)="show(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
+        </li>
       </ul>
     </div>
 
-    <div class="col-4">
-      <p class="list-group-item border-0 bg-transparent text-right pr-4 "><i class="fas fa-user-alt"></i> Administrator</p>
-    </div>
-  </div>
+    <div class="col-lg-9 pet-table">
+       <div class="row">
+          <div class="col-10">
+            <div class="col-8 input-group search-input">
+                <input type="text" class="form-control search-bar " placeholder="Pet ID" aria-describedby="basic-addon2"
+                #pet (keyup.enter)="search(pet.value)" (blur)="search(pet.value); pet.value='' ">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary search-icon" type="button" (click)="search(pet.value)" ><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+          </div>
 
- <div class="row">
-    <div class="col-10">
-      <div class="col-8 input-group ml-2 search-bar search-input">
-        <input type="text" class="form-control" placeholder="Name, Pet ID, or Organization ID" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary search-icon" type="button"><i class="fas fa-search"></i></button>
+          <div class="col-2 ">
+              <div class="text-right">
+                <button routerLink="/pet-management-add" routerLinkActive="active" type="button" class="btn btn-primary btn-default mr-4 custom-btn">Add a Pet</button>
+              </div>
+           </div>
+       </div>
+
+       <div class="row pt-4 mt-2">
+        <div class="table-div">
+          <table  class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th width="15%">Image</th>
+                <th width="20%">Name</th>
+                <th width="15%">ID</th>
+                <th width="20%">Type</th>
+                <th width="15%">Organization ID</th>
+                <th width="15%" scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let animal of animals">
+                <td>
+                  <img src={{animal.photos[0].small}}  onerror="this.onerror=null;this.src='assets/images/notfound.png';" alt="" class="pet-img">
+                </td>
+                <td>{{animal.name}}</td>
+                <td>{{animal.id}}</td>
+                <td>{{animal.type}}</td>
+                <td>{{animal.organization_id}}</td>
+                <td>
+                  <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">{{animal.view}}</a>
+                </td>
+              </tr>
+          </table>
         </div>
-      </div>
     </div>
 
-    <div class="col-2 ">
-      <div class="text-right">
-        <button routerLink="/pet-management-add" routerLinkActive="active" type="button" class="btn btn-primary btn-default mr-4 custom-btn">Add a Pet</button>
-      </div>
-   </div>
-</div>
+    <div class="text-center">
+      <nav aria-label="Page navigation" >
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous" routerLink="/pet-management"  (click)="previousPage()" >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
 
-<br>
+          <li class="page-item"><a class="page-link" href="#">{{page?.current_page}}</a></li>
 
-<div class="row pl-4 pr-4 pt-4">
-  <div class="table-div">
-    <table  class="table table-condensed table-hover">
-      <thead>
-        <tr>
-          <th width="15%">Image</th>
-          <th width="15%">Name</th>
-          <th width="20%">ID</th>
-          <th width="15%">Type</th>
-          <th width="20%">Organization ID</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let animal of animals">
-          <td>
-            <img src={{animal.photos[0].small}}  onerror="this.onerror=null;this.src='assets/images/notfound.png';" alt="" class="pet-img">
-          </td>
-          <td>{{animal.name}}</td>
-          <td>{{animal.id}}</td>
-          <td>{{animal.type}}</td>
-          <td>{{animal.organization_id}}</td>
-          <td>
-            <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">{{animal.view}}</a>
-          </td>
-        </tr>
-    </table>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next" routerLink="/pet-management" (click)="nextPage()">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+
+    </div>
+
   </div>
 </div>
 
-<nav aria-label="Page navigation example">
-<ul class="pagination justify-content-center">
-
-  <li class="page-item">
-    <a class="page-link" href="#" aria-label="Previous" routerLink="/pet-management"  (click)="previousPage()" >
-      <span aria-hidden="true">&laquo;</span>
-    </a>
-  </li>
-
-  <li class="page-item"><a class="page-link" href="#">{{page?.current_page}}</a></li>
-
-  <li class="page-item">
-    <a class="page-link" href="#" aria-label="Next" routerLink="/pet-management" (click)="nextPage()">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
-
-</ul>
-</nav>
