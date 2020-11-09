@@ -2,7 +2,9 @@ import { PetService } from './../pet.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Animal } from '../animal.model';
-import { Pagination, Photo } from './../animal.model';
+import { Pagination, Photo} from './../animal.model';
+import { Breeds} from '../breeds';
+
 
 
 export class PetInfo {
@@ -20,8 +22,10 @@ export class PetInfo {
   templateUrl: './pet-search.component.html',
   styleUrls: ['./pet-search.component.css']
 })
+
 export class PetSearchComponent implements OnInit {
 
+  breeds: Breeds[];
   animals: Animal[];
   page: Pagination;
   image: Photo = {
@@ -35,22 +39,17 @@ export class PetSearchComponent implements OnInit {
 
   model = new PetInfo();
 
-  // Dogs = [{name: 'Pet1', breed: 'Poodle', age: '8 months', gender: 'Male', location: 'San Diego, CA'},
-  // {name: 'Pet2', breed: 'Husky', age: '6 months', gender: 'Male', location: 'San Francisco, CA'},
-  // {name: 'Pet3', breed: 'Cocker Spaniel', age: '5 months', gender: 'Male', location: 'Merced, CA'},
-  // {name: 'Pet4', breed: 'Terrier', age: '6 months', gender: 'Female', location: 'Stockton, CA'},
-  // {name: 'Pet5', breed: 'Pitbull', age: '11 months', gender: 'Female', location: 'Fresno, CA'}];
 
-  Breeds: string[] = [
-    'Golden Retriever',
-    'Husky',
-    'Labrador',
-    'Pomeranian',
-    'Poodle'
-  ];
 
   href  = '';
 
+  getBreeds(): void {
+    this.petService.getAnimalBreed(this.model.type).subscribe( data => {
+      this.breeds = data.breeds;
+      console.log(this.breeds);
+
+    });
+  }
   getAllPetsFromAPI(): void {
     this.petService.getAnimalByType(this.model.type, this.model.location, '',
       '', '', '', '').subscribe( data => {
@@ -80,6 +79,7 @@ export class PetSearchComponent implements OnInit {
       this.model.age, this.model.size, this.model.gender).subscribe( data => {
         this.animals = data.animals;
         console.log(this.animals);
+        console.log(data);
         this.page = data.pagination;
         this.animals.forEach(element => {
           this.setAnimal(element);
@@ -92,20 +92,20 @@ export class PetSearchComponent implements OnInit {
       element.photos.push(this.image);
     }
 
-    // if (element.name.includes('-')){
-    //   const n = element.name;
-    //   element.name = n.split('-')[0];
-    // }
+    if (element.name.includes('-')){
+      const n = element.name;
+      element.name = n.split('-')[0];
+    }
 
-    // if (element.name.includes(' is')){
-    //   const n = element.name;
-    //   element.name = n.split(' is')[0];
-    // }
+    if (element.name.includes(' is')){
+      const n = element.name;
+      element.name = n.split(' is')[0];
+    }
 
-    // if (element.name.includes('~')){
-    //   const n = element.name;
-    //   element.name = n.split('~')[0];
-    // }
+    if (element.name.includes('~')){
+      const n = element.name;
+      element.name = n.split('~')[0];
+    }
 
 
     // element.view = 'View';
@@ -140,6 +140,7 @@ export class PetSearchComponent implements OnInit {
     console.log(this.model.distance);
     // this.model.location = this.getLocation();
     // this.getAllPetsFromAPI();
+    this.getBreeds();
   }
 
   onSubmit(petForm): void {

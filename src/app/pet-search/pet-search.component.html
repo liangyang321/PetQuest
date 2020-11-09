@@ -43,8 +43,8 @@
             [(ngModel)]="model.breed"
           >
             <option value="">Any</option>
-            <option *ngFor="let breed of Breeds" [value]="breed">
-              {{ breed }}
+            <option *ngFor="let breed of breeds" [value]="breed.name">
+              {{ breed.name }}
             </option>
           </select>
         </div>
@@ -58,7 +58,7 @@
           >
             <option value="">Any</option>
             <option *ngIf="href === '/pet-search'">Puppy</option>
-            <option *ngIf="href === '/cat-search'">Kitten</option>
+            <option *ngIf="href === '/cat-search'" value="baby">Kitten</option>
             <option>Young</option>
             <option>Adult</option>
             <option>Senior</option>

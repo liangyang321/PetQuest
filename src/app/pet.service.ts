@@ -15,6 +15,11 @@ export class PetService {
     private tokenService: TokenService)
     {}
 
+  getAnimalBreed(type: any): Observable<any> {
+    const headers = { Authorization: this.tokenService.get('token') };
+    return this.http.get<Animals>('https://api.petfinder.com/v2/types/' + type + '/breeds', { headers});
+  }
+
   getAnimalByType(type: any, location: any, distance: any, breed: any, age: any, size: any, gender: any): Observable<any> {
     const headers = { Authorization: this.tokenService.get('token')};
     const params = new HttpParams()
