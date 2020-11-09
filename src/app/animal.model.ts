@@ -118,7 +118,7 @@ export interface Self {
 }
 
 export interface Type {
-      href: string;
+  href: string;
 }
 
 export class Organization {
@@ -130,6 +130,17 @@ export interface Links {
       type: Type;
       organization: Organization;
 }
+
+
+export class Types {
+  types: [Type];
+}
+
+export class Type {
+  name: string;
+}
+
+
 
 
 
