@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-8">
       <ul class="list-group list-group-horizontal">
-        <li class="list-group-item border-0 bg-transparent pl-4"><a href="javascript:;">All ({{page?.total_count}})</a></li>
-        <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-dog"></i> Dog (5)</a></li>
-        <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-cat"></i> Cat (3)</a></li>
-        <li class="list-group-item border-0 bg-transparent"><a href=""><i class="fas fa-frog"></i> Other Pets (2)</a></li>
+        <li class="list-group-item border-0 bg-transparent pl-4"><a href="javascript:;" routerLink="/pet-management" (click)="showAll()">All ({{page?.total_count}})</a></li>
+        <li class="list-group-item border-0 bg-transparent"><a href="" routerLink="/pet-management" (click)="showDogs()"><i class="fas fa-dog"></i> Dog (5)</a></li>
+        <li class="list-group-item border-0 bg-transparent"><a href="" routerLink="/pet-management" (click)="showCats()"><i class="fas fa-cat"></i> Cat (3)</a></li>
+        <li class="list-group-item border-0 bg-transparent"><a href="" routerLink="/pet-management" (click)="showOthers()"><i class="fas fa-frog"></i> Other Pets (2)</a></li>
       </ul>
     </div>
 

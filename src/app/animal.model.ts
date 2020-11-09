@@ -3,7 +3,7 @@ export class Animals {
   pagination: Pagination;
 }
 
-export interface Animal {
+export class Animal {
   id: number;
   organization_id: string;
   url: string;
@@ -57,20 +57,20 @@ export class Next {
 
 }
 
-export interface Breeds {
+export class Breeds {
       primary: string;
       secondary?: any;
       mixed: boolean;
       unknown: boolean;
   }
 
-export interface Colors {
+export class Colors {
       primary?: any;
       secondary?: any;
       tertiary?: any;
 }
 
-export interface Attributes {
+export class Attributes {
       spayed_neutered: boolean;
       house_trained: boolean;
       declawed?: any;
@@ -78,13 +78,13 @@ export interface Attributes {
       shots_current: boolean;
 }
 
-export interface Environment {
+export class Environment {
       children?: any;
       dogs?: any;
       cats?: any;
 }
 
-export interface Photo {
+export class Photo {
       small: string;
       medium: string;
       large: string;
@@ -98,7 +98,7 @@ export interface PrimaryPhotoCropped {
       full: string;
 }
 
-export interface Address {
+export class Address {
       address1: string;
       address2?: any;
       city: string;
@@ -107,7 +107,7 @@ export interface Address {
       country: string;
 }
 
-export interface Contact {
+export class Contact {
       email: string;
       phone: string;
       address: Address;
@@ -121,7 +121,7 @@ export interface Type {
       href: string;
 }
 
-export interface Organization {
+export class Organization {
       href: string;
 }
 
