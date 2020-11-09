@@ -64,7 +64,6 @@ export class PetManagementComponent implements OnInit {
     });
   }
 
-
   getPetsFromAPI(request: string): void {
     this.petService.getAnimal(request).subscribe( data => {
         this.animals = data.animals;

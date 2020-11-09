@@ -1,0 +1,11 @@
+.circleImg {
+  height: 15vw;
+  width: 15vw;
+  border-radius: 50%;
+  border-style: dotted;
+}
+
+.inquire{
+  background-color: #79b8dc;
+  color: white;
+}
