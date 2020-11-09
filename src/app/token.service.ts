@@ -24,6 +24,7 @@ export class TokenService {
   }
 
   get(token: string): any {
+    console.log(sessionStorage.getItem(token));
     return sessionStorage.getItem(token);
   }
 }
