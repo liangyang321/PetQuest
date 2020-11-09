@@ -101,7 +101,7 @@
     <div class="col-lg-9 displayResults">
       <div class="row">
         <div class="col-md-4 col-sm-6" *ngFor="let animal of animals">
-          <div class="card petBox">
+          <div class="card petBox" [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">
             <img
               src="{{animal.photos[0].medium}}" onerror="this.onerror=null;this.src='assets/images/notfound.png';"
               class="card-img-top"
