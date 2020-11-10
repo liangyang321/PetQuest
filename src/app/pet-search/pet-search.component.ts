@@ -26,7 +26,7 @@ export class PetInfo {
 export class PetSearchComponent implements OnInit {
 
   breeds: Breeds[];
-  animals: Animal[];
+  animals: Animal[] = [];
   page: Pagination;
   image: Photo = {
     small: 'assets/images/notfound.png',
@@ -78,8 +78,7 @@ export class PetSearchComponent implements OnInit {
     this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, this.model.breed,
       this.model.age, this.model.size, this.model.gender).subscribe( data => {
         this.animals = data.animals;
-        console.log(this.animals);
-        console.log(data);
+        // console.log(data);
         this.page = data.pagination;
         this.animals.forEach(element => {
           this.setAnimal(element);
@@ -96,7 +95,6 @@ export class PetSearchComponent implements OnInit {
       const n = element.name;
       element.name = n.split('-')[0];
     }
-
     if (element.name.includes(' is')){
       const n = element.name;
       element.name = n.split(' is')[0];
@@ -137,7 +135,6 @@ export class PetSearchComponent implements OnInit {
     this.href = this.router.url;
     this.model.type = this.href.slice(1, 4);
     this.model.distance = '10';
-    console.log(this.model.distance);
     // this.model.location = this.getLocation();
     // this.getAllPetsFromAPI();
     this.getBreeds();
