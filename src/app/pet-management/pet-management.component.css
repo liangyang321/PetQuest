@@ -24,6 +24,7 @@
   color: #659DBD;
   width: 98%;
   margin: 0 auto;
+  font-size: 15px;
 }
 
 .table, th , td > a, li>a, .table-hover tbody tr:hover td{
@@ -59,4 +60,8 @@ li {
   border: none;
 }
 
+
+.source{
+  font-weight: bold;
+}
 

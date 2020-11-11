@@ -1,7 +1,10 @@
+import { PetManagementViewComponent } from './../pet-management-view/pet-management-view.component';
+import { FirebaseService } from './../firebase.service';
 import { Pagination, Photo } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
 import {PetService} from '../pet.service';
 import { Animal } from '../animal.model';
+import { map } from 'rxjs/operators';
 
 export class PetType {
   type: string;
@@ -18,6 +21,11 @@ export class PetType {
 
 export class PetManagementComponent implements OnInit {
 
+  isAdmin = true;
+  isSourceFromAPI = true;
+  fromSupplier = false;
+
+  totalfromsuppliers = 0;
   animals: Animal[];
   page: Pagination;
   types = [];
@@ -33,7 +41,11 @@ export class PetManagementComponent implements OnInit {
     full: null
   };
 
-  constructor(private petService: PetService) { }
+  constructor(
+    private petService: PetService,
+    private firebaseService: FirebaseService
+
+    ) { }
 
   ngOnInit(): void {
     this.getPetsFromAPI('/v2/animals');
@@ -109,7 +121,6 @@ export class PetManagementComponent implements OnInit {
       const n = element.name;
       element.name = n.split('~')[0];
     }
-    element.view = 'View';
   }
 
   search(id: any): void {
@@ -123,13 +134,38 @@ export class PetManagementComponent implements OnInit {
     }
   }
 
-  showAll(): void {
-      this.isAll = true;
-      this.getPetsFromAPI('/v2/animals/?');
-  }
+  // showAll(): void {
+  //     this.isAll = true;
+  //     this.getPetsFromAPI('/v2/animals/?');
+  // }
 
   show(index): void{
     this.isAll = false;
     this.getPetsFromAPI('/v2/animals/?type=' + this.pettype[index].param);
+  }
+
+
+  getPetFromAPI(): void{
+    this.getPetsFromAPI('/v2/animals');
+  }
+
+
+  getPetFromSupplier(): void {
+    this.firebaseService.getAll().snapshotChanges().pipe(
+      map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
+      ))).subscribe(data => {
+        console.log(data);
+        this.animals = data;
+        this.totalfromsuppliers = data.length;
+        console.log(this.animals);
+        this.animals.forEach(element => {
+            if (element.photos === undefined || element.photos.length === 0) {
+              const photos: Photo[] = [];
+              photos.push(this.image);
+              element.photos = photos;
+            }
+
+        });
+    });
   }
 }
