@@ -1,3 +1,4 @@
+import { FirebaseService} from './../firebase.service';
 import { Address, Animal, Attributes, Breeds, Colors, Contact, Environment, Photo } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
 import * as data from '../../assets/states.json';
@@ -12,9 +13,8 @@ import * as data from '../../assets/states.json';
 export class PetManagementAddComponent implements OnInit {
 
 
-  constructor() { }
-
   pet = new Animal();
+  // pet: Animal = null;
 
   // get value():string {
   //   var val = JSON.stringify(this.model);
@@ -34,6 +34,8 @@ export class PetManagementAddComponent implements OnInit {
 
   State: any[] = (data as any).default;
 
+  constructor(private firebaseService: FirebaseService) { }
+
   ngOnInit(): void {
     this.pet.breeds = new Breeds();
     this.pet.colors = new Colors();
@@ -46,7 +48,12 @@ export class PetManagementAddComponent implements OnInit {
 
   onSubmit(form): void {
     console.log(form.value);
-  }
+    console.log(this.pet);
 
+    this.firebaseService.createAnimal(form.value).then(res => {
+      console.log('success message');
+    });
+
+  }
 
 }

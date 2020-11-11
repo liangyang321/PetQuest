@@ -5,21 +5,21 @@ export class Animals {
 
 export class Animal {
   id: number;
-  organization_id: string;
-  url: string;
+  organization_id: string = null;
+  url: string = null;
   type: string;
-  species: string;
+  species: string = null;
   breeds: Breeds;
   colors: Colors;
-  age: string;
-  gender: string;
-  size: string;
-  coat?: any;
+  age: string = null;
+  gender: string = null;
+  size: string = null;
+  coat?: any = null;
   attributes: Attributes;
   environment: Environment;
   tags: any[];
   name: string;
-  description: string;
+  description: string = null;
   organization_animal_id: string;
   photos: Photo[];
   primary_photo_cropped: PrimaryPhotoCropped;
@@ -30,7 +30,7 @@ export class Animal {
   distance?: any;
   contact: Contact;
   _links: Links;
-  view: string;
+  view: string[];
 }
 
 export class Pagination {
@@ -58,34 +58,34 @@ export class Next {
 }
 
 export class Breeds {
-      primary: string;
-      secondary?: any;
-      mixed: boolean;
-      unknown: boolean;
+      primary: string = null;
+      secondary?: any = null;
+      mixed: boolean = false;
+      unknown: boolean = false;
   }
 
 export class Colors {
-      primary?: any;
-      secondary?: any;
-      tertiary?: any;
+      primary?: any = null;
+      secondary?: any = null;
+      tertiary?: any = null;
 }
 
 export class Attributes {
-      spayed_neutered: boolean;
-      house_trained: boolean;
-      declawed?: any;
-      special_needs: boolean;
-      shots_current: boolean;
+      spayed_neutered = false;
+      house_trained = false;
+      declawed?: any = false;
+      special_needs = false;
+      shots_current = false;
 }
 
 export class Environment {
-      children?: any;
-      dogs?: any;
-      cats?: any;
+      children?: any = false;
+      dogs?: any = false ;
+      cats?: any = false;
 }
 
 export class Photo {
-      small: string;
+      small: string = 'assets/images/notfound.png';
       medium: string;
       large: string;
       full: string;
@@ -99,18 +99,18 @@ export interface PrimaryPhotoCropped {
 }
 
 export class Address {
-      address1: string;
-      address2?: any;
-      city: string;
-      state: string;
-      postcode: string;
-      country: string;
+      address1: string = null;
+      address2?: any = null;
+      city: string = null;
+      state: string = null;
+      postcode: string = null;
+      country: string = null;
 }
 
 export class Contact {
       email: string;
-      phone: string;
-      address: Address;
+      phone: string = null;
+      address: Address = null;
 }
 
 export interface Self {
@@ -122,7 +122,7 @@ export interface Type {
 }
 
 export class Organization {
-      href: string;
+      href: string = null;
 }
 
 export interface Links {

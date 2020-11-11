@@ -5,16 +5,26 @@
     <div class="col-lg-3 display-pet-type">
       <p class="list-group-item border-0 bg-transparent text-left"><i class="fas fa-user-alt"></i> Administrator</p>
 
-      <h6>
-        <a class="list-group-item border-0 bg-transparent pl-4" routerLink="/pet-management" (click)="showAll()">All Pets ({{page?.total_count}})</a>
-      </h6>
-
-      <ul class="list-group pl-2" *ngFor="let pet of pettype; let i = index">
-        <li class="list-group-item align-items-center">
-          <a href="javascript:;" routerLink="/pet-management"
-          (click)="show(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
-        </li>
+    <div *ngIf="isAdmin">
+      <ul class="list-group">
+        <li class="list-group-item source"><a href="javascript:;" (click)="getPetFromAPI()">Pet From API ({{page?.total_count}})</a></li>
+            <div *ngIf="isSourceFromAPI" >
+              <ul class="list-group pl-4" *ngFor="let pet of pettype; let i = index">
+                <li class="list-group-item align-items-center">
+                  <a href="javascript:;" routerLink="/pet-management"
+                  (click)="show(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
+                </li>
+              </ul>
+            </div>
       </ul>
+    </div>
+
+    <div>
+      <ul class="list-group">
+        <li class="list-group-item source"><a href="javascript:;" (click)="getPetFromSupplier()">Pet From Suppliers ({{totalfromsuppliers}})</a></li>
+      </ul>
+    </div>
+
     </div>
 
     <div class="col-lg-9 pet-table">
@@ -44,8 +54,8 @@
                 <th width="15%">Image</th>
                 <th width="20%">Name</th>
                 <th width="15%">ID</th>
-                <th width="20%">Type</th>
-                <th width="15%">Organization ID</th>
+                <th width="15%">Type</th>
+                <th width="20%">Organization ID</th>
                 <th width="15%" scope="col">Action</th>
               </tr>
             </thead>
@@ -59,7 +69,12 @@
                 <td>{{animal.type}}</td>
                 <td>{{animal.organization_id}}</td>
                 <td>
-                  <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">{{animal.view}}</a>
+                  <!-- <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">{{animal.view}}</a> -->
+                  <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">View</a>
+                  <span *ngIf="fromSupplier"> / </span>
+                  <a *ngIf="fromSupplier" routerLinkActive="active">Edit</a>
+                  <span *ngIf="fromSupplier"> / </span>
+                  <a *ngIf="fromSupplier" routerLinkActive="active">Delete</a>
                 </td>
               </tr>
           </table>
