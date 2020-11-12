@@ -60,6 +60,11 @@ a {
   color: white;
 }
 
+.dropdown-menu > a:focus{
+  background-color: #4A7F9D;
+  color: white;
+}
+
 .dropdown-item{
   padding-left: 22px;
   font-size: 16px;

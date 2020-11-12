@@ -1,16 +1,18 @@
-import { PetManagementViewComponent } from './../pet-management-view/pet-management-view.component';
 import { FirebaseService } from './../firebase.service';
-import { Pagination, Photo } from './../animal.model';
+import { Pagination, Photo, Animal, Type } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
 import {PetService} from '../pet.service';
-import { Animal } from '../animal.model';
 import { map } from 'rxjs/operators';
 
 export class PetType {
   type: string;
   total: number;
   param: string;
+}
 
+export class SupplierPetType{
+  type: string;
+  total: number;
 }
 
 @Component({
@@ -25,14 +27,19 @@ export class PetManagementComponent implements OnInit {
   isSourceFromAPI = true;
   fromSupplier = false;
 
-  totalfromsuppliers = 0;
+
   animals: Animal[];
+
   page: Pagination;
   types = [];
   isAll = true;
   Others: Animal[];
 
   pettype: PetType[] = [];
+  supplierType: SupplierPetType[] = [];
+
+  supplierPets = new Map<string, Animal[]>();
+  petFromSuppliers: Animal[] = [];
 
   image: Photo = {
     small: 'assets/images/notfound.png',
@@ -50,6 +57,7 @@ export class PetManagementComponent implements OnInit {
   ngOnInit(): void {
     this.getPetsFromAPI('/v2/animals');
     this.getAllPetTypes();
+    this.getPetTypeFromSupplier();
   }
 
   getAllPetTypes(): void{
@@ -77,7 +85,8 @@ export class PetManagementComponent implements OnInit {
   }
 
   getPetsFromAPI(request: string): void {
-    this.petService.getAnimal(request).subscribe( data => {
+    if (this.isAdmin){
+      this.petService.getAnimal(request).subscribe( data => {
         this.animals = data.animals;
         console.log(this.animals);
         if (this.isAll) {
@@ -88,6 +97,8 @@ export class PetManagementComponent implements OnInit {
           this.setAnimal(element);
         });
     });
+
+    }
   }
 
   previousPage(): void{
@@ -125,12 +136,24 @@ export class PetManagementComponent implements OnInit {
 
   search(id: any): void {
     if (id){
-      this.petService.getAnimalById(id).subscribe(data => {
-         const pet = data.animal;
-         pet.view = 'View';
-         this.animals = [];
-         this.animals.push(pet);
-      });
+      if (this.fromSupplier){
+        this.petFromSuppliers.forEach(pet => {
+          if (pet.id === id){
+            this.animals = [];
+            this.animals.push(pet);
+
+          }
+        });
+
+      } else {
+        this.petService.getAnimalById(id).subscribe(data => {
+          const pet = data.animal;
+          this.animals = [];
+          this.animals.push(pet);
+       });
+
+      }
+
     }
   }
 
@@ -141,6 +164,7 @@ export class PetManagementComponent implements OnInit {
 
   show(index): void{
     this.isAll = false;
+    this.fromSupplier = false;
     this.getPetsFromAPI('/v2/animals/?type=' + this.pettype[index].param);
   }
 
@@ -151,21 +175,55 @@ export class PetManagementComponent implements OnInit {
 
 
   getPetFromSupplier(): void {
+    this.fromSupplier = true;
+    this.animals = this.petFromSuppliers;
+  }
+
+
+
+  getPetTypeFromSupplier(): void {
     this.firebaseService.getAll().snapshotChanges().pipe(
       map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        console.log(data);
-        this.animals = data;
-        this.totalfromsuppliers = data.length;
-        console.log(this.animals);
-        this.animals.forEach(element => {
-            if (element.photos === undefined || element.photos.length === 0) {
-              const photos: Photo[] = [];
-              photos.push(this.image);
-              element.photos = photos;
-            }
+        this.petFromSuppliers = data;
+        this.petFromSuppliers.forEach(element => {
+          if (element.photos === undefined || element.photos.length === 0) {
+            const photos: Photo[] = [];
+            photos.push(this.image);
+            element.photos = photos;
+          }
 
+
+          if (this.supplierPets.has(element.type)){
+            this.supplierPets.get(element.type).push(element);
+          } else {
+            const animals: Animal[] = [];
+            animals.push(element);
+            this.supplierPets.set(element.type, animals);
+          }
+
+          console.log('----');
+          console.log(this.supplierPets);
         });
+
+        if (!this.isAdmin){
+          this.animals = this.petFromSuppliers;
+          this.fromSupplier = true;
+        }
+
+        console.log(this.supplierPets.keys());
+        for (const key of this.supplierPets.keys()) {
+          const s = new SupplierPetType();
+          s.type = key;
+          s.total = this.supplierPets.get(key).length;
+          this.supplierType.push(s);
+          console.log(key);
+         }
     });
+  }
+
+  showSuppliersPet(key: string): void {
+    this.fromSupplier = true;
+    this.animals = this.supplierPets.get(key);
   }
 }

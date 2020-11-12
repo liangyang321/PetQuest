@@ -37,7 +37,7 @@ export class PetService {
     const headers = { Authorization: this.tokenService.get('token') };
     return this.http.get<Animals>('https://api.petfinder.com' + link, { headers});
   }
- 
+
   getAnimalById(id: any): Observable<any> {
     const headers = { Authorization: this.tokenService.get('token') };
     return this.http.get<Animals>('https://api.petfinder.com/v2/animals/' + id, { headers});
