@@ -1,5 +1,5 @@
 import { FirebaseService } from './../firebase.service';
-import { Pagination, Photo, Animal, Type } from './../animal.model';
+import { Pagination, Photo, Animal, Type, Organization } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
 import {PetService} from '../pet.service';
 import { map } from 'rxjs/operators';
@@ -30,6 +30,8 @@ export class PetManagementComponent implements OnInit {
   fromSupplier = false;
   isAll = true;
   animals: any[];
+
+  deletePetKey: string;
 
   page = 1;
   pagination: Pagination;
@@ -120,7 +122,7 @@ export class PetManagementComponent implements OnInit {
         console.log('getPetTypeFromSupplier');
         console.log(data);
         this.petFromSuppliers = data;
-        this.petFromSuppliers.forEach(element => {
+        this.petFromSuppliers.forEach( element => {
           if (element.photos === undefined || element.photos.length === 0) {
             const photos: Photo[] = [];
             photos.push(this.image);
@@ -191,17 +193,18 @@ export class PetManagementComponent implements OnInit {
     this.animals = this.supplierPets.get(key);
   }
 
-
-  deletePet(animal): void {
-    console.log(animal.key);
+  setDeletePetKey(key): any {
+    console.log(key);
+    this.deletePetKey = key;
   }
 
-  delete(animal): void {
-    console.log('delete:' + animal.key);
-    this.firebaseService.delete(animal.key).then(
-      () => console.log('delete ' + animal.key))
+  delete(): void {
+    console.log('XXXXXX delete:' + this.deletePetKey);
+    this.firebaseService.delete(this.deletePetKey)
+    .then(() => {
+        this.reloadComponent();
+        console.log('delete ' + this.deletePetKey);})
       .catch(err => console.log(err));
-    this.reloadComponent();
   }
 
   reloadComponent(): void{

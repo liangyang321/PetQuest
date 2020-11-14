@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import * as data from '../../assets/states.json';
 import { ShareDataService } from '../share-data.service';
 import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class PetManagementAddComponent implements OnInit {
   constructor(
     private firebaseService: FirebaseService,
     private shareDataService: ShareDataService,
-    private fireStorage: AngularFireStorage
+    private fireStorage: AngularFireStorage,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -75,12 +77,6 @@ export class PetManagementAddComponent implements OnInit {
     ).subscribe();
   }
 
-  // uploadImage(){
-  //   // console.log(this.path);
-  //   // this.fireStorage.upload('/files' + Math.random() + this.path, this.path);
-  //   let fileID = this.fireStorage.ref()
-  // }
-
   onSubmit(form): void {
     if (this.imageUrl != null){
       this.pet.photos[0].small = this.imageUrl;
@@ -96,7 +92,7 @@ export class PetManagementAddComponent implements OnInit {
         console.log('success message');
       });
     }
-    this.ngOnInit();
+    this.reloadComponent();
   }
 
   update(): void {
@@ -108,5 +104,11 @@ export class PetManagementAddComponent implements OnInit {
 
     console.log('Update');
     console.log(this.pet);
+  }
+
+  reloadComponent(): void{
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/pet-management']);
   }
 }

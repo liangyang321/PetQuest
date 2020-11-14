@@ -32,11 +32,7 @@ export class FirebaseService {
   }
 
 
-  delete(key: string): Promise<void> {
+  delete(key: string): Promise<void>{
     return this.animialRef.remove(key);
-  }
-
-  query(id: number) {
-    return this.db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(id));
   }
 }
