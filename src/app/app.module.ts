@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 // import { AngularFirestoreModule } from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import { environment } from '../environments/environment';
@@ -46,7 +47,8 @@ import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
     HttpClientModule,
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

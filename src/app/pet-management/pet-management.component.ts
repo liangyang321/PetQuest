@@ -3,6 +3,8 @@ import { Pagination, Photo, Animal, Type } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
 import {PetService} from '../pet.service';
 import { map } from 'rxjs/operators';
+import { ShareDataService } from '../share-data.service';
+import { Router } from '@angular/router';
 
 export class PetType {
   type: string;
@@ -26,20 +28,18 @@ export class PetManagementComponent implements OnInit {
   isAdmin = true;
   isSourceFromAPI = true;
   fromSupplier = false;
-
-
-  animals: Animal[];
-
-  page: Pagination;
-  types = [];
   isAll = true;
-  Others: Animal[];
+  animals: any[];
 
+  page = 1;
+  pagination: Pagination;
+  types = [];
+
+  Others: Animal[];
   pettype: PetType[] = [];
   supplierType: SupplierPetType[] = [];
-
-  supplierPets = new Map<string, Animal[]>();
-  petFromSuppliers: Animal[] = [];
+  supplierPets = new Map<string, any[]>();
+  petFromSuppliers: any[] = [];
 
   image: Photo = {
     small: 'assets/images/notfound.png',
@@ -50,17 +50,45 @@ export class PetManagementComponent implements OnInit {
 
   constructor(
     private petService: PetService,
-    private firebaseService: FirebaseService
-
+    private firebaseService: FirebaseService,
+    private shareDataService: ShareDataService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
     this.getPetsFromAPI('/v2/animals');
-    this.getAllPetTypes();
+    this.getAllPetTypesFromAPI();
     this.getPetTypeFromSupplier();
   }
 
-  getAllPetTypes(): void{
+  setSharedData(animal: Animal): void{
+    console.log(animal);
+    this.shareDataService.saveViewPet(animal);
+  }
+
+  editAnimal(animal: Animal): void {
+    this.shareDataService.editPet = animal;
+  }
+
+
+
+  getPetsFromAPI(request: string): void {
+    if (this.isAdmin){
+      this.petService.getAnimal(request).subscribe( data => {
+        this.animals = data.animals;
+        console.log(this.animals);
+        if (this.isAll) {
+          this.pagination = data.pagination;
+          this.page = data.pagination.current_page;
+        }
+        this.animals.forEach(element => {
+          this.setAnimal(element);
+        });
+      });
+    }
+  }
+
+  getAllPetTypesFromAPI(): void{
     this.petService.getTypes().subscribe( data => {
       console.log('Types');
       console.log(data.types);
@@ -84,33 +112,129 @@ export class PetManagementComponent implements OnInit {
     });
   }
 
-  getPetsFromAPI(request: string): void {
-    if (this.isAdmin){
-      this.petService.getAnimal(request).subscribe( data => {
-        this.animals = data.animals;
-        console.log(this.animals);
-        if (this.isAll) {
-          this.page = data.pagination;
+
+  getPetTypeFromSupplier(): void {
+    this.firebaseService.getAll().snapshotChanges().pipe(
+      map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
+      ))).subscribe(data => {
+        console.log('getPetTypeFromSupplier');
+        console.log(data);
+        this.petFromSuppliers = data;
+        this.petFromSuppliers.forEach(element => {
+          if (element.photos === undefined || element.photos.length === 0) {
+            const photos: Photo[] = [];
+            photos.push(this.image);
+            element.photos = photos;
+          }
+
+          if (this.supplierPets.has(element.type)){
+            this.supplierPets.get(element.type).push(element);
+          } else {
+            const animals = [];
+            animals.push(element);
+            this.supplierPets.set(element.type, animals);
+          }
+        });
+
+        if (!this.isAdmin){
+          this.animals = this.petFromSuppliers;
+          this.fromSupplier = true;
         }
 
-        this.animals.forEach(element => {
-          this.setAnimal(element);
-        });
+        for (const key of this.supplierPets.keys()) {
+          const s = new SupplierPetType();
+          s.type = key;
+          s.total = this.supplierPets.get(key).length;
+          this.supplierType.push(s);
+          console.log(key);
+         }
     });
+  }
 
+  search(id: any): void {
+    if (id){
+      if (this.fromSupplier){
+        this.petFromSuppliers.forEach(pet => {
+          if (pet.id === id){
+            this.animals = [];
+            this.animals.push(pet);
+          }
+        });
+      } else {
+        this.petService.getAnimalById(id).subscribe(data => {
+          const pet = data.animal;
+          this.animals = [];
+          this.animals.push(pet);
+       });
+      }
     }
   }
 
+  getAllPetFromAPI(): void{
+    this.getPetsFromAPI('/v2/animals');
+  }
+
+
+  showAPIPetByType(index): void{
+    this.isAll = false;
+    this.fromSupplier = false;
+    this.getPetsFromAPI('/v2/animals/?type=' + this.pettype[index].param);
+  }
+
+  getAllPetFromSupplier(): void {
+    this.fromSupplier = true;
+    this.animals = this.petFromSuppliers;
+  }
+
+  showSuppliersPetByType(key: string): void {
+    this.fromSupplier = true;
+    this.animals = this.supplierPets.get(key);
+  }
+
+
+  deletePet(animal): void {
+    console.log(animal.key);
+  }
+
+  delete(animal): void {
+    console.log('delete:' + animal.key);
+    this.firebaseService.delete(animal.key).then(
+      () => console.log('delete ' + animal.key))
+      .catch(err => console.log(err));
+    this.reloadComponent();
+  }
+
+  reloadComponent(): void{
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/pet-management']);
+  }
+
+
   previousPage(): void{
     console.log("click previousPage");
-    console.log(this.page._links.previous);
-    this.getPetsFromAPI(this.page._links.previous.href);
+    if (this.fromSupplier){
+      console.log('No previous page');
+    } else {
+      if (this.pagination.current_page === 1) {
+        console.log('This is first page');
+      } else {
+        this.getPetsFromAPI(this.pagination._links.previous.href);
+      }
+    }
   }
 
   nextPage(): void {
     console.log("click nextpage");
-    console.log(this.page._links.next);
-    this.getPetsFromAPI(this.page._links.next.href);
+    if (this.fromSupplier){
+      console.log('No next page');
+    } else {
+      if (this.pagination.current_page === this.pagination.total_pages){
+        console.log('This is the last page');
+      } else {
+        this.getPetsFromAPI(this.pagination._links.next.href);
+      }
+    }
   }
 
   setAnimal(element: any): void{
@@ -132,98 +256,5 @@ export class PetManagementComponent implements OnInit {
       const n = element.name;
       element.name = n.split('~')[0];
     }
-  }
-
-  search(id: any): void {
-    if (id){
-      if (this.fromSupplier){
-        this.petFromSuppliers.forEach(pet => {
-          if (pet.id === id){
-            this.animals = [];
-            this.animals.push(pet);
-
-          }
-        });
-
-      } else {
-        this.petService.getAnimalById(id).subscribe(data => {
-          const pet = data.animal;
-          this.animals = [];
-          this.animals.push(pet);
-       });
-
-      }
-
-    }
-  }
-
-  // showAll(): void {
-  //     this.isAll = true;
-  //     this.getPetsFromAPI('/v2/animals/?');
-  // }
-
-  show(index): void{
-    this.isAll = false;
-    this.fromSupplier = false;
-    this.getPetsFromAPI('/v2/animals/?type=' + this.pettype[index].param);
-  }
-
-
-  getPetFromAPI(): void{
-    this.getPetsFromAPI('/v2/animals');
-  }
-
-
-  getPetFromSupplier(): void {
-    this.fromSupplier = true;
-    this.animals = this.petFromSuppliers;
-  }
-
-
-
-  getPetTypeFromSupplier(): void {
-    this.firebaseService.getAll().snapshotChanges().pipe(
-      map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
-      ))).subscribe(data => {
-        this.petFromSuppliers = data;
-        this.petFromSuppliers.forEach(element => {
-          if (element.photos === undefined || element.photos.length === 0) {
-            const photos: Photo[] = [];
-            photos.push(this.image);
-            element.photos = photos;
-          }
-
-
-          if (this.supplierPets.has(element.type)){
-            this.supplierPets.get(element.type).push(element);
-          } else {
-            const animals: Animal[] = [];
-            animals.push(element);
-            this.supplierPets.set(element.type, animals);
-          }
-
-          console.log('----');
-          console.log(this.supplierPets);
-        });
-
-        if (!this.isAdmin){
-          this.animals = this.petFromSuppliers;
-          this.fromSupplier = true;
-        }
-
-        console.log(this.supplierPets.keys());
-        for (const key of this.supplierPets.keys()) {
-          const s = new SupplierPetType();
-          s.type = key;
-          s.total = this.supplierPets.get(key).length;
-          this.supplierType.push(s);
-          console.log(key);
-         }
-    });
-  }
-
-  showSuppliersPet(key: string): void {
-    this.fromSupplier = true;
-    this.animals = this.supplierPets.get(key);
   }
 }
