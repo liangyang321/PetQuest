@@ -9,12 +9,12 @@
 
             <div *ngIf="isAdmin">
               <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="getPetFromAPI()">Petfinder API ({{page?.total_count || 0}})</a></li>
+                <li class="list-group-item source"><a href="javascript:;" (click)="getAllPetFromAPI()">Petfinder API ({{pagination?.total_count || 0}})</a></li>
                     <div *ngIf="isSourceFromAPI" >
                       <ul class="list-group pl-4" *ngFor="let pet of pettype; let i = index">
                         <li class="list-group-item align-items-center">
                           <a class="type" href="javascript:;" routerLink="/pet-management"
-                          (click)="show(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
+                          (click)="showAPIPetByType(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
                         </li>
                       </ul>
                     </div>
@@ -23,11 +23,11 @@
 
             <div>
               <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="getPetFromSupplier()">Pet Suppliers ({{petFromSuppliers.length || 0}})</a></li>
+                <li class="list-group-item source"><a href="javascript:;" (click)="getAllPetFromSupplier()">Pet Suppliers ({{petFromSuppliers.length || 0}})</a></li>
                     <div>
                       <ul class="list-group pl-4" *ngFor="let s of supplierType">
                         <li class="list-group-item align-items-center">
-                          <a class="type" href="javascript:;" (click)="showSuppliersPet(s.type)">{{s.type}} <span>({{s.total}})</span> </a>
+                          <a class="type" href="javascript:;" (click)="showSuppliersPetByType(s.type)">{{s.type}} <span>({{s.total}})</span> </a>
                         </li>
                       </ul>
                     </div>
@@ -79,13 +79,34 @@
                 <td>{{animal.type}}</td>
                 <td>{{animal.organization_id}}</td>
                 <td>
-                  <!-- <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">{{animal.view}}</a> -->
-                  <a [routerLink]="['/pet-management-view', animal.id]" routerLinkActive="active">View</a>
-                  <!-- <a routerLink="/pet-management-view" routerLinkActive="active">View</a> -->
+                  <a [routerLink]="['/pet-management-view', 0]" routerLinkActive="active" (click)="setSharedData(animal)" >View</a>
                   <span *ngIf="fromSupplier"> / </span>
-                  <a *ngIf="fromSupplier" routerLinkActive="active">Edit</a>
+                  <a *ngIf="fromSupplier" routerLink="/pet-management-edit" (click)="editAnimal(animal)" >Edit</a>
                   <span *ngIf="fromSupplier"> / </span>
-                  <a *ngIf="fromSupplier" routerLinkActive="active">Delete</a>
+                  <a *ngIf="fromSupplier" data-toggle="modal" data-target="#exampleModalCenter" (click)="deletePet(animal)" >Delete</a>
+                  <!-- modal -->
+                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Confirm delete</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to delete {{animal.name}}?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
+                          <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal" (click)="delete(animal)" >Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
                 </td>
               </tr>
           </table>
@@ -101,7 +122,7 @@
             </a>
           </li>
 
-          <li class="page-item"><a class="page-link" href="#">{{page?.current_page}}</a></li>
+          <li class="page-item"><a class="page-link" href="#">{{page}}</a></li>
 
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Next" routerLink="/pet-management" (click)="nextPage()">

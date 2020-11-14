@@ -30,7 +30,9 @@ export class Animal {
   distance?: any;
   contact: Contact;
   _links: Links;
-  view: string[];
+  // key: string = '';
+  isEdit = false;
+  organization_name: string = null;
 }
 
 export class Pagination {
@@ -86,7 +88,7 @@ export class Environment {
 
 export class Photo {
       small: string = 'assets/images/notfound.png';
-      medium: string;
+      medium: string = 'assets/images/notfound.png';
       large: string;
       full: string;
 }

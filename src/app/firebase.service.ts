@@ -1,6 +1,6 @@
 import { Animal } from './animal.model';
 import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireDatabase} from '@angular/fire/database';
+import { AngularFireList, AngularFireDatabase, snapshotChanges} from '@angular/fire/database';
 
 
 @Injectable({
@@ -9,7 +9,8 @@ import { AngularFireList, AngularFireDatabase} from '@angular/fire/database';
 export class FirebaseService {
 
   private dbPath = '/animals';
-  animialRef: AngularFireList<Animal> = null;
+  // animialRef: AngularFireList<Animal> = null;
+  animialRef: AngularFireList<any> = null;
 
   constructor(private db: AngularFireDatabase) {
     this.animialRef = db.list(this.dbPath);
@@ -19,16 +20,23 @@ export class FirebaseService {
     return this.animialRef.push(animal);
   }
 
-  getAll(): AngularFireList<Animal>{
+  // getAll(): AngularFireList<Animal>{
+  //   return this.animialRef;
+  // }
+  getAll(): AngularFireList<any>{
     return this.animialRef;
   }
 
-  // update(key: string, value: any): Promise<void>{
-  //   return this.animialRef.update(key, value);
-  // }
+  update(key: string, value: any): Promise<void>{
+    return this.animialRef.update(key, value);
+  }
 
-  // delete(key: string): Promise<void> {
-  //   return this.animialRef.remove(key);
-  // }
 
+  delete(key: string): Promise<void> {
+    return this.animialRef.remove(key);
+  }
+
+  query(id: number) {
+    return this.db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(id));
+  }
 }
