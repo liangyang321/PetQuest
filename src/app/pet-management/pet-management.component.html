@@ -83,7 +83,7 @@
                   <span *ngIf="fromSupplier"> / </span>
                   <a *ngIf="fromSupplier" routerLink="/pet-management-edit" (click)="editAnimal(animal)" >Edit</a>
                   <span *ngIf="fromSupplier"> / </span>
-                  <a *ngIf="fromSupplier" data-toggle="modal" data-target="#exampleModalCenter" (click)="deletePet(animal)" >Delete</a>
+                  <a *ngIf="fromSupplier" data-toggle="modal" data-target="#exampleModalCenter" (click)="setDeletePetKey(animal.key)" >Delete</a>
                   <!-- modal -->
                   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,11 +95,11 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          Are you sure you want to delete {{animal.name}}?
+                          Are you sure you want to delete {{deletePetKey}}?
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
-                          <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal" (click)="delete(animal)" >Delete</button>
+                          <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal" (click)="delete()" >Delete</button>
                         </div>
                       </div>
                     </div>
