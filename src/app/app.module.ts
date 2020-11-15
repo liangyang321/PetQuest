@@ -2,6 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+// import { AngularFirestoreModule } from '@angular/fire';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -19,6 +25,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
 import { AboutComponent } from './about/about.component';
 
+import { BlogContentComponent } from './pet-care/blog-content/blog-content.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogComponent } from './pet-care/dialog/dialog.component';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { BlogTableComponent } from './pet-care/blog-table/blog-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -35,15 +52,38 @@ import { AboutComponent } from './about/about.component';
     PetCareComponent,
     PetInquireComponent,
     AboutComponent,
+    BlogContentComponent,
+    DialogComponent,
+    BlogTableComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    MatDialogModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    NgxPaginationModule
   ],
-  providers: [],
+  exports: [
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  providers: [
+     {
+       provide: MatDialogRef,
+       useValue: {}
+     },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

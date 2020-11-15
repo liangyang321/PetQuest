@@ -1,4 +1,8 @@
-.list-group-item, .list-group-item a, td > a:hover {
+/* .list-group-item, .list-group-item a, td > a:hover {
+  color: #8D8741;
+} */
+
+td > a:hover, .type:hover {
   color: #8D8741;
 }
 
@@ -19,18 +23,17 @@
   color: white;
 }
 
-.table-div{
+.table-div, .table-div > a{
   border-radius: 10px;
   color: #659DBD;
   width: 98%;
   margin: 0 auto;
+  font-size: 15px;
 }
 
-.table, th , td > a, li>a, .table-hover tbody tr:hover td{
+.table, th , td > a,  .table-hover tbody tr:hover td{
   color:#659DBD;
 }
-
-
 
 .pet-img{
   width: 50px; height: 60px;
@@ -40,4 +43,35 @@ td{
   line-height: 50px;
 }
 
+.display-pet-type{
+  padding-left: 40px;
+}
 
+.source > a {
+  color: white;
+  background-color: #659DBD;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.type {
+  color: #659DBD;
+}
+
+.user {
+  font-weight: bold;
+  color: #659DBD;
+  font-size: 18px;
+}
+
+.pet-table{
+  padding-right: 50px;
+}
+
+.search-bar{
+  margin-left: 0;
+}
+
+li {
+  border: none;
+}

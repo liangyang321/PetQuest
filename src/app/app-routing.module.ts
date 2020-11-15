@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'pet-management-add', component: PetManagementAddComponent},
   { path: 'pet-management-view/:id', component: PetManagementViewComponent},
   { path: 'animal/:type/:id', component: PetManagementViewComponent},
+  { path: 'pet-management-edit', component: PetManagementAddComponent},
   { path: 'dog-search', component: PetSearchComponent},
   { path: 'cat-search', component: PetSearchComponent},
   { path: 'log-in-page', component: LogInPageComponent},

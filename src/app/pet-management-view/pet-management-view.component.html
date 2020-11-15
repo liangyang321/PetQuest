@@ -8,7 +8,7 @@
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item" *ngFor="let image of pet?.photos let i = index" [ngClass]="{'active' : i == 0}">
-            <img class="d-block img-responsive w-100" [src]="image.medium" alt="First slide">
+            <img class="d-block img-responsive w-100" [src]="image.medium" onerror="this.src='assets/images/notfound.png'" alt="First slide">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -33,10 +33,10 @@
           <tr>
             <td class="describe">Breed</td>
             <td class="success">
-              {{pet?.breeds.primary || ''}}
-              {{pet?.breeds.secondary == null ? '' : pet?.breeds.primary == null ? '' : ', ' + pet?.breeds.secondary}}
-              {{pet?.breeds.primary? pet.breeds.secondary == null || pet?.breeds.primary == null ? '' : ', ' +'Mixed' : ''}}
-              {{pet?.breeds.unknown? pet.breeds.secondary == null || pet?.breeds.primary == null ? '' : ', ' + 'Unknown' : ''}}
+              {{pet?.breeds?.primary}}
+              {{pet?.breeds?.secondary == null ? '' : pet?.breeds.primary == null ? '' : ', ' + pet?.breeds.secondary}}
+              {{pet?.breeds.primary? pet.breeds?.secondary == null || pet?.breeds?.primary == null ? '' : ', ' +'Mixed' : ''}}
+              {{pet?.breeds.unknown? pet.breeds?.secondary == null || pet?.breeds?.primary == null ? '' : ', ' + 'Unknown' : ''}}
             </td>
             <td class="describe">Size</td>
             <td class="danger">{{pet?.size}}</td>
@@ -46,8 +46,8 @@
             <td class="describe">Color</td>
             <td class="success">
               {{pet?.colors.primary || ''}}
-              {{pet?.colors.secondary == null ? '' : pet?.colors.primary == null ? '' : ', ' + pet?.colors.secondary}}
-              {{pet?.colors.tertiary == null ? '' : pet?.colors.primary == null || pet?.colors.secondary == null? '' : ', ' + pet?.colors.tertiary}}
+              {{pet?.colors.secondary || ''}}
+              {{pet?.colors.tertiary || ''}}
             </td>
             <td class="describe">Gender</td>
             <td class="danger">{{pet?.gender}}</td>

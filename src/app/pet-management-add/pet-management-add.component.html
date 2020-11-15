@@ -24,8 +24,13 @@
             <div class="form-row">
               <div class="col-md-6 mb-3">
                 <label for="type">Type</label>
-                <input type="text" class="form-control" id="type" name="type" [(ngModel)]="pet.type" #name="ngModel"
+                <select class="custom-select"  name="type" [(ngModel)]="pet.type" #name="ngModel"
                 [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+                  <option *ngFor="let type of Types" [value]="type">
+                    {{type}}
+                  </option>
+              </select>
+
               </div>
               <div class="col-md-6 mb-3">
                 <label for="species">Species</label>
@@ -36,7 +41,7 @@
             </div>
 
 
-            <div class="form-row">
+            <!-- <div class="form-row">
               <div class="col-md-4 mb-3">
                 <label for="breed">Breed</label>
                 <input type="text" class="form-control" placeholder="primary" name="primary" [(ngModel)]="pet?.breeds.primary">
@@ -69,6 +74,37 @@
               <div class="col-md-4 mb-3">
                 <label></label>
                 <input type="text" class="form-control mt-2" placeholder="tertiary" name="tertiary" [(ngModel)]="pet.colors.tertiary">
+              </div>
+            </div> -->
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="breed">Breed</label>
+                <input type="text" class="form-control" placeholder="primary" name="primary" [(ngModel)]="pet?.breeds.primary" #name="ngModel"
+                [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+              </div>
+
+              <div class="form-check form-check-inline mt-3 ml-2">
+                <input class="form-check-input" type="checkbox" name="mixed" [(ngModel)]="pet.breeds.mixed">
+                <label class="form-check-label" for="inlineRadio1">Mixed</label>
+              </div>
+              <div class="form-check form-check-inline mt-3 ml-4 pl-4">
+                <input class="form-check-input" type="checkbox" name="unknown" id="inlineRadio2" value="option2"
+                [(ngModel)]="pet.breeds.unknown">
+                <label class="form-check-label" for="inlineRadio2">Unknown</label>
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label>Color</label>
+                <input type="text" class="form-control" placeholder="primary" name="secondary" [(ngModel)]="pet.colors.secondary" #name="ngModel"
+                [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label></label>
+                <input type="text" class="form-control mt-2" placeholder="secondary" name="tertiary" [(ngModel)]="pet.colors.tertiary">
               </div>
             </div>
 
@@ -174,7 +210,7 @@
             <div class="form-row">
               <div class="col-md-12 mb-4">
                 <label for="type">Upload Images</label>
-                <input type="file" class="form-control-file upload-img" name="small" [(ngModel)]="pet.photos[0].small">
+                <input type="file" class="form-control-file upload-img" (change)="uploadImage($event)" accept="*.png.jpg" name="small">
               </div>
             </div>
 
@@ -199,7 +235,7 @@
           <div class="form-row">
             <div class="col-md-6 mb-3">
               <label for="shelter">Organization Name</label>
-              <input type="text" class="form-control" id="shelter" name="organization_id" [(ngModel)]="pet.organization_id">
+              <input type="text" class="form-control" id="shelter" name="organization_name" [(ngModel)]="pet.organization_name">
             </div>
             <div class="col-md-6 mb-3">
               <label for="organization">Organization ID</label>
@@ -210,7 +246,8 @@
           <div class="form-row">
             <div class="col-md-12 mb-3">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="pet.contact.email" required>
+              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="pet.contact.email" #name="ngModel"
+              [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
             </div>
           </div>
 
@@ -271,7 +308,7 @@
 </div>
 
 
-<li> {{ pet | json }} </li>
+<!-- <li> {{ pet | json }} </li> -->
 
 
 

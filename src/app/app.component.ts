@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenService } from './token.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'petquest';
+
+  constructor(private tokenService: TokenService){
+    const token = this.tokenService.get('token');
+  }
 }
