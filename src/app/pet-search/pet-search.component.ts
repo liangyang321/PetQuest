@@ -126,7 +126,6 @@ export class PetSearchComponent implements OnInit {
   }
 
 
-
   ngOnInit(): void {
     this.model.breed = '';
     this.model.age = '';

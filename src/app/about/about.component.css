@@ -1,0 +1,30 @@
+.name {
+  text-align: center;
+}
+
+.team {
+  text-align: center;
+  background-color: #daad86;
+    padding: 60px 0px 60px 0px;
+    color: white;
+}
+
+.aboutContainer{
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 15px;
+}
+
+.aboutImg {
+width: 100%;
+height: auto;
+}
+
+.card{
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.card-body {
+  text-align: center;
+}

@@ -17,6 +17,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { PetCareComponent } from './pet-care/pet-care.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
     UserManagementComponent,
     PetCareComponent,
     PetInquireComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
