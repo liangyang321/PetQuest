@@ -11,7 +11,7 @@
               <ul class="list-group">
                 <li class="list-group-item source"><a href="javascript:;" (click)="getAllPetFromAPI()">Petfinder API ({{pagination?.total_count || 0}})</a></li>
                     <div *ngIf="isSourceFromAPI" >
-                      <ul class="list-group pl-4" *ngFor="let pet of pettype; let i = index">
+                      <ul class="list-group pl-4" *ngFor="let pet of petTypesFromAPI; let i = index">
                         <li class="list-group-item align-items-center">
                           <a class="type" href="javascript:;" routerLink="/pet-management"
                           (click)="showAPIPetByType(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
@@ -23,11 +23,11 @@
 
             <div>
               <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="getAllPetFromSupplier()">Pet Suppliers ({{petFromSuppliers.length || 0}})</a></li>
+                <li class="list-group-item source"><a href="javascript:;" (click)="getAllPetFromFirebase()">Pet Suppliers ({{petFromFirebase.length || 0}})</a></li>
                     <div>
-                      <ul class="list-group pl-4" *ngFor="let s of supplierType">
+                      <ul class="list-group pl-4" *ngFor="let s of petTypesFromFirebase">
                         <li class="list-group-item align-items-center">
-                          <a class="type" href="javascript:;" (click)="showSuppliersPetByType(s.type)">{{s.type}} <span>({{s.total}})</span> </a>
+                          <a class="type" href="javascript:;" (click)="showFirebasePetByType(s.type)">{{s.type}} <span>({{s.total}})</span> </a>
                         </li>
                       </ul>
                     </div>
@@ -70,7 +70,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let animal of animals">
+              <tr *ngFor="let animal of animals | paginate: {
+                id: 'listing_pagination',
+                itemsPerPage: 20,
+                currentPage: page,
+                totalItems: totalPets
+              }">
                 <td>
                   <img src={{animal.photos[0].small}}  onerror="this.onerror=null;this.src='assets/images/notfound.png';" alt="" class="pet-img">
                 </td>
@@ -80,10 +85,10 @@
                 <td>{{animal.organization_id}}</td>
                 <td>
                   <a [routerLink]="['/pet-management-view', 0]" routerLinkActive="active" (click)="setSharedData(animal)" >View</a>
-                  <span *ngIf="fromSupplier"> / </span>
-                  <a *ngIf="fromSupplier" routerLink="/pet-management-edit" (click)="editAnimal(animal)" >Edit</a>
-                  <span *ngIf="fromSupplier"> / </span>
-                  <a *ngIf="fromSupplier" data-toggle="modal" data-target="#exampleModalCenter" (click)="setDeletePetKey(animal.key)" >Delete</a>
+                  <span *ngIf="isSourceFromFirebase"> / </span>
+                  <a *ngIf="isSourceFromFirebase" routerLink="/pet-management-edit" (click)="editAnimal(animal)" >Edit</a>
+                  <span *ngIf="isSourceFromFirebase"> / </span>
+                  <a *ngIf="isSourceFromFirebase" data-toggle="modal" data-target="#exampleModalCenter" (click)="setDeletePet(animal)" >Delete</a>
                   <!-- modal -->
                   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,7 +100,7 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          Are you sure you want to delete {{deletePetKey}}?
+                          Are you sure you want to delete {{deleteAnimal?.name}}?
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
@@ -110,11 +115,15 @@
                 </td>
               </tr>
           </table>
+          <!-- <div>
+            <pagination-controls id="listing_pagination" maxSize=5  directionLinks="true" (pageChange)="pageChange($event)"></pagination-controls>
+          </div> -->
         </div>
     </div>
 
     <div class="text-center">
-      <nav aria-label="Page navigation" >
+      <pagination-controls class="pagination justify-content-center" id="listing_pagination" maxSize=5  directionLinks="true" (pageChange)="pageChange($event)"></pagination-controls>
+      <!-- <nav aria-label="Page navigation" >
         <ul class="pagination justify-content-center">
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Previous" routerLink="/pet-management"  (click)="previousPage()" >
@@ -124,6 +133,8 @@
 
           <li class="page-item"><a class="page-link" href="#">{{page}}</a></li>
 
+
+
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Next" routerLink="/pet-management" (click)="nextPage()">
               <span aria-hidden="true">&raquo;</span>
@@ -131,7 +142,9 @@
           </li>
 
         </ul>
-      </nav>
+      </nav> -->
+
+
 
 
     </div>
