@@ -25,6 +25,34 @@
           How to Teach a Dog Tricks
         </div>
         <div class="card-text">
+          <ul *ngFor = "let blog of blogs">
+            <div class="row border-bottom">
+              <div class="col-6">
+                {{blog.title}}
+              </div>
+              <div class="col-3">
+                {{blog.petType}}
+              </div>
+              <div class="col-2">
+                {{blog.date}}
+              </div>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".content">Large modal</button>
+<!--              <div class="modal">-->
+<!--                <div class="modal-dialog">-->
+<!--                  <div class="modal-content" style="white-space:pre-wrap">-->
+<!--                    {{blog.content}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="modal fade content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content" style="white-space:pre-wrap" >
+                    {{blog.content}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ul>
         </div>
       </div>
     </div>

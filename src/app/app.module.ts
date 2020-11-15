@@ -22,6 +22,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { PetCareComponent } from './pet-care/pet-care.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
+import { BlogContentComponent } from './pet-care/blog-content/blog-content.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
     UserManagementComponent,
     PetCareComponent,
     PetInquireComponent,
+    BlogContentComponent,
   ],
   imports: [
     BrowserModule,
