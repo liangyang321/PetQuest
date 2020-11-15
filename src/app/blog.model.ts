@@ -1,9 +1,10 @@
-export class Blogs {
-  blog: Blog[];
+export interface Blogs {
+  blogs: Blog[];
 }
 
-export class Blog {
+export interface Blog {
   title: string;
+  author: string;
   date: string;
   petType: string;
   content: string;

@@ -24,7 +24,15 @@ import { PetCareComponent } from './pet-care/pet-care.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
 import { BlogContentComponent } from './pet-care/blog-content/blog-content.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogComponent } from './pet-care/dialog/dialog.component';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { BlogTableComponent } from './pet-care/blog-table/blog-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -41,6 +49,8 @@ import { BlogContentComponent } from './pet-care/blog-content/blog-content.compo
     PetCareComponent,
     PetInquireComponent,
     BlogContentComponent,
+    DialogComponent,
+    BlogTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,9 +60,25 @@ import { BlogContentComponent } from './pet-care/blog-content/blog-content.compo
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MatDialogModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule
   ],
-  providers: [],
+  exports: [
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  providers: [
+     {
+       provide: MatDialogRef,
+       useValue: {}
+     },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

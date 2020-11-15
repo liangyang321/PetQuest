@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DialogComponent } from './dialog/dialog.component';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import {Blogs} from '../blog.model';
+import {Blogs, Blog} from '../blog.model';
+import {PetService} from '../pet.service';
 
 @Component({
   selector: 'app-pet-care',
@@ -9,23 +12,22 @@ import {Blogs} from '../blog.model';
 })
 export class PetCareComponent implements OnInit {
 
-  blogs: Blogs[];
-  showContent: boolean = false;
+  blogs: Blog[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private dialog: MatDialog, private petService: PetService) { }
 
   ngOnInit(): void {
-    this.http.get<Blogs[]>('assets/petBlog.json').subscribe(
-      data => {
-        this.blogs = data;
-      }
-    );
+    this.initializeBlogs();
   }
 
-  click(): void {
-    this.showContent = !this.showContent;
-    console.log(this.showContent);
+  private initializeBlogs(): void {
+    this.petService.getBlogs().subscribe(res => {
+      this.blogs = res;
+    });
+  }
 
+  openDialog(index): void {
+    this.dialog.open(DialogComponent, {data: this.blogs[index].content});
   }
 
 }

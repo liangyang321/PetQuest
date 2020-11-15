@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Animals, Types } from './animal.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import {Blog, Blogs} from './blog.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,9 @@ export class PetService {
   getTypes(): Observable<Types> {
     const headers = { Authorization: this.tokenService.get('token') };
     return this.http.get<Types>('https://api.petfinder.com/v2/types', { headers});
+  }
+
+  getBlogs(): Observable<Blog[]> {
+    return this.http.get<Blog[]>('assets/petBlog.json');
   }
 }
