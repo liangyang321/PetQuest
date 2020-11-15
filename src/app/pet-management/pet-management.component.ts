@@ -9,12 +9,7 @@ import { Router } from '@angular/router';
 export class PetType {
   type: string;
   total: number;
-  param: string;
-}
-
-export class SupplierPetType{
-  type: string;
-  total: number;
+  param: string = null;
 }
 
 @Component({
@@ -25,23 +20,24 @@ export class SupplierPetType{
 
 export class PetManagementComponent implements OnInit {
 
-  isAdmin = true;
-  isSourceFromAPI = true;
-  fromSupplier = false;
-  isAll = true;
   animals: any[];
+  petTypesFromAPI: PetType[] = [];
+  petTypesFromFirebase: PetType[] = [];
+  petsFromFirebaseByType = new Map<string, any[]>();
+  petFromFirebase: any[] = [];
 
-  deletePetKey: string;
+  isAdmin = true;
+  isAllTypeFromAPI = true;
+  isSourceFromAPI = true;
+  isSourceFromFirebase = false;
+
+  types = [];
+  currectType = null;
+  deleteAnimal: any;
 
   page = 1;
+  totalPets: number;
   pagination: Pagination;
-  types = [];
-
-  Others: Animal[];
-  pettype: PetType[] = [];
-  supplierType: SupplierPetType[] = [];
-  supplierPets = new Map<string, any[]>();
-  petFromSuppliers: any[] = [];
 
   image: Photo = {
     small: 'assets/images/notfound.png',
@@ -60,7 +56,7 @@ export class PetManagementComponent implements OnInit {
   ngOnInit(): void {
     this.getPetsFromAPI('/v2/animals');
     this.getAllPetTypesFromAPI();
-    this.getPetTypeFromSupplier();
+    this.getPetTypeFromFirebase();
   }
 
   setSharedData(animal: Animal): void{
@@ -72,17 +68,22 @@ export class PetManagementComponent implements OnInit {
     this.shareDataService.editPet = animal;
   }
 
-
-
   getPetsFromAPI(request: string): void {
+    this.isSourceFromFirebase = false;
     if (this.isAdmin){
       this.petService.getAnimal(request).subscribe( data => {
         this.animals = data.animals;
         console.log(this.animals);
-        if (this.isAll) {
+
+        if (this.isAllTypeFromAPI) {
           this.pagination = data.pagination;
-          this.page = data.pagination.current_page;
         }
+
+        this.page = data.pagination.current_page;
+        console.log('current page is ' + data.pagination.current_page);
+
+        this.totalPets = data.pagination.total_count;
+
         this.animals.forEach(element => {
           this.setAnimal(element);
         });
@@ -108,46 +109,48 @@ export class PetManagementComponent implements OnInit {
             t.type = element.name;
             t.total = data.pagination.total_count;
             t.param = param;
-            this.pettype.push(t);
+            this.petTypesFromAPI.push(t);
           });
       });
     });
   }
 
 
-  getPetTypeFromSupplier(): void {
+  getPetTypeFromFirebase(): void {
     this.firebaseService.getAll().snapshotChanges().pipe(
       map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
         console.log('getPetTypeFromSupplier');
         console.log(data);
-        this.petFromSuppliers = data;
-        this.petFromSuppliers.forEach( element => {
+        this.petFromFirebase = data;
+        this.totalPets = this.petFromFirebase.length;
+
+        this.petFromFirebase.forEach( element => {
           if (element.photos === undefined || element.photos.length === 0) {
             const photos: Photo[] = [];
             photos.push(this.image);
             element.photos = photos;
           }
 
-          if (this.supplierPets.has(element.type)){
-            this.supplierPets.get(element.type).push(element);
+          if (this.petsFromFirebaseByType.has(element.type)){
+            this.petsFromFirebaseByType.get(element.type).push(element);
           } else {
             const animals = [];
             animals.push(element);
-            this.supplierPets.set(element.type, animals);
+            this.petsFromFirebaseByType.set(element.type, animals);
           }
         });
 
         if (!this.isAdmin){
-          this.animals = this.petFromSuppliers;
-          this.fromSupplier = true;
+          this.animals = this.petFromFirebase;
+          this.isSourceFromFirebase = true;
         }
 
-        for (const key of this.supplierPets.keys()) {
-          const s = new SupplierPetType();
+        for (const key of this.petsFromFirebaseByType.keys()) {
+          const s = new PetType();
           s.type = key;
-          s.total = this.supplierPets.get(key).length;
-          this.supplierType.push(s);
+          s.total = this.petsFromFirebaseByType.get(key).length;
+          this.petTypesFromFirebase.push(s);
           console.log(key);
          }
     });
@@ -155,8 +158,8 @@ export class PetManagementComponent implements OnInit {
 
   search(id: any): void {
     if (id){
-      if (this.fromSupplier){
-        this.petFromSuppliers.forEach(pet => {
+      if (this.isSourceFromFirebase){
+        this.petFromFirebase.forEach(pet => {
           if (pet.id === id){
             this.animals = [];
             this.animals.push(pet);
@@ -173,37 +176,42 @@ export class PetManagementComponent implements OnInit {
   }
 
   getAllPetFromAPI(): void{
+    this.isAllTypeFromAPI = true;
+    this.currectType = null;
     this.getPetsFromAPI('/v2/animals');
   }
 
 
   showAPIPetByType(index): void{
-    this.isAll = false;
-    this.fromSupplier = false;
-    this.getPetsFromAPI('/v2/animals/?type=' + this.pettype[index].param);
+    this.isAllTypeFromAPI = false;
+    this.isSourceFromFirebase = false;
+    this.currectType = this.petTypesFromAPI[index].param;
+    this.getPetsFromAPI('/v2/animals/?type=' + this.petTypesFromAPI[index].param);
   }
 
-  getAllPetFromSupplier(): void {
-    this.fromSupplier = true;
-    this.animals = this.petFromSuppliers;
+  getAllPetFromFirebase(): void {
+    this.isSourceFromFirebase = true;
+    this.animals = this.petFromFirebase;
+    this.totalPets = this.animals.length;
   }
 
-  showSuppliersPetByType(key: string): void {
-    this.fromSupplier = true;
-    this.animals = this.supplierPets.get(key);
+  showFirebasePetByType(key: string): void {
+    this.isSourceFromFirebase = true;
+    this.animals = this.petsFromFirebaseByType.get(key);
+    this.totalPets = this.animals.length;
   }
 
-  setDeletePetKey(key): any {
-    console.log(key);
-    this.deletePetKey = key;
+  setDeletePet(animal): any {
+    console.log('delete pet name = ' + animal.name);
+    console.log('delete pet key = ' + animal.key);
+    this.deleteAnimal = animal;
   }
 
   delete(): void {
-    console.log('XXXXXX delete:' + this.deletePetKey);
-    this.firebaseService.delete(this.deletePetKey)
+    this.firebaseService.delete(this.deleteAnimal.key)
     .then(() => {
         this.reloadComponent();
-        console.log('delete ' + this.deletePetKey);})
+        console.log('delete ' + this.deleteAnimal.key); })
       .catch(err => console.log(err));
   }
 
@@ -213,31 +221,9 @@ export class PetManagementComponent implements OnInit {
     this.router.navigate(['/pet-management']);
   }
 
-
-  previousPage(): void{
-    console.log("click previousPage");
-    if (this.fromSupplier){
-      console.log('No previous page');
-    } else {
-      if (this.pagination.current_page === 1) {
-        console.log('This is first page');
-      } else {
-        this.getPetsFromAPI(this.pagination._links.previous.href);
-      }
-    }
-  }
-
-  nextPage(): void {
-    console.log("click nextpage");
-    if (this.fromSupplier){
-      console.log('No next page');
-    } else {
-      if (this.pagination.current_page === this.pagination.total_pages){
-        console.log('This is the last page');
-      } else {
-        this.getPetsFromAPI(this.pagination._links.next.href);
-      }
-    }
+  pageChange(newPage: number): void {
+    const queryType = this.currectType == null ? '' : '&type=' + this.currectType;
+    this.getPetsFromAPI('/v2/animals?page=' + newPage + '&type=' + queryType);
   }
 
   setAnimal(element: any): void{
