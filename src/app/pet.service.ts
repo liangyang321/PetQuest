@@ -20,7 +20,7 @@ export class PetService {
     return this.http.get<Animals>('https://api.petfinder.com/v2/types/' + type + '/breeds', { headers});
   }
 
-  getAnimalByType(type: any, location: any, distance: any, breed: any, age: any, size: any, gender: any): Observable<any> {
+  getAnimalByType(type: any, location: any, distance: any, breed: any, age: any, size: any, gender: any, page: any): Observable<any> {
     const headers = { Authorization: this.tokenService.get('token')};
     const params = new HttpParams()
     .set('type', type)
@@ -29,7 +29,8 @@ export class PetService {
     .set('size', size)
     .set('gender', gender)
     .set('location', location)
-    .set('distance', distance);
+    .set('distance', distance)
+    .set('page', page);
     return this.http.get<Animals>('https://api.petfinder.com/v2/animals', { headers, params});
   }
 

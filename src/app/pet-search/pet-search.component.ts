@@ -27,7 +27,9 @@ export class PetSearchComponent implements OnInit {
 
   breeds: Breeds[];
   animals: Animal[] = [];
-  page: Pagination;
+  pagination: Pagination;
+  page = 1;
+  totalPets: number;
   image: Photo = {
     small: 'assets/images/notfound.png',
     medium: null,
@@ -40,7 +42,6 @@ export class PetSearchComponent implements OnInit {
   model = new PetInfo();
 
 
-
   href  = '';
 
   getBreeds(): void {
@@ -50,17 +51,17 @@ export class PetSearchComponent implements OnInit {
 
     });
   }
-  getAllPetsFromAPI(): void {
-    this.petService.getAnimalByType(this.model.type, this.model.location, '',
-      '', '', '', '').subscribe( data => {
-        this.animals = data.animals;
-        console.log(this.animals);
-        this.page = data.pagination;
-        this.animals.forEach(element => {
-          this.setAnimal(element);
-        });
-    });
-  }
+  // getAllPetsFromAPI(): void {
+  //   this.petService.getAnimalByType(this.model.type, this.model.location, '',
+  //     '', '', '', '').subscribe( data => {
+  //       this.animals = data.animals;
+  //       console.log(this.animals);
+  //       this.page = data.pagination;
+  //       this.animals.forEach(element => {
+  //         this.setAnimal(element);
+  //       });
+  //   });
+  // }
 
   getPetsFromAPI(): void {
     if (this.model.breed === 'any'){
@@ -75,11 +76,14 @@ export class PetSearchComponent implements OnInit {
     if (this.model.gender === 'any'){
       this.model.gender = '';
     }
+    console.log('page: ', this.page);
     this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, this.model.breed,
-      this.model.age, this.model.size, this.model.gender).subscribe( data => {
+      this.model.age, this.model.size, this.model.gender, this.page).subscribe( data => {
         this.animals = data.animals;
-        // console.log(data);
-        this.page = data.pagination;
+        console.log(data);
+        this.pagination = data.pagination;
+        this.page = data.pagination.current_page;
+        this.totalPets = data.pagination.total_count;
         this.animals.forEach(element => {
           this.setAnimal(element);
         });
@@ -109,6 +113,12 @@ export class PetSearchComponent implements OnInit {
     // element.view = 'View';
   }
 
+  pageChange(newPage: number): void {
+    this.page = newPage;
+    console.log('new page: ',this.page);
+    this.getPetsFromAPI();
+  }
+
   getLocation(): string{
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -127,6 +137,7 @@ export class PetSearchComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.page);
     this.model.breed = '';
     this.model.age = '';
     this.model.gender = '';
@@ -141,6 +152,7 @@ export class PetSearchComponent implements OnInit {
 
   onSubmit(petForm): void {
     console.log(petForm);
+    this.page = 1;
     this.getPetsFromAPI();
   }
 }

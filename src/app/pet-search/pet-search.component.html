@@ -101,7 +101,12 @@
     <div class="col-lg-9 displayResults">
       <div class="row">
         <h1 *ngIf="!animals.length">Not Results Found! </h1>
-        <div class="col-md-4 col-sm-6" *ngFor="let animal of animals">
+        <div class="col-md-4 col-sm-6" *ngFor="let animal of animals | paginate: {
+          id: 'listing_pagination',
+          itemsPerPage: 20,
+          currentPage: page,
+          totalItems: totalPets
+        }">
           <div class="card petBox" [routerLink]="['/animal', animal.type, animal.id]" routerLinkActive="active">
             <img
               src="{{animal.photos[0].medium}}" onerror="this.onerror=null;this.src='assets/images/notfound.png';"
@@ -122,3 +127,4 @@
     </div>
   </div>
 </div>
+<pagination-controls class="pagination justify-content-center" id="listing_pagination" maxSize=5  directionLinks="true" (pageChange)="pageChange($event)"></pagination-controls>
