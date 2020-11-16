@@ -50,7 +50,7 @@ export class BlogTableComponent implements OnInit {
     }
   }
 
-  openDialog(d: string): void {
-    this.dialog.open(DialogComponent, {data: d});
+  openDialog(data: string[]): void {
+    this.dialog.open(DialogComponent, {data: data});
   }
 }
