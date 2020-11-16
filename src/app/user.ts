@@ -1,4 +1,8 @@
 export class User{
-  type: string;
+  username: string;
   id: number;
+  email: string;
+  admin: boolean;
 }
+
+

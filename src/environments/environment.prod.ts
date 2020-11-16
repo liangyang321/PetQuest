@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   firebase: {
     apiKey: "AIzaSyArvoKHoaw2g_m3n70KCgLHHKzxV1lMnwk",
-    authDomain: "petquest-78950.firebaseapp.com",
+    //authDomain: "petquest-78950.firebaseapp.com",
     databaseURL: "https://petquest-78950.firebaseio.com",
     projectId: "petquest-78950",
     storageBucket: "petquest-78950.appspot.com",
