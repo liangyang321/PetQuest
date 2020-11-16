@@ -7,7 +7,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 // import { AngularFirestoreModule } from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import { environment } from '../environments/environment';
-
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomePageComponent } from './home-page/home-page.component';
