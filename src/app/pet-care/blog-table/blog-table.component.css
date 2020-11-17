@@ -1,12 +1,30 @@
-table {
-  width: 100%;
-}
-
 .mat-form-field {
-  font-size: 14px;
-  width: 100%;
+  font-size: 20px;
+  width: 30%;
+  margin-left: 30px;
 }
 
-td, th {
-  width: 25%;
+table {
+  width: 90%;
+  margin-left: 30px;
+
 }
+
+.title {
+  width: 40%;
+}
+
+.petType {
+  width: 15%;
+}
+
+.author {
+  width: 20%;
+}
+
+.date {
+  width: 15%;
+}
+/*td, th {*/
+/*  width: 25%;*/
+/*}*/
