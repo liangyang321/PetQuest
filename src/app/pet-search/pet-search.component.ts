@@ -115,8 +115,9 @@ export class PetSearchComponent implements OnInit {
 
   pageChange(newPage: number): void {
     this.page = newPage;
-    console.log('new page: ',this.page);
+    console.log('new page: ', this.page);
     this.getPetsFromAPI();
+    window.scroll(0, 0);
   }
 
   getLocation(): string{
