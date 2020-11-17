@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
-
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 // import { AngularFirestoreModule } from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import { environment } from '../environments/environment';
-
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -36,7 +36,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +62,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     MatDialogModule,
