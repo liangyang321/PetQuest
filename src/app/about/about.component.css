@@ -1,30 +1,50 @@
-.name {
-  text-align: center;
-}
-
-.team {
-  text-align: center;
+.container {
   background-color: #daad86;
-    padding: 60px 0px 60px 0px;
-    color: white;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
+  margin-bottom: 50px
 }
 
-.aboutContainer{
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 15px;
+.title {
+  font-size: 40px;
+  font-weight: 200;
+  color: white;
 }
 
-.aboutImg {
-width: 100%;
-height: auto;
+.icon {
+  position: relative;
+  bottom: 11px
 }
 
-.card{
-  margin-top: 10%;
-  margin-bottom: 10%;
+.mt-100 {
+  margin-top: 100px
+}
+
+.profileImage img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 30px;
+}
+
+.card {
+  border-radius: 15px;
+  margin-left: 30px;
+  margin-right: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2)
 }
 
 .card-body {
-  text-align: center;
+  position: relative;
+  bottom: 35px
+}
+
+.header {
+  padding-top: 40px
+}
+
+.bottomRow{
+  margin-bottom: 25px;
 }
