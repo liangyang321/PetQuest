@@ -31,4 +31,6 @@
   margin-bottom: 10%;
 }
 
-
+.petBox{
+  cursor: pointer;
+}

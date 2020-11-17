@@ -23,6 +23,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { PetCareComponent } from './pet-care/pet-care.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
+import { AboutComponent } from './about/about.component';
+
 import { BlogContentComponent } from './pet-care/blog-content/blog-content.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './pet-care/dialog/dialog.component';
@@ -48,6 +50,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UserManagementComponent,
     PetCareComponent,
     PetInquireComponent,
+    AboutComponent,
     BlogContentComponent,
     DialogComponent,
     BlogTableComponent,
