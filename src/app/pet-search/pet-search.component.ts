@@ -120,15 +120,24 @@ export class PetSearchComponent implements OnInit {
     window.scroll(0, 0);
   }
 
-  getLocation(): string{
+  getLocation(): void{
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           const long = position.coords.longitude;
           const lat = position.coords.latitude;
-          const location = long.toString() + ',' + lat.toString();
+          const location = lat.toString() + ',' + long.toString();
           console.log(location);
-          return location;
-          // this.callApi(longitude, latitude);
+          this.petService.getAnimalByType(this.model.type, location, this.model.distance, '',
+            '', '', '', this.page).subscribe( data => {
+              this.animals = data.animals;
+              console.log(data);
+              this.pagination = data.pagination;
+              this.page = data.pagination.current_page;
+              this.totalPets = data.pagination.total_count;
+              this.animals.forEach(element => {
+                this.setAnimal(element);
+              });
+          });
         });
     } else {
        console.log('No support for geolocation');
@@ -151,10 +160,8 @@ export class PetSearchComponent implements OnInit {
     else if(this.model.type === 'scales'){
       this.model.type = 'scales-fins-other';
     }
-    console.log(this.model.type);
     this.model.distance = '10';
-    // this.model.location = this.getLocation();
-    // this.getAllPetsFromAPI();
+    this.getLocation();
     this.getBreeds();
   }
 
