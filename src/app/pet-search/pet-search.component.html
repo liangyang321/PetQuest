@@ -57,8 +57,10 @@
             [(ngModel)]="model.age"
           >
             <option value="">Any</option>
-            <option *ngIf="href === '/pet-search'">Puppy</option>
+            <option *ngIf="href === '/dog-search'">Puppy</option>
             <option *ngIf="href === '/cat-search'" value="baby">Kitten</option>
+            <option *ngIf="href === '/horse-search'">Foal</option>
+            <option *ngIf="href === '/rabbit-search' || href === '/small-furry-search' || href === '/scales-fins-other-search' || href === '/bird-search' || href === '/barnyard-search'">Baby</option>
             <option>Young</option>
             <option>Adult</option>
             <option>Senior</option>

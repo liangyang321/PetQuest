@@ -144,7 +144,14 @@ export class PetSearchComponent implements OnInit {
     this.model.gender = '';
     this.model.size = '';
     this.href = this.router.url;
-    this.model.type = this.href.slice(1, 4);
+    this.model.type = this.href.substr(1, this.href.indexOf('-') - 1);
+    if (this.model.type === 'small'){
+      this.model.type = 'small-furry';
+    }
+    else if(this.model.type === 'scales'){
+      this.model.type = 'scales-fins-other';
+    }
+    console.log(this.model.type);
     this.model.distance = '10';
     // this.model.location = this.getLocation();
     // this.getAllPetsFromAPI();
