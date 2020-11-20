@@ -1,3 +1,4 @@
+import { Breed } from './../breeds';
 import { Animal, Photo, Colors } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
 import { ShareDataService } from '../share-data.service';
@@ -40,6 +41,7 @@ export class PetManagementViewComponent implements OnInit {
     if (id === '0'){
       this.pet = this.shareDataService.getViewPet();
       console.log(this.pet);
+      // console.log(this.pet.Breed.mixed);
     } else {
       this.getAnimalById(id);
     }

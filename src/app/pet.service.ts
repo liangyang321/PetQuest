@@ -9,6 +9,7 @@ import {Blog, Blogs} from './blog.model';
   providedIn: 'root'
 })
 export class PetService {
+  currentPage = null;
 
   constructor(
     private http: HttpClient,

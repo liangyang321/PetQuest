@@ -3,7 +3,7 @@
 </div>
 
 <div class="container mt-4">
-  <h3 class="text-center">Pet Information</h3>
+  <h3 class="text-center info">Pet Information</h3>
   <hr class="text-center">
   <form class="pt-3 pl-3 pr-3 pb-3" #myForm="ngForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)">
       <div class="row">
@@ -34,9 +34,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label for="species">Species</label>
-                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="pet.species"
-                #name="ngModel"
-                [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid}"required>
+                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="pet.species">
               </div>
             </div>
 
@@ -80,8 +78,7 @@
             <div class="form-row">
               <div class="col-md-6 mb-3">
                 <label for="breed">Breed</label>
-                <input type="text" class="form-control" placeholder="primary" name="primary" [(ngModel)]="pet?.breeds.primary" #name="ngModel"
-                [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+                <input type="text" class="form-control" placeholder="primary" name="primary" [(ngModel)]="pet?.breeds.primary">
               </div>
 
               <div class="form-check form-check-inline mt-3 ml-2">
@@ -99,8 +96,7 @@
             <div class="form-row">
               <div class="col-md-6 mb-3">
                 <label>Color</label>
-                <input type="text" class="form-control" placeholder="primary" name="secondary" [(ngModel)]="pet.colors.secondary" #name="ngModel"
-                [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+                <input type="text" class="form-control" placeholder="primary" name="secondary" [(ngModel)]="pet.colors.secondary">
               </div>
               <div class="col-md-6 mb-3">
                 <label></label>
@@ -228,7 +224,7 @@
 
 
 
-      <h3 class="mt-4 text-center">Contact Information</h3>
+      <h3 class="mt-4 text-center info">Contact Information</h3>
       <hr>
       <div class="row pt-2">
         <div class="col-6 pr-4">
