@@ -3,9 +3,18 @@
   width: 15vw;
   border-radius: 50%;
   border-style: dotted;
+  object-fit: cover;
 }
 
 .inquire{
   background-color: #79b8dc;
   color: white;
+}
+
+.textBreed{
+  font-size: medium;
+}
+
+.textInfo {
+  font-size: small;
 }
