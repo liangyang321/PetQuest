@@ -33,10 +33,14 @@
           <tr>
             <td class="describe">Breed</td>
             <td class="success">
-              {{pet?.breeds?.primary}}
+              {{pet?.breeds?.primary || ''}}
+              {{pet?.breeds?.secondary || ''}}
+              {{pet?.breeds?.mixed? 'Mixed': '' }}
+              {{pet?.breeds?.unknown? 'Unknown': '' }}
+              <!-- {{pet?.breeds?.primary || ''}}
               {{pet?.breeds?.secondary == null ? '' : pet?.breeds.primary == null ? '' : ', ' + pet?.breeds.secondary}}
               {{pet?.breeds.primary? pet.breeds?.secondary == null || pet?.breeds?.primary == null ? '' : ', ' +'Mixed' : ''}}
-              {{pet?.breeds.unknown? pet.breeds?.secondary == null || pet?.breeds?.primary == null ? '' : ', ' + 'Unknown' : ''}}
+              {{pet?.breeds.unknown? pet.breeds?.secondary == null || pet?.breeds?.primary == null ? '' : ', ' + 'Unknown' : ''}} -->
             </td>
             <td class="describe">Size</td>
             <td class="danger">{{pet?.size}}</td>
@@ -45,9 +49,9 @@
           <tr>
             <td class="describe">Color</td>
             <td class="success">
-              {{pet?.colors.primary || ''}}
-              {{pet?.colors.secondary || ''}}
-              {{pet?.colors.tertiary || ''}}
+              {{pet?.colors?.primary || ''}}
+              {{pet?.colors?.secondary || ''}}
+              {{pet?.colors?.tertiary || ''}}
             </td>
             <td class="describe">Gender</td>
             <td class="danger">{{pet?.gender}}</td>
@@ -120,16 +124,16 @@
             <td class="success">{{pet?.contact.phone}}</td>
             <td class="describe">Address</td>
             <td class="danger">
-              {{pet?.contact.address.address1}}
-              {{pet?.contact.address.address2}}
+              {{pet?.contact?.address?.address1}}
+              {{pet?.contact?.address?.address2}}
             </td>
           </tr>
 
           <tr>
             <td class="describe">City</td>
-            <td class="success">{{pet?.contact.address.city}}</td>
+            <td class="success">{{pet?.contact?.address?.city}}</td>
             <td class="describe">State</td>
-            <td class="success">{{pet?.contact.address.state}}</td>
+            <td class="success">{{pet?.contact?.address?.state}}</td>
           </tr>
         </table>
 

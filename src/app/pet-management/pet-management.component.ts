@@ -32,7 +32,8 @@ export class PetManagementComponent implements OnInit {
   isSourceFromFirebase = false;
 
   types = [];
-  currectType = null;
+  currectTypeAPI = null;
+  currectTypeFirebase = null;
   deleteAnimal: any;
 
   page = 1;
@@ -59,11 +60,13 @@ export class PetManagementComponent implements OnInit {
     this.getPetTypeFromFirebase();
   }
 
+  // need to save currect page
   setSharedData(animal: Animal): void{
     console.log(animal);
     this.shareDataService.saveViewPet(animal);
   }
 
+   // need to save currect page
   editAnimal(animal: Animal): void {
     this.shareDataService.editPet = animal;
   }
@@ -80,7 +83,7 @@ export class PetManagementComponent implements OnInit {
         }
 
         this.page = data.pagination.current_page;
-        console.log('current page is ' + data.pagination.current_page);
+        // console.log('current page is ' + data.pagination.current_page);
 
         this.totalPets = data.pagination.total_count;
 
@@ -177,7 +180,8 @@ export class PetManagementComponent implements OnInit {
 
   getAllPetFromAPI(): void{
     this.isAllTypeFromAPI = true;
-    this.currectType = null;
+    this.isSourceFromFirebase = false;
+    this.currectTypeAPI = null;
     this.getPetsFromAPI('/v2/animals');
   }
 
@@ -185,17 +189,21 @@ export class PetManagementComponent implements OnInit {
   showAPIPetByType(index): void{
     this.isAllTypeFromAPI = false;
     this.isSourceFromFirebase = false;
-    this.currectType = this.petTypesFromAPI[index].param;
+    this.currectTypeAPI = this.petTypesFromAPI[index].param;
     this.getPetsFromAPI('/v2/animals/?type=' + this.petTypesFromAPI[index].param);
   }
 
   getAllPetFromFirebase(): void {
+    this.page = 1;
+    this.currectTypeFirebase = null;
     this.isSourceFromFirebase = true;
     this.animals = this.petFromFirebase;
     this.totalPets = this.animals.length;
   }
 
   showFirebasePetByType(key: string): void {
+    this.page = 1;
+    this.currectTypeFirebase = key;
     this.isSourceFromFirebase = true;
     this.animals = this.petsFromFirebaseByType.get(key);
     this.totalPets = this.animals.length;
@@ -221,26 +229,31 @@ export class PetManagementComponent implements OnInit {
     this.router.navigate(['/pet-management']);
   }
 
+
   pageChange(newPage: number): void {
-    const queryType = this.currectType == null ? '' : '&type=' + this.currectType;
-    this.getPetsFromAPI('/v2/animals?page=' + newPage + '&type=' + queryType);
+    console.log('New Page Number:' + newPage);
+    if (this.isSourceFromFirebase){
+      this.page = newPage;
+    } else {
+      const queryType = this.currectTypeAPI == null ? '' : '&type=' + this.currectTypeAPI;
+      const currentAPIQuery = '/v2/animals?page=' + newPage + '&type='  + queryType;
+      // this.getPetsFromAPI('/v2/animals?page=' + newPage + '&type=' + queryType);
+      this.getPetsFromAPI(currentAPIQuery);
+    }
   }
 
   setAnimal(element: any): void{
     if (element.photos.length === 0 || element.photos === undefined) {
       element.photos.push(this.image);
     }
-
     if (element.name.includes('-')){
       const n = element.name;
       element.name = n.split('-')[0];
     }
-
     if (element.name.includes(' is')){
       const n = element.name;
       element.name = n.split(' is')[0];
     }
-
     if (element.name.includes('~')){
       const n = element.name;
       element.name = n.split('~')[0];

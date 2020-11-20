@@ -3,6 +3,12 @@
 }
 
 
+.info {
+  font-size: 30px;
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+
 .container {
   color: #659DBD;
 }
