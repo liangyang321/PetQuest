@@ -18,10 +18,10 @@
             [(ngModel)]="model.location"
             [ngClass]="{ 'is-invalid': petForm.submitted && location.invalid }" required
           >
-          <div class="textInvalid" *ngIf="location.errors?.required">
+          <div class="textInvalid" *ngIf="location.errors?.required && !animals.length">
             Location is required!
           </div>
-          <div class="textInvalid" *ngIf="location?.invalid">Must be 5 digits!</div>
+          <div class="textInvalid" *ngIf="location?.invalid && !animals.length">Must be 5 digits!</div>
         </div>
         <div class="form-group">
           <label for="distance">Distance</label>
@@ -107,7 +107,7 @@
     <!-- Search Results Area -->
     <div class="col-lg-9 displayResults">
       <div class="row">
-        <h1 *ngIf="!animals.length">Not Results Found! </h1>
+        <h1 *ngIf="!animals.length">No Results Found! </h1>
         <div class="col-md-4 col-sm-6" *ngFor="let animal of animals | paginate: {
           id: 'listing_pagination',
           itemsPerPage: 20,

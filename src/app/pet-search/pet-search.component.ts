@@ -7,6 +7,7 @@ import { Breeds} from '../breeds';
 
 
 
+
 export class PetInfo {
   public breed: string;
   public age: string;
@@ -40,7 +41,6 @@ export class PetSearchComponent implements OnInit {
   constructor(private router: Router, private petService: PetService) { }
 
   model = new PetInfo();
-
 
   href  = '';
 
@@ -80,14 +80,17 @@ export class PetSearchComponent implements OnInit {
     this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, this.model.breed,
       this.model.age, this.model.size, this.model.gender, this.page).subscribe( data => {
         this.animals = data.animals;
-        console.log(data);
+        console.log('Data: ', data);
         this.pagination = data.pagination;
         this.page = data.pagination.current_page;
         this.totalPets = data.pagination.total_count;
         this.animals.forEach(element => {
           this.setAnimal(element);
         });
-    });
+    }, error => {
+        console.log('ERROR HERE', error);
+        this.animals = [];
+        this.page = 1; });
   }
 
   setAnimal(element: any): void{
