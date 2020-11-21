@@ -11,6 +11,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import {PetCareComponent} from './pet-care/pet-care.component';
 import { AuthGuard } from './auth.guard';
 
+import { RegisterComponent } from './register/register.component';
+
 const routes: Routes = [
   { path: 'home-page', component: HomePageComponent},
   { path: 'pet-management', component: PetManagementComponent},
@@ -29,7 +31,8 @@ const routes: Routes = [
   { path: 'log-in-page', component: LogInPageComponent},
   { path: 'user-management', component: UserManagementComponent},
   { path: 'pet-care', component: PetCareComponent},
-  { path: '', redirectTo: 'home-page', pathMatch: 'full'}
+  { path: '', redirectTo: 'home-page', pathMatch: 'full'},
+  { path: 'register', component: RegisterComponent}
 ];
 
 @NgModule({

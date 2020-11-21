@@ -6,6 +6,7 @@ import * as data from '../../assets/states.json';
 import { ShareDataService } from '../share-data.service';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { User } from '../user.model';
 
 
 @Component({
@@ -36,15 +37,18 @@ export class PetManagementAddComponent implements OnInit {
 
   ngOnInit(): void {
     const animal = this.shareDataService.editPet;
-    console.log('Edit Animal ');
-    console.log(animal);
+    // console.log('Edit Animal ');
+    // console.log(animal);
 
 
     if (animal !== null) {
       this.isEdit = true;
       this.isAdd = false;
       this.pet = animal;
-      console.log(this.pet.key);
+      if (this.pet.contact.address === undefined){
+        this.pet.contact.address = new Address();
+      }
+      // console.log(this.pet.key);
       this.shareDataService.editPet = null;
     } else {
       this.pet = new Animal();
@@ -56,6 +60,14 @@ export class PetManagementAddComponent implements OnInit {
       this.pet.attributes = new Attributes();
       this.pet.environment = new Environment();
       this.pet.photos = [new Photo()];
+
+      const user: User = this.shareDataService.getCurrentUser();
+      if (user.role === 'shelter') {
+        this.pet.contact.email = user.email;
+        this.pet.organization_id = user.id;
+        this.pet.organization_name = user.name;
+      }
+
     }
   }
 
@@ -98,7 +110,7 @@ export class PetManagementAddComponent implements OnInit {
   update(): void {
     console.log(this.pet.key);
 
-    this.firebaseService.update(this.pet.key, this.pet)
+    this.firebaseService.updateAnimal(this.pet.key, this.pet)
       .then(() => console.log('Update sucessefully'))
       .catch(err => console.log(err));
 

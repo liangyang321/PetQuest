@@ -1,6 +1,7 @@
 import { Animal } from './animal.model';
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireDatabase, snapshotChanges} from '@angular/fire/database';
+import { User } from './user.model';
 
 
 @Injectable({
@@ -11,9 +12,11 @@ export class FirebaseService {
   private dbPath = '/animals';
   // animialRef: AngularFireList<Animal> = null;
   animialRef: AngularFireList<any> = null;
+  userRef: AngularFireList<User> = null;
 
   constructor(private db: AngularFireDatabase) {
     this.animialRef = db.list(this.dbPath);
+    this.userRef = db.list('/users');
    }
 
   createAnimal(animal: Animal): any {
@@ -23,16 +26,35 @@ export class FirebaseService {
   // getAll(): AngularFireList<Animal>{
   //   return this.animialRef;
   // }
-  getAll(): AngularFireList<any>{
+  getAllAnimals(): AngularFireList<any>{
     return this.animialRef;
   }
 
-  update(key: string, value: any): Promise<void>{
+  updateAnimal(key: string, value: any): Promise<void>{
     return this.animialRef.update(key, value);
   }
 
 
-  delete(key: string): Promise<void>{
+  deleteAnimal(key: string): Promise<void>{
     return this.animialRef.remove(key);
+  }
+
+
+  // User
+  createUser(user: User): any {
+    return this.userRef.push(user);
+  }
+
+  getAllUsers(): AngularFireList<User>{
+    return this.userRef;
+  }
+
+  updateUser(key: string, value: any): Promise<void>{
+    return this.userRef.update(key, value);
+  }
+
+
+  deleteUser(key: string): Promise<void>{
+    return this.userRef.remove(key);
   }
 }

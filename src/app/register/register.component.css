@@ -1,0 +1,15 @@
+
+.info {
+  font-size: x-large;
+  color: #659DBD;
+}
+
+/* .userForm {
+  width: 60%;
+} */
+
+.btn{
+  background-color: #659DBD;
+  border: 1px solid #659DBD;
+  width: 100%;
+}

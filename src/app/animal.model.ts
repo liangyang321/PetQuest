@@ -60,14 +60,14 @@ export class Next {
 }
 
 export class Breeds {
-      primary: string = null;
+      primary: string = '';
       secondary?: any = null;
       mixed: boolean = false;
       unknown: boolean = false;
   }
 
 export class Colors {
-      primary?: any = null;
+      primary?: any = '';
       secondary?: any = null;
       tertiary?: any = null;
 }
@@ -141,6 +141,7 @@ export class Types {
 export class Type {
   name: string;
 }
+
 
 
 

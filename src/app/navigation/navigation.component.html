@@ -40,14 +40,17 @@
 
     <ul class="navbar-nav ml-auto right-menu">
       <li class="nav-item">
-        <a routerLink = "/user-management" routerLinkActive = "active" class="nav-item nav-link"><i class="fas fa-users"></i> User Management</a>
+        <a *ngIf=showUser routerLink = "/user-management" routerLinkActive = "active" class="nav-item nav-link"><i class="fas fa-users"></i> User Management</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/pet-management" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-paw"></i> Pet Management</a>
+        <a *ngIf=showPet routerLink="/pet-management" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-paw"></i> Pet Management</a>
       </li>
-      <li class="nav-item">
-       <a routerLink="/log-in-page" routerLinkActive="active" href="#" class="nav-item nav-link"><i class="fas fa-user"></i> Login/Signup</a>
-     </li>
+      <!-- <li class="nav-item">
+       <a routerLink="/log-in-page" routerLinkActive="active" href="#" class="nav-item nav-link" (click)="logout()" ><i class="fas fa-user"></i> {{signup}}</a>
+     </li> -->
+     <li class="nav-item">
+      <a *ngIf=showLogout href="#" class="nav-item nav-link" (click)="logout()" ><i class="fas fa-user"></i> Log out</a>
+    </li>
 
     </ul>
   </div>

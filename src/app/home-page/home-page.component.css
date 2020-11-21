@@ -13,7 +13,7 @@ hr{
 }
 
 .left{
-  margin-top: 150px;
+  margin-top: 250px;
   width: 45%;
   border-radius: 20px;
   color: rgba(255, 255,255, .7);;
@@ -29,24 +29,6 @@ hr{
 .intro {
   font-size: small;
 }
-
-.team{
-  font-size: small;
-}
-
-.team > h4 {
-  font-weight: bold;
-  margin: 0;
-  padding: 2px;
-}
-
-.team > p {
-  margin-top: 0;
-  margin-left: 5px;
-    margin: 1px;
-    padding: 2px;
-}
-
 
 .right{
   float: right;

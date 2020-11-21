@@ -20,7 +20,7 @@ import {EventEmitter} from 'events';
 export class BlogTableComponent implements OnInit {
   // @Input() blogContent: string;
   // @Output() blogContentChange = new EventEmitter<string>();
-  displayedColumns: string[] = ['title', 'author', 'petType'];
+  displayedColumns: string[] = ['title', 'petType', 'author', 'date'];
   dataSource: MatTableDataSource<Blog>;
   blogs: Blog[];
 
