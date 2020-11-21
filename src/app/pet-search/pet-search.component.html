@@ -7,6 +7,7 @@
         <div class="form-group">
           <label for="location">Location</label>
           <input
+          pattern ='([0-9]{5})'
           type="text"
           placeholder="Zip Code"
           required
@@ -17,6 +18,10 @@
             [(ngModel)]="model.location"
             [ngClass]="{ 'is-invalid': petForm.submitted && location.invalid }" required
           >
+          <div class="textInvalid" *ngIf="location.errors?.required && !animals.length">
+            Location is required!
+          </div>
+          <div class="textInvalid" *ngIf="location?.invalid && !animals.length">Must be 5 digits!</div>
         </div>
         <div class="form-group">
           <label for="distance">Distance</label>
@@ -57,8 +62,10 @@
             [(ngModel)]="model.age"
           >
             <option value="">Any</option>
-            <option *ngIf="href === '/pet-search'">Puppy</option>
+            <option *ngIf="href === '/dog-search'">Puppy</option>
             <option *ngIf="href === '/cat-search'" value="baby">Kitten</option>
+            <option *ngIf="href === '/horse-search'">Foal</option>
+            <option *ngIf="href === '/rabbit-search' || href === '/small-furry-search' || href === '/scales-fins-other-search' || href === '/bird-search' || href === '/barnyard-search'">Baby</option>
             <option>Young</option>
             <option>Adult</option>
             <option>Senior</option>
@@ -92,7 +99,7 @@
             <option>Female</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group submitBtn">
           <button class="btn btn-primary btn-block">Submit</button>
         </div>
       </form>
@@ -100,7 +107,7 @@
     <!-- Search Results Area -->
     <div class="col-lg-9 displayResults">
       <div class="row">
-        <h1 *ngIf="!animals.length">Not Results Found! </h1>
+        <h1 *ngIf="!animals.length">No Results Found! </h1>
         <div class="col-md-4 col-sm-6" *ngFor="let animal of animals | paginate: {
           id: 'listing_pagination',
           itemsPerPage: 20,

@@ -7,6 +7,7 @@ import { Breeds} from '../breeds';
 
 
 
+
 export class PetInfo {
   public breed: string;
   public age: string;
@@ -40,7 +41,6 @@ export class PetSearchComponent implements OnInit {
   constructor(private router: Router, private petService: PetService) { }
 
   model = new PetInfo();
-
 
   href  = '';
 
@@ -80,14 +80,17 @@ export class PetSearchComponent implements OnInit {
     this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, this.model.breed,
       this.model.age, this.model.size, this.model.gender, this.page).subscribe( data => {
         this.animals = data.animals;
-        console.log(data);
+        console.log('Data: ', data);
         this.pagination = data.pagination;
         this.page = data.pagination.current_page;
         this.totalPets = data.pagination.total_count;
         this.animals.forEach(element => {
           this.setAnimal(element);
         });
-    });
+    }, error => {
+        console.log('ERROR HERE', error);
+        this.animals = [];
+        this.page = 1; });
   }
 
   setAnimal(element: any): void{
@@ -120,15 +123,24 @@ export class PetSearchComponent implements OnInit {
     window.scroll(0, 0);
   }
 
-  getLocation(): string{
+  getLocation(): void{
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           const long = position.coords.longitude;
           const lat = position.coords.latitude;
-          const location = long.toString() + ',' + lat.toString();
+          const location = lat.toString() + ',' + long.toString();
           console.log(location);
-          return location;
-          // this.callApi(longitude, latitude);
+          this.petService.getAnimalByType(this.model.type, location, this.model.distance, '',
+            '', '', '', this.page).subscribe( data => {
+              this.animals = data.animals;
+              console.log(data);
+              this.pagination = data.pagination;
+              this.page = data.pagination.current_page;
+              this.totalPets = data.pagination.total_count;
+              this.animals.forEach(element => {
+                this.setAnimal(element);
+              });
+          });
         });
     } else {
        console.log('No support for geolocation');
@@ -144,10 +156,15 @@ export class PetSearchComponent implements OnInit {
     this.model.gender = '';
     this.model.size = '';
     this.href = this.router.url;
-    this.model.type = this.href.slice(1, 4);
+    this.model.type = this.href.substr(1, this.href.indexOf('-') - 1);
+    if (this.model.type === 'small'){
+      this.model.type = 'small-furry';
+    }
+    else if(this.model.type === 'scales'){
+      this.model.type = 'scales-fins-other';
+    }
     this.model.distance = '10';
-    // this.model.location = this.getLocation();
-    // this.getAllPetsFromAPI();
+    this.getLocation();
     this.getBreeds();
   }
 
