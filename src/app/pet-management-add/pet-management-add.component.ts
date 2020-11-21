@@ -101,7 +101,7 @@ export class PetManagementAddComponent implements OnInit {
   update(): void {
     console.log(this.pet.key);
 
-    this.firebaseService.update(this.pet.key, this.pet)
+    this.firebaseService.updateAnimal(this.pet.key, this.pet)
       .then(() => console.log('Update sucessefully'))
       .catch(err => console.log(err));
 

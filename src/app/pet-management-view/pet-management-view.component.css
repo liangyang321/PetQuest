@@ -24,3 +24,14 @@ img {
   height: 500px;
   object-fit: cover;
 }
+
+h3{
+  font-size: 25px;
+  font-weight: bold;
+}
+
+h4
+{
+  font-size: 20px;
+  font-weight: bold;
+}
