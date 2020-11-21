@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
 export class HomePageComponent implements OnInit {
   isLogin = true;
   users: User[];
-
   email: string;
   password: any;
+  
   constructor(
     private fb: FirebaseService,
     private shareDataService: ShareDataService,

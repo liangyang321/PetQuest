@@ -1,10 +1,11 @@
 import { FirebaseService } from './../firebase.service';
-import { Pagination, Photo, Animal, Type, Organization } from './../animal.model';
+import { Photo, Animal } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
 import {PetService} from '../pet.service';
 import { map } from 'rxjs/operators';
 import { ShareDataService } from '../share-data.service';
 import { Router } from '@angular/router';
+import { User } from '../user.model';
 
 export class PetType {
   type: string;
@@ -14,7 +15,6 @@ export class PetType {
 
 export class PageInfo{
   pets: any[];
-  isAdmin: boolean;
   isSourceFromFirebase: boolean;
   page: number;
   currectTypeFirebase: string;
@@ -28,27 +28,25 @@ export class PageInfo{
 })
 
 export class PetManagementComponent implements OnInit {
-  currentQuery = null;
-
+  user: User;
+  isAdmin: boolean;
+  isTotal = true;
+  totalPetFromAPI = 0;
   animals: any[];
   petTypesFromAPI: PetType[] = [];
   petTypesFromFirebase: PetType[] = [];
+  allPetsFromFirebase: any[] = [];
   petsFromFirebaseByType = new Map<string, any[]>();
-  petFromFirebase: any[] = [];
-
-  isAdmin = true;
+  currentQuery = null;
   isAllTypeFromAPI = true;
   isSourceFromAPI = true;
   isSourceFromFirebase = false;
-
   types = [];
   currectTypeAPI = null;
   currectTypeFirebase = null;
   deleteAnimal: any;
-
-  page = 1;
-  totalPets: number;
-  pagination: Pagination;
+  page: any;
+  totalPets = 0;
 
   image: Photo = {
     small: 'assets/images/notfound.png',
@@ -65,91 +63,33 @@ export class PetManagementComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    // this.getPetsFromAPI('/v2/animals');
-    // this.getAllPetTypesFromAPI();
-    // this.getPetTypeFromFirebase();
+    this.user = this.shareDataService.getCurrentUser();
+    const currentPageInfo = this.petService.currentPageInfo;
 
+    if (this.user.role === 'admin'){
+      this.isAdmin = true;
 
-
-    if (this.petService.currentPageInfo == null){
-      this.getPetsFromAPI('/v2/animals');
-    } else {
-      this.isAdmin = this.petService.currentPageInfo.isAdmin;
-      this.isSourceFromFirebase = this.petService.currentPageInfo.isSourceFromFirebase;
-      this.currectTypeFirebase = this.petService.currentPageInfo.currectTypeFirebase;
-
-      if (this.isAdmin && !this.isSourceFromFirebase){
-
-        this.getPetsFromAPI(this.petService.currentPageInfo.currentQuery);
-        this.petService.currentPageInfo = null;
+      if (currentPageInfo === null) {
+        this.getPetsFromAPI('/v2/animals');
+      } else {
+        this.isSourceFromFirebase = currentPageInfo.isSourceFromFirebase;
+        if (!this.isSourceFromFirebase) {
+          this.getPetsFromAPI(currentPageInfo.currentQuery);
+          this.petService.currentPageInfo = null;
+        }
       }
-
-      // else {
-
-      //   // if (this.petService.currentPageInfo != null && this.petService.currentPageInfo.isSourceFromFirebase){
-      //     // console.log(this.petService.currentPageInfo);
-      //     this.isSourceFromFirebase = this.petService.currentPageInfo.isSourceFromFirebase;
-      //     this.animals = this.petService.currentPageInfo.pets;
-      //     // console.log(this.animals.length);
-      //     // console.log(this.animals);
-      //     this.page = this.petService.currentPageInfo.page;
-      //     this.totalPets = this.animals.length;
-      //     console.log(this.totalPets);
-      //     this.petService.currentPageInfo = null;
-      //   // }
-
-      // }
-
+      this.getAllPetTypesFromAPI();
+      this.getPetFromFirebase();
     }
 
-    this.getAllPetTypesFromAPI();
-    this.getPetTypeFromFirebase();
-
-
-  }
-
-  // need to save currect page
-  setSharedData(animal: Animal): void{
-    this.setCurrentPageInfo();
-    // console.log(animal);
-    this.shareDataService.saveViewPet(animal);
-  }
-
-   // need to save currect page
-  editAnimal(animal: Animal): void {
-    this.setCurrentPageInfo();
-    this.shareDataService.editPet = animal;
-  }
-
-  getPetsFromAPI(request: string): void {
-    this.currentQuery = request;
-
-    this.isSourceFromFirebase = false;
-    if (this.isAdmin){
-      this.petService.getAnimal(request).subscribe( data => {
-        this.animals = data.animals;
-        // console.log(this.animals);
-
-        if (this.isAllTypeFromAPI) {
-          this.pagination = data.pagination;
-        }
-
-        this.page = data.pagination.current_page;
-        // console.log('current page is ' + data.pagination.current_page);
-
-        this.totalPets = data.pagination.total_count;
-
-        this.animals.forEach(element => {
-          this.setAnimal(element);
-        });
-      });
+    if (this.user.role === 'shelter'){
+      this.isAdmin = false;
+      this.getPetFromFirebase();
     }
   }
 
   getAllPetTypesFromAPI(): void{
     this.petService.getTypes().subscribe( data => {
-      // console.log('Types');
-      // console.log(data.types);
       this.types = data.types;
       data.types.forEach(element => {
           let param: string = element.name;
@@ -171,16 +111,47 @@ export class PetManagementComponent implements OnInit {
   }
 
 
-  getPetTypeFromFirebase(): void {
+  getPetsFromAPI(request: string): void {
+    this.currentQuery = request;
+    this.isSourceFromFirebase = false;
+    console.log(request);
+
+    this.petService.getAnimal(request).subscribe( data => {
+      this.animals = data.animals;
+      this.animals.forEach(element => {
+        if (element.photos.length === 0 || element.photos === undefined) {
+          element.photos.push(this.image);
+        }
+      });
+      if (this.isTotal){
+        this.totalPetFromAPI = data.pagination.total_count;
+        this.isTotal = false;
+      }
+      this.page = data.pagination.current_page;
+      this.totalPets = data.pagination.total_count;
+    });
+  }
+
+  getPetFromFirebase(): void {
+    // this.isSourceFromFirebase = true;
     this.firebaseService.getAllAnimals().snapshotChanges().pipe(
       map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        // console.log('getPetTypeFromSupplier');
-        // console.log(data);
-        this.petFromFirebase = data;
-        this.totalPets = this.petFromFirebase.length;
+        console.log(data);
+        if (this.isAdmin){
+          this.allPetsFromFirebase = data;
+        } else {
+          data.forEach(element => {
+            if (element.organization_id === this.user.id){
+              this.allPetsFromFirebase.push(element);
+            }
+          });
+          console.log(this.allPetsFromFirebase);
+        }
+        this.totalPets = this.allPetsFromFirebase.length;
+        this.page = this.totalPets === 0 ? 0 : 1;
 
-        this.petFromFirebase.forEach( element => {
+        this.allPetsFromFirebase.forEach( element => {
           if (element.photos === undefined || element.photos.length === 0) {
             const photos: Photo[] = [];
             photos.push(this.image);
@@ -196,82 +167,62 @@ export class PetManagementComponent implements OnInit {
           }
         });
 
-        if (!this.isAdmin){
-          this.animals = this.petFromFirebase;
-          this.isSourceFromFirebase = true;
-        }
+
+        this.animals = this.allPetsFromFirebase;
 
         for (const key of this.petsFromFirebaseByType.keys()) {
           const s = new PetType();
           s.type = key;
           s.total = this.petsFromFirebaseByType.get(key).length;
           this.petTypesFromFirebase.push(s);
-          // console.log(key);
          }
+
+        if (this.petService.currentPageInfo != null){
+          console.log(this.petService.currentPageInfo);
+          this.animals = this.petService.currentPageInfo.pets;
+          this.totalPets = this.animals.length;
+          this.page = this.petService.currentPageInfo.page;
+          this.petService.currentPageInfo = null;
+        }
     });
-    if (this.petService.currentPageInfo != null){
-      this.animals = this.petService.currentPageInfo.pets;
-      this.page = this.petService.currentPageInfo.page;
-      this.petService.currentPageInfo = null;
-    }
+  }
+
+  onPetFinderApi(): void{
+    this.isAllTypeFromAPI = true;
+    this.isSourceFromFirebase = false;
+    this.currectTypeAPI = null;
+    this.getPetsFromAPI('/v2/animals');
   }
 
 
-  // getPetTypeFromFirebase(): void {
-  //   this.firebaseService.getAllAnimals().snapshotChanges().pipe(
-  //     map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
-  //     ))).subscribe(data => {
-  //       // console.log('getPetTypeFromSupplier');
-  //       // console.log(data);
-  //       this.petFromFirebase = data;
-  //       this.totalPets = this.petService.currentPageInfo == null ?
-  //                   this.petFromFirebase.length : this.petService.currentPageInfo.pets.length;
+  onApiType(index): void{
+    this.isAllTypeFromAPI = false;
+    this.isSourceFromFirebase = false;
+    this.currectTypeAPI = this.petTypesFromAPI[index].param;
+    console.log('onApiType');
+    this.getPetsFromAPI('/v2/animals/?type=' + this.petTypesFromAPI[index].param);
+  }
 
-  //       this.petFromFirebase.forEach( element => {
-  //         if (element.photos === undefined || element.photos.length === 0) {
-  //           const photos: Photo[] = [];
-  //           photos.push(this.image);
-  //           element.photos = photos;
-  //         }
+  onPetSupplier(): void {
+    this.page = 1;
+    this.currectTypeFirebase = null;
+    this.isSourceFromFirebase = true;
+    this.animals = this.allPetsFromFirebase;
+    this.totalPets = this.animals.length;
+  }
 
-  //         if (this.petsFromFirebaseByType.has(element.type)){
-  //           this.petsFromFirebaseByType.get(element.type).push(element);
-  //         } else {
-  //           const animals = [];
-  //           animals.push(element);
-  //           this.petsFromFirebaseByType.set(element.type, animals);
-  //         }
-  //       });
-
-  //       if (!this.isAdmin){
-  //         this.animals = this.petService.currentPageInfo == null ?
-  //                 this.petFromFirebase : this.petService.currentPageInfo.pets;
-  //         this.isSourceFromFirebase = true;
-  //       }
-
-  //       for (const key of this.petsFromFirebaseByType.keys()) {
-  //         const s = new PetType();
-  //         s.type = key;
-  //         s.total = this.petsFromFirebaseByType.get(key).length;
-  //         this.petTypesFromFirebase.push(s);
-  //         // console.log(key);
-  //        }
-  //   });
-  //   if (this.petService.currentPageInfo != null){
-  //     this.page = this.petService.currentPageInfo.page;
-  //     this.petService.currentPageInfo = null;
-  //   }
-
-
-  // }
-
-
-
+  onPetSupplierType(key: string): void {
+    this.page = 1;
+    this.currectTypeFirebase = key;
+    this.isSourceFromFirebase = true;
+    this.animals = this.petsFromFirebaseByType.get(key);
+    this.totalPets = this.animals.length;
+  }
 
   search(id: any): void {
     if (id){
       if (this.isSourceFromFirebase){
-        this.petFromFirebase.forEach(pet => {
+        this.allPetsFromFirebase.forEach(pet => {
           if (pet.id === id){
             this.animals = [];
             this.animals.push(pet);
@@ -287,44 +238,27 @@ export class PetManagementComponent implements OnInit {
     }
   }
 
-  getAllPetFromAPI(): void{
-    this.isAllTypeFromAPI = true;
-    this.isSourceFromFirebase = false;
-    this.currectTypeAPI = null;
-    this.getPetsFromAPI('/v2/animals');
+  setSharedData(animal: Animal): void{
+    this.setCurrentPageInfo();
+    this.shareDataService.saveViewPet(animal);
+  }
+
+  editAnimal(animal: Animal): void {
+    this.setCurrentPageInfo();
+    this.shareDataService.editPet = animal;
   }
 
 
-  showAPIPetByType(index): void{
-    this.isAllTypeFromAPI = false;
-    this.isSourceFromFirebase = false;
-    this.currectTypeAPI = this.petTypesFromAPI[index].param;
-    this.getPetsFromAPI('/v2/animals/?type=' + this.petTypesFromAPI[index].param);
-  }
-
-  getAllPetFromFirebase(): void {
-    this.page = 1;
-    this.currectTypeFirebase = null;
-    this.isSourceFromFirebase = true;
-    this.animals = this.petFromFirebase;
-    this.totalPets = this.animals.length;
-  }
-
-  showFirebasePetByType(key: string): void {
-    this.page = 1;
-    this.currectTypeFirebase = key;
-    this.isSourceFromFirebase = true;
-    this.animals = this.petsFromFirebaseByType.get(key);
-    this.totalPets = this.animals.length;
-  }
 
   setDeletePet(animal): any {
+    this.setCurrentPageInfo();
     console.log('delete pet name = ' + animal.name);
     console.log('delete pet key = ' + animal.key);
     this.deleteAnimal = animal;
   }
 
   delete(): void {
+    this.setCurrentPageInfo();
     this.firebaseService.deleteAnimal(this.deleteAnimal.key)
     .then(() => {
         this.reloadComponent();
@@ -338,47 +272,25 @@ export class PetManagementComponent implements OnInit {
     this.router.navigate(['/pet-management']);
   }
 
-
   pageChange(newPage: number): void {
     console.log('New Page Number:' + newPage);
+    console.log(this.isSourceFromFirebase);
     if (this.isSourceFromFirebase){
       this.page = newPage;
     } else {
       const queryType = this.currectTypeAPI == null ? '' : '&type=' + this.currectTypeAPI;
       const currentAPIQuery = '/v2/animals?page=' + newPage + '&type='  + queryType;
-      // this.getPetsFromAPI('/v2/animals?page=' + newPage + '&type=' + queryType);
       this.getPetsFromAPI(currentAPIQuery);
-    }
-  }
-
-  setAnimal(element: any): void{
-    if (element.photos.length === 0 || element.photos === undefined) {
-      element.photos.push(this.image);
-    }
-    if (element.name.includes('-')){
-      const n = element.name;
-      element.name = n.split('-')[0];
-    }
-    if (element.name.includes(' is')){
-      const n = element.name;
-      element.name = n.split(' is')[0];
-    }
-    if (element.name.includes('~')){
-      const n = element.name;
-      element.name = n.split('~')[0];
     }
   }
 
   setCurrentPageInfo(): void {
     const pageInfo = new PageInfo();
-    console.log(this.animals.length);
     pageInfo.pets = this.animals;
-    pageInfo.isAdmin = this.isAdmin;
     pageInfo.isSourceFromFirebase = this.isSourceFromFirebase;
     pageInfo.currentQuery = this.currentQuery;
-    pageInfo.page = this.page;
     pageInfo.currectTypeFirebase = this.currectTypeFirebase;
-
+    pageInfo.page = this.page;
     this.petService.currentPageInfo = pageInfo;
   }
 }
