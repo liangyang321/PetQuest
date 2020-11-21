@@ -5,16 +5,16 @@
     <div class="col-lg-3 ">
 
       <div class=" rounded display-pet-type">
-        <p class="list-group-item border-0 bg-transparent text-left user"><i class="fas fa-user-alt"></i> Administrator</p>
+        <p class="list-group-item border-0 bg-transparent text-left user"><i class="fas fa-user-alt"></i> {{user?.name}}</p>
 
             <div *ngIf="isAdmin">
               <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="getAllPetFromAPI()">Petfinder API ({{pagination?.total_count || 0}})</a></li>
+                <li class="list-group-item source"><a href="javascript:;" (click)="onPetFinderApi()">Petfinder API ({{totalPetFromAPI}})</a></li>
                     <div *ngIf="isSourceFromAPI" >
                       <ul class="list-group pl-4" *ngFor="let pet of petTypesFromAPI; let i = index">
                         <li class="list-group-item align-items-center">
                           <a class="type" href="javascript:;" routerLink="/pet-management"
-                          (click)="showAPIPetByType(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
+                          (click)="onApiType(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
                         </li>
                       </ul>
                     </div>
@@ -23,11 +23,11 @@
 
             <div>
               <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="getAllPetFromFirebase()">Pet Suppliers ({{petFromFirebase.length || 0}})</a></li>
+                <li class="list-group-item source"><a href="javascript:;" (click)="onPetSupplier()">Pet Suppliers ({{allPetsFromFirebase.length || 0}})</a></li>
                     <div>
                       <ul class="list-group pl-4" *ngFor="let s of petTypesFromFirebase">
                         <li class="list-group-item align-items-center">
-                          <a class="type" href="javascript:;" (click)="showFirebasePetByType(s.type)">{{s.type}} <span>({{s.total}})</span> </a>
+                          <a class="type" href="javascript:;" (click)="onPetSupplierType(s.type)">{{s.type}} <span>({{s.total}})</span> </a>
                         </li>
                       </ul>
                     </div>
@@ -77,12 +77,12 @@
                 totalItems: totalPets
               }">
                 <td>
-                  <img src={{animal.photos[0].small}}  onerror="this.onerror=null;this.src='assets/images/notfound.png';" alt="" class="pet-img">
+                  <img src={{animal?.photos[0].small}}  onerror="this.onerror=null;this.src='assets/images/notfound.png';" alt="" class="pet-img">
                 </td>
-                <td>{{animal.name}}</td>
-                <td>{{animal.id}}</td>
-                <td>{{animal.type}}</td>
-                <td>{{animal.organization_id}}</td>
+                <td>{{animal?.name}}</td>
+                <td>{{animal?.id}}</td>
+                <td>{{animal?.type}}</td>
+                <td>{{animal?.organization_id}}</td>
                 <td>
                   <a [routerLink]="['/pet-management-view', 0]" routerLinkActive="active" (click)="setSharedData(animal)" >View</a>
                   <span *ngIf="isSourceFromFirebase"> / </span>
