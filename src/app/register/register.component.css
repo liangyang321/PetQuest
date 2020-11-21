@@ -1,15 +1,23 @@
 
 .info {
-  font-size: x-large;
+  font-size: 28px;
+  font-weight: bold;
   color: #659DBD;
 }
 
-/* .userForm {
-  width: 60%;
-} */
+label{
+  color: #659DBD;
+  font-weight: bold;
+
+}
+
 
 .btn{
   background-color: #659DBD;
   border: 1px solid #659DBD;
   width: 100%;
+}
+
+p{
+  color: red;
 }

@@ -1,7 +1,3 @@
-/* .list-group-item, .list-group-item a, td > a:hover {
-  color: #8D8741;
-} */
-
 td > a:hover, .type:hover {
   color: #8D8741;
 }

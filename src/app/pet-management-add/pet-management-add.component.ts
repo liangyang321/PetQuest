@@ -66,6 +66,7 @@ export class PetManagementAddComponent implements OnInit {
         this.pet.contact.email = user.email;
         this.pet.organization_id = user.id;
         this.pet.organization_name = user.name;
+        this.pet.contact.address.postcode = user.zipcode;
       }
 
     }

@@ -1,0 +1,18 @@
+.info {
+  font-size: 30px;
+  color: #659DBD;
+  font-weight: bold;
+}
+
+td, th {
+  font-size: 18px;
+  color: #659DBD;
+  /* color: white; */
+  border: none;
+}
+
+button{
+  background-color: #659DBD;
+  border: 2px solid #659DBD;
+  color: white;
+}

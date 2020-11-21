@@ -1,26 +1,24 @@
-<div class="container bg-darkmt-4">
+<div class="container bg-darkmt-4 pt-4">
   <h3 class="text-center info mt-4 pt-4">Register</h3>
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="userForm">
-        <form class="pt-3 pl-3 pr-3 pb-3" #myForm="ngForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)">
+        <form class="pt-3 pl-3 pr-3 pb-3" #myForm="ngForm"  (ngSubmit)="myForm.form.valid && onSubmit(myForm)">
 
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="user" [(ngModel)]="user.role" value="user">
             <label class="form-check-label" for="inlineRadio1">User</label>
           </div>
-          <div class="form-check form-check-inline">
+          <div class="form-check form-check-inline ml-4">
             <input class="form-check-input" type="radio" name="shelter" [(ngModel)]="user.role" value="shelter">
             <label class="form-check-label" for="inlineRadio2">Shelter</label>
           </div>
 
-          <div class="form-group">
+          <div class="form-group mt-4">
             <label for="petID">Name</label>
             <input type="text" name="id" class="form-control" [(ngModel)]="user.name"
-            #name="ngModel"
-                      [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+            #name="ngModel" [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
           </div>
-
 
           <div class="form-group">
             <label for="petID">Email</label>
@@ -29,8 +27,14 @@
           </div>
 
           <div class="form-group">
-            <label for="petID">Password</label>
+            <label>Password</label>
             <input type="text" name="password" class="form-control" [(ngModel)]="user.password" #name="ngModel"
+            [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+          </div>
+
+          <div class="form-group">
+            <label>Zipcode</label>
+            <input type="text" name="zipcode" class="form-control" [(ngModel)]="user.zipcode" #name="ngModel"
             [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
           </div>
 
@@ -39,6 +43,9 @@
             <button class="btn btn-primary btn-lg">Submit</button>
           </div>
 
+          <div *ngIf=isExisted class="form-group pt-4 text-center">
+            <p><i class="fas fa-exclamation-circle"> </i>  the email address is already registered</p>
+          </div>
 
         </form>
 
@@ -54,4 +61,4 @@
 </div>
 
 
-<li> {{ user | json }} </li>
+<!-- <li> {{ user | json }} </li> -->

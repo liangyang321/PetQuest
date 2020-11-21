@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
+  isExisted = false;
   isLogin = true;
   users: User[];
   email: string;
   password: any;
-  
+
   constructor(
     private fb: FirebaseService,
     private shareDataService: ShareDataService,
@@ -37,6 +38,8 @@ export class HomePageComponent implements OnInit {
           this.shareDataService.saveCurrentUser(element);
           this.isLogin = false;
           window.location.reload();
+      } else {
+        this.isExisted = true;
       }
     });
   }

@@ -37,10 +37,6 @@
               {{pet?.breeds?.secondary || ''}}
               {{pet?.breeds?.mixed? 'Mixed': '' }}
               {{pet?.breeds?.unknown? 'Unknown': '' }}
-              <!-- {{pet?.breeds?.primary || ''}}
-              {{pet?.breeds?.secondary == null ? '' : pet?.breeds.primary == null ? '' : ', ' + pet?.breeds.secondary}}
-              {{pet?.breeds.primary? pet.breeds?.secondary == null || pet?.breeds?.primary == null ? '' : ', ' +'Mixed' : ''}}
-              {{pet?.breeds.unknown? pet.breeds?.secondary == null || pet?.breeds?.primary == null ? '' : ', ' + 'Unknown' : ''}} -->
             </td>
             <td class="describe">Size</td>
             <td class="danger">{{pet?.size}}</td>
