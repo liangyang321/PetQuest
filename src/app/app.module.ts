@@ -36,6 +36,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BlogContentComponent,
     DialogComponent,
     BlogTableComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
