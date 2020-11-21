@@ -34,3 +34,20 @@
 .petBox{
   cursor: pointer;
 }
+
+.card-title{
+  font-size: large;
+  font-weight: bold;
+}
+
+.list-group-item {
+  font-size: medium;
+}
+
+.textInvalid {
+  color:red;
+}
+
+.submitBtn {
+  padding-top: 15px;
+}
