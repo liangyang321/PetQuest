@@ -7,7 +7,7 @@ import { User } from './user.model';
 })
 export class ShareDataService {
   editPet = null;
-  // currentUser = null;
+  isEditUser = false;
 
   constructor() { }
 

@@ -84,6 +84,7 @@ export class PetManagementComponent implements OnInit {
 
     if (this.user.role === 'shelter'){
       this.isAdmin = false;
+      this.isSourceFromFirebase = true;
       this.getPetFromFirebase();
     }
   }

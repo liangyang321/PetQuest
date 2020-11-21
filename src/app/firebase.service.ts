@@ -2,7 +2,7 @@ import { Animal } from './animal.model';
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireDatabase, snapshotChanges} from '@angular/fire/database';
 import { User } from './user.model';
-
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class FirebaseService {
   private dbPath = '/animals';
   // animialRef: AngularFireList<Animal> = null;
   animialRef: AngularFireList<any> = null;
-  userRef: AngularFireList<User> = null;
+  userRef: AngularFireList<any> = null;
 
   constructor(private db: AngularFireDatabase) {
     this.animialRef = db.list(this.dbPath);
@@ -23,9 +23,6 @@ export class FirebaseService {
     return this.animialRef.push(animal);
   }
 
-  // getAll(): AngularFireList<Animal>{
-  //   return this.animialRef;
-  // }
   getAllAnimals(): AngularFireList<any>{
     return this.animialRef;
   }
@@ -45,7 +42,7 @@ export class FirebaseService {
     return this.userRef.push(user);
   }
 
-  getAllUsers(): AngularFireList<User>{
+  getAllUsers(): AngularFireList<any>{
     return this.userRef;
   }
 
