@@ -69,7 +69,7 @@ export class UserManagementComponent implements OnInit {
     this.shareDataService.selectedUser = user;
   }
 
-  setDeleteUser(user){
+  setDeleteUser(user): void{
     console.log(user.key);
     // this.firebaseService.deleteUser(user.key);
     this.deleteUser = user;
@@ -78,15 +78,16 @@ export class UserManagementComponent implements OnInit {
 
   onDelete(): void {
     this.firebaseService.deleteUser(this.deleteUser.key);
+    this.reloadComponent();
   }
 
   reloadComponent(): void{
+    this.users = [];
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/home-page']).then(() => {
+    this.router.navigate(['/user-management']).then(() => {
       window.location.reload();
     });
-    // this.users = [];
   }
 
   setMessageInfo(user): void{
