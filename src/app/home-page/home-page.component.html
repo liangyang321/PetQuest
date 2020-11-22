@@ -14,13 +14,6 @@
         <div class="right pb-4 pt-4 shadow-lg">
           <h2 class="text-center">Login</h2>
           <form (submit)="onSubmit()">
-            <div class="form-group mt-4 text-center">
-              <button class="btn btn-primary google" button (click)="login()"><i class="fab fa-google"> </i> Sign in with GOOGLE</button>
-            </div>
-            <div *ngIf="auth.user | async as user; else showLogin">
-              <h1>Hello {{ user.displayName }}!</h1>
-              <button (click)="logout()">Logout</button>
-            </div>
             <hr>
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
@@ -29,7 +22,7 @@
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
               <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Password" required>
-              <small id="emailHelp" class="form-text">Forget Password?</small>
+
             </div>
 
             <div *ngIf=isExisted class="form-group">

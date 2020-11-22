@@ -23,7 +23,7 @@
 
             <div>
               <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="onPetSupplier()">Pet Suppliers ({{allPetsFromFirebase.length || 0}})</a></li>
+                <li class="list-group-item source"><a href="javascript:;" (click)="onPetSupplier()">{{petsFrom}} ({{allPetsFromFirebase.length || 0}})</a></li>
                     <div>
                       <ul class="list-group pl-4" *ngFor="let s of petTypesFromFirebase">
                         <li class="list-group-item align-items-center">

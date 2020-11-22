@@ -28,6 +28,7 @@ export class PageInfo{
 })
 
 export class PetManagementComponent implements OnInit {
+  petsFrom = '';
   user: User;
   isAdmin: boolean;
   isTotal = true;
@@ -68,6 +69,7 @@ export class PetManagementComponent implements OnInit {
 
     if (this.user.role === 'admin'){
       this.isAdmin = true;
+      this.petsFrom = 'Firebase';
 
       if (currentPageInfo === null) {
         this.getPetsFromAPI('/v2/animals');
@@ -84,6 +86,7 @@ export class PetManagementComponent implements OnInit {
 
     if (this.user.role === 'shelter'){
       this.isAdmin = false;
+      this.petsFrom = 'My Pets';
       this.isSourceFromFirebase = true;
       this.getPetFromFirebase();
     }
