@@ -97,8 +97,10 @@ export class RegisterComponent implements OnInit {
   createNewUser(form): void{
     this.allUsers.forEach(element => {
       if (element.email === this.user.email) {
-        this.isExisted = true;
-        this.user.email = '';
+        if (!element.id.startsWith('T')){
+          this.isExisted = true;
+          this.user.email = '';
+        }
       }
     });
 
