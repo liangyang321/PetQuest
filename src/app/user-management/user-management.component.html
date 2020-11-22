@@ -26,8 +26,9 @@
   <div class="container-fluid pl-4 pr-4">
     <div class="pt-4">
       <form class="form-inline md-form mr-auto mb-4">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search user id or name" aria-label="Search">
-        <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit">Search</button>
+        <input class="form-control mr-sm-2" type="text" placeholder="Search user id"  #user (keyup.enter)="search(user.value)" (blur)="search(user.value); user.value='' " aria-label="Search">
+        <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit" (click)="search(user.value)">Search</button>
+        <button class="btn btn-outline-warning btn-rounded btn-sm my-0 ml-4" type="submit" (click)="ngOnInit()">Show All Users</button>
       </form>
       <table class="table">
         <thead>
