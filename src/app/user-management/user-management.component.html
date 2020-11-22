@@ -46,7 +46,7 @@
             <td>{{user.id}}</td>
             <td>{{user.name }}</td>
             <td>{{user.email}}</td>
-            <td>({{user.message.length}})</td>
+            <td><a href="#"> ({{user.message.length}})  </a></td>
             <td>
               <a routerLink="/profile" (click)="setSelectedUser(user)">View</a>
                   <span> / </span>

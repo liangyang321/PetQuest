@@ -34,7 +34,7 @@ export class HomePageComponent implements OnInit {
     console.log(this.email);
     console.log(this.password);
     this.users.forEach(element => {
-      if (element.email === this.email && element.password === this.password){
+      if (!element.id.startsWith('T') && element.email === this.email && element.password === this.password){
           this.shareDataService.saveCurrentUser(element);
           this.isLogin = false;
           window.location.reload();

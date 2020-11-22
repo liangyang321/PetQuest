@@ -37,10 +37,6 @@ export class PetManagementAddComponent implements OnInit {
 
   ngOnInit(): void {
     const animal = this.shareDataService.editPet;
-    // console.log('Edit Animal ');
-    // console.log(animal);
-
-
     if (animal !== null) {
       this.isEdit = true;
       this.isAdd = false;
@@ -48,7 +44,11 @@ export class PetManagementAddComponent implements OnInit {
       if (this.pet.contact.address === undefined){
         this.pet.contact.address = new Address();
       }
-      // console.log(this.pet.key);
+
+      if (this.pet.colors === undefined) {
+        this.pet.colors = new Colors();
+      }
+
       this.shareDataService.editPet = null;
     } else {
       this.pet = new Animal();
