@@ -38,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { ProfileComponent } from './profile/profile.component';
     BlogTableComponent,
     RegisterComponent,
     ProfileComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

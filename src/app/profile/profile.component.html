@@ -3,7 +3,7 @@
 
     <div class="col-md-6 offset-md-3 mt-4 pb-4 rounded box">
 
-      <table class="table pt-2" style="line-height: 1.5">
+      <table class="table pt-2 bg-light " style="line-height: 1.5">
         <tbody>
           <tr class="mt-4">
             <th scope="row">Name</th>
@@ -25,9 +25,8 @@
       </table>
 
       <div *ngIf=isNotSelectedFromAdmin class="col-md-6 offset-md-3 mt-4">
-        <button type="button" class="btn btn-block btn-primary" routerLink="/register" routerLinkActive="active" (click)="onUpdate()" >Update</button>
+        <button type="button" class="btn btn-block btn-info" routerLink="/register" routerLinkActive="active" (click)="onUpdate()" >Update</button>
     </div>
-
 
     </div>
 
