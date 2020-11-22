@@ -1,3 +1,4 @@
+import { NavigationService } from './../navigation.service';
 import { Breed } from './../breeds';
 import { Animal, Photo, Colors } from './../animal.model';
 import { Component, OnInit } from '@angular/core';
@@ -28,7 +29,8 @@ export class PetManagementViewComponent implements OnInit {
     // delete following if using shareDataService;
     private router: Router,
     private route: ActivatedRoute,
-    private petService: PetService
+    private petService: PetService,
+    private navService: NavigationService
     ) {}
 
   ngOnInit(): void {
@@ -45,6 +47,10 @@ export class PetManagementViewComponent implements OnInit {
     } else {
       this.getAnimalById(id);
     }
+  }
+
+  goBack(): void{
+    this.navService.back();
   }
 
   // delete getAnimalById() if using shareDataService;

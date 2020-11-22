@@ -128,9 +128,8 @@ export class PetSearchComponent implements OnInit {
         navigator.geolocation.getCurrentPosition((position) => {
           const long = position.coords.longitude;
           const lat = position.coords.latitude;
-          const location = lat.toString() + ',' + long.toString();
-          console.log(location);
-          this.petService.getAnimalByType(this.model.type, location, this.model.distance, '',
+          this.model.location = lat.toString() + ',' + long.toString();
+          this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, '',
             '', '', '', this.page).subscribe( data => {
               this.animals = data.animals;
               console.log(data);
@@ -169,7 +168,6 @@ export class PetSearchComponent implements OnInit {
   }
 
   onSubmit(petForm): void {
-    console.log(petForm);
     this.page = 1;
     this.getPetsFromAPI();
   }

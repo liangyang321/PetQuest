@@ -18,10 +18,10 @@
             [(ngModel)]="model.location"
             [ngClass]="{ 'is-invalid': petForm.submitted && location.invalid }" required
           >
-          <div class="textInvalid" *ngIf="location.errors?.required && !animals.length">
+          <div class="textInvalid" *ngIf="location.errors?.required || !animals.length">
             Location is required!
           </div>
-          <div class="textInvalid" *ngIf="location?.invalid && !animals.length">Must be 5 digits!</div>
+          <div class="textInvalid" *ngIf="location?.invalid || !animals.length">Must be 5 digits!</div>
         </div>
         <div class="form-group">
           <label for="distance">Distance</label>
