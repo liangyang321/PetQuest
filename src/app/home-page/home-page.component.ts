@@ -32,12 +32,14 @@ export class HomePageComponent implements OnInit {
       ))).subscribe(data => this.users = data);
   }
 
+  // firebase log in
   login(){
     this.auth.login();
   }
   logout(){
     this.auth.logout();
   }
+  // end of firebase log in
 
   onSubmit(): void {
     console.log(this.email);

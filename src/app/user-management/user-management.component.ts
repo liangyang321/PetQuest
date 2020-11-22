@@ -94,5 +94,12 @@ export class UserManagementComponent implements OnInit {
     this.message = user.message;
 
   }
-
+  search(id): void{
+    this.users.forEach(user => {
+      if (user.id === id){
+        this.users = [];
+        this.users.push(user);
+      }
+    });
+  }
 }
