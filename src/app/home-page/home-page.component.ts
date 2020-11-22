@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { User } from '../user.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -18,6 +19,7 @@ export class HomePageComponent implements OnInit {
   password: any;
 
   constructor(
+    public auth: AuthService,
     private fb: FirebaseService,
     private shareDataService: ShareDataService,
     private router: Router,
@@ -28,6 +30,13 @@ export class HomePageComponent implements OnInit {
     this.fb.getAllUsers().snapshotChanges().pipe(
       map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => this.users = data);
+  }
+
+  login(){
+    this.auth.login();
+  }
+  logout(){
+    this.auth.logout();
   }
 
   onSubmit(): void {

@@ -15,7 +15,11 @@
           <h2 class="text-center">Login</h2>
           <form (submit)="onSubmit()">
             <div class="form-group mt-4 text-center">
-              <button class="btn btn-primary google"><i class="fab fa-google"> </i> Sign in with GOOGLE</button>
+              <button class="btn btn-primary google" button (click)="login()"><i class="fab fa-google"> </i> Sign in with GOOGLE</button>
+            </div>
+            <div *ngIf="auth.user | async as user; else showLogin">
+              <h1>Hello {{ user.displayName }}!</h1>
+              <button (click)="logout()">Logout</button>
             </div>
             <hr>
             <div class="form-group">
