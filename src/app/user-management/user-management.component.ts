@@ -42,6 +42,7 @@ import { newArray } from '@angular/compiler/src/util';
 export class UserManagementComponent implements OnInit {
   users: any[] = [];
   deleteUser: any;
+  message = [];
 
   constructor(
     private firebaseService: FirebaseService,
@@ -86,6 +87,11 @@ export class UserManagementComponent implements OnInit {
       window.location.reload();
     });
     // this.users = [];
+  }
+
+  setMessageInfo(user): void{
+    this.message = user.message;
+
   }
 
 }
