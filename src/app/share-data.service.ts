@@ -9,6 +9,8 @@ export class ShareDataService {
   editPet = null;
   isEditUser = false;
 
+  selectedUser = null;
+
   constructor() { }
 
   saveViewPet(sharedPet: Animal): void{

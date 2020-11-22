@@ -9,11 +9,18 @@ import { User } from '../user.model';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  isNotSelectedFromAdmin = true;
 
   constructor(private shareDataService: ShareDataService) { }
 
   ngOnInit(): void {
-    this.user = this.shareDataService.getCurrentUser();
+    if (this.shareDataService.selectedUser !== null) {
+      this.isNotSelectedFromAdmin = false;
+      this.user = this.shareDataService.selectedUser;
+      this.shareDataService.selectedUser = null;
+    } else {
+      this.user = this.shareDataService.getCurrentUser();
+    }
   }
 
   onUpdate(): void {
