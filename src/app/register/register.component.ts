@@ -32,17 +32,13 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     if (this.shareDataService.selectedUser !== null) {
 
-      // this.isNotSelectedFromAdmin = false;
-      // this.user = this.shareDataService.selectedUser;
       this.user = this.getCurrentUserFromFirebase(this.shareDataService.selectedUser.email);
-      console.log(this.user);
       this.isEdit = true;
       this.isAdminEdit = true;
       this.shareDataService.selectedUser = null;
     } else {
       this.isEdit = this.shareDataService.isEditUser;
       if (this.isEdit) {
-        // this.user = this.shareDataService.getCurrentUser();
         this.user = this.getCurrentUserFromFirebase(this.shareDataService.getCurrentUser().email);
         this.shareDataService.isEditUser = false;
       } else {
@@ -55,7 +51,6 @@ export class RegisterComponent implements OnInit {
       }
 
     }
-    console.log(this.user);
   }
 
 
@@ -72,8 +67,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form): void{
-    console.log('onSubmit');
-    console.log(this.user);
     if (this.isEdit){
       this.updateUser();
     } else {
@@ -83,11 +76,9 @@ export class RegisterComponent implements OnInit {
 
   updateUser(): void{
     const val = JSON.parse(JSON.stringify(this.user));
-    console.log(this.user.key);
     this.firebaseService.updateUser(this.user.key, this.user);
 
     if (this.isAdminEdit) {
-      console.log('this.isAdminEdit');
       this.router.navigate(['/user-management']);
     } else {
       this.reloadComponent();
