@@ -142,8 +142,19 @@ export class Type {
   name: string;
 }
 
-
-
+export class Geos {
+  placeID: string;
+  license: string;
+  lat: string;
+  lon: string;
+  displayName: string;
+  boundingBox: [];
+  importance: number;
+  address: {};
+}
+export interface Geo {
+  geos: [Geo];
+}
 
 
 

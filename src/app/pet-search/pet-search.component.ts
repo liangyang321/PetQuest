@@ -1,8 +1,10 @@
+import { Observable } from 'rxjs';
+import { GeolocationService } from './../geolocation.service';
 import { PetService } from './../pet.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Animal } from '../animal.model';
-import { Pagination, Photo} from './../animal.model';
+import { Animal, Geos } from '../animal.model';
+import { Pagination, Photo, Address } from './../animal.model';
 import { Breeds} from '../breeds';
 
 
@@ -26,6 +28,7 @@ export class PetInfo {
 
 export class PetSearchComponent implements OnInit {
 
+  geoData: Geos[] = [];
   breeds: Breeds[];
   animals: Animal[] = [];
   pagination: Pagination;
@@ -38,11 +41,19 @@ export class PetSearchComponent implements OnInit {
     full: null
   };
 
-  constructor(private router: Router, private petService: PetService) { }
+  constructor(private router: Router, private petService: PetService, private geoService: GeolocationService) { }
 
   model = new PetInfo();
 
   href  = '';
+
+  reverseGeo(pos: any): void{
+    this.geoService.getZipcode(pos.coords.latitude, pos.coords.longitude).subscribe( data => {
+      this.geoData = data;
+      console.log(data);
+      return data.address.postcode;
+    });
+  }
 
   getBreeds(): void {
     this.petService.getAnimalBreed(this.model.type).subscribe( data => {
@@ -51,17 +62,6 @@ export class PetSearchComponent implements OnInit {
 
     });
   }
-  // getAllPetsFromAPI(): void {
-  //   this.petService.getAnimalByType(this.model.type, this.model.location, '',
-  //     '', '', '', '').subscribe( data => {
-  //       this.animals = data.animals;
-  //       console.log(this.animals);
-  //       this.page = data.pagination;
-  //       this.animals.forEach(element => {
-  //         this.setAnimal(element);
-  //       });
-  //   });
-  // }
 
   getPetsFromAPI(): void {
     if (this.model.breed === 'any'){
@@ -76,7 +76,7 @@ export class PetSearchComponent implements OnInit {
     if (this.model.gender === 'any'){
       this.model.gender = '';
     }
-    console.log('page: ', this.page);
+    // console.log('page: ', this.page);
     this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, this.model.breed,
       this.model.age, this.model.size, this.model.gender, this.page).subscribe( data => {
         this.animals = data.animals;
@@ -123,16 +123,22 @@ export class PetSearchComponent implements OnInit {
     window.scroll(0, 0);
   }
 
+
+
+  locError(err: any): void{
+    console.log(err);
+  }
+
   getLocation(): void{
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
+         navigator.geolocation.getCurrentPosition( (position) => {
           const long = position.coords.longitude;
           const lat = position.coords.latitude;
-          this.model.location = lat.toString() + ',' + long.toString();
+          console.log('geo data', this.model.location);
+          console.log('here already');
           this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, '',
             '', '', '', this.page).subscribe( data => {
               this.animals = data.animals;
-              console.log(data);
               this.pagination = data.pagination;
               this.page = data.pagination.current_page;
               this.totalPets = data.pagination.total_count;
@@ -159,11 +165,11 @@ export class PetSearchComponent implements OnInit {
     if (this.model.type === 'small'){
       this.model.type = 'small-furry';
     }
-    else if(this.model.type === 'scales'){
+    else if (this.model.type === 'scales'){
       this.model.type = 'scales-fins-other';
     }
     this.model.distance = '10';
-    this.getLocation();
+    // this.getLocation();
     this.getBreeds();
   }
 
