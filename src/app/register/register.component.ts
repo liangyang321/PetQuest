@@ -118,7 +118,8 @@ export class RegisterComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/home-page']).then(() => {
-      window.location.reload();
+      // window.location.reload();
+      this.shareDataService.sendClickEvent();
     });
   }
 }

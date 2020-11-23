@@ -32,15 +32,6 @@ export class HomePageComponent implements OnInit {
       ))).subscribe(data => this.users = data);
   }
 
-  // firebase log in
-  login(){
-    this.auth.login();
-  }
-  logout(){
-    this.auth.logout();
-  }
-  // end of firebase log in
-
   onSubmit(): void {
     console.log(this.email);
     console.log(this.password);
@@ -48,7 +39,8 @@ export class HomePageComponent implements OnInit {
       if (!element.id.startsWith('T') && element.email === this.email && element.password === this.password){
           this.shareDataService.saveCurrentUser(element);
           this.isLogin = false;
-          window.location.reload();
+          this.shareDataService.sendClickEvent();
+          // window.location.reload();
       } else {
         this.isExisted = true;
       }

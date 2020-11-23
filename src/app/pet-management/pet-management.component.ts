@@ -19,6 +19,7 @@ export class PageInfo{
   page: number;
   currectTypeFirebase: string;
   currentQuery: string;
+  totalPetFromAPI: number;
 }
 
 @Component({
@@ -74,6 +75,7 @@ export class PetManagementComponent implements OnInit {
       if (currentPageInfo === null) {
         this.getPetsFromAPI('/v2/animals');
       } else {
+        this.totalPetFromAPI = currentPageInfo.totalPetFromAPI;
         this.isSourceFromFirebase = currentPageInfo.isSourceFromFirebase;
         if (!this.isSourceFromFirebase) {
           this.getPetsFromAPI(currentPageInfo.currentQuery);
@@ -295,6 +297,7 @@ export class PetManagementComponent implements OnInit {
     pageInfo.currentQuery = this.currentQuery;
     pageInfo.currectTypeFirebase = this.currectTypeFirebase;
     pageInfo.page = this.page;
+    pageInfo.totalPetFromAPI = this.totalPetFromAPI;
     this.petService.currentPageInfo = pageInfo;
   }
 }

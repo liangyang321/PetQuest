@@ -1,6 +1,7 @@
 import { Animal} from './animal.model';
 import { Injectable } from '@angular/core';
 import { User } from './user.model';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class ShareDataService {
   isEditUser = false;
 
   selectedUser = null;
+  private subject = new Subject<any>();
 
   constructor() { }
 
@@ -29,6 +31,14 @@ export class ShareDataService {
   getCurrentUser(): any{
     console.log(JSON.parse(sessionStorage.getItem('user')));
     return JSON.parse(sessionStorage.getItem('user'));
+  }
+
+
+  sendClickEvent(): void {
+    this.subject.next();
+  }
+  getClickEvent(): Observable<any>{
+    return this.subject.asObservable();
   }
 
 

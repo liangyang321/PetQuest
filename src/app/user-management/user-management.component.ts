@@ -85,9 +85,7 @@ export class UserManagementComponent implements OnInit {
     this.users = [];
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/user-management']).then(() => {
-      window.location.reload();
-    });
+    this.router.navigate(['/user-management']);
   }
 
   setMessageInfo(user): void{
