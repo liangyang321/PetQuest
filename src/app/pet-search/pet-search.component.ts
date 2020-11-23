@@ -47,11 +47,21 @@ export class PetSearchComponent implements OnInit {
 
   href  = '';
 
-  reverseGeo(pos: any): void{
-    this.geoService.getZipcode(pos.coords.latitude, pos.coords.longitude).subscribe( data => {
-      this.geoData = data;
-      console.log(data);
-      return data.address.postcode;
+  reverseGeo(lat: any, lon: any): void{
+    this.geoService.getZipcode(lat, lon).subscribe( info => {
+      this.geoData = info;
+      this.model.location = info.address.postcode;
+      console.log('postcode: ', this.model.location);
+      this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, '',
+            '', '', '', this.page).subscribe( data => {
+              this.animals = data.animals;
+              this.pagination = data.pagination;
+              this.page = data.pagination.current_page;
+              this.totalPets = data.pagination.total_count;
+              this.animals.forEach(element => {
+                this.setAnimal(element);
+              });
+          });
     });
   }
 
@@ -129,28 +139,18 @@ export class PetSearchComponent implements OnInit {
     console.log(err);
   }
 
-  getLocation(): void{
+
+  getLocation(callback): void{
     if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition( (position) => {
-          const long = position.coords.longitude;
-          const lat = position.coords.latitude;
-          console.log('geo data', this.model.location);
-          console.log('here already');
-          this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, '',
-            '', '', '', this.page).subscribe( data => {
-              this.animals = data.animals;
-              this.pagination = data.pagination;
-              this.page = data.pagination.current_page;
-              this.totalPets = data.pagination.total_count;
-              this.animals.forEach(element => {
-                this.setAnimal(element);
-              });
-          });
-        });
-    } else {
-       console.log('No support for geolocation');
-       return null;
-    }
+      const latLon = navigator.geolocation.getCurrentPosition( position => {
+        const userPosition = {lat: null, lng: null};
+        userPosition.lat = position.coords.latitude;
+        userPosition.lng = position.coords.longitude;
+        callback(userPosition);
+      });
+  } else {
+      alert('Geolocation is not supported by this browser.');
+  }
   }
 
 
@@ -169,8 +169,11 @@ export class PetSearchComponent implements OnInit {
       this.model.type = 'scales-fins-other';
     }
     this.model.distance = '10';
-    // this.getLocation();
     this.getBreeds();
+    this.getLocation(data => {
+      console.log(data);
+      this.reverseGeo(data.lat, data.lng);
+    });
   }
 
   onSubmit(petForm): void {
