@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <form>
+    <div class="row">
+      <div class="col-8">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input [(ngModel)]="title" name="title" type="text" class="form-control" id="title">
+        </div>
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input [(ngModel)]="author" name="author" type="text" class="form-control" id="author">
+        </div>
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input [(ngModel)]="date" name="date" type="date" class="form-control" id="date">
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <label for="typeSelection">Pet Type</label>
+          <select [(ngModel)]="type" name="type" multiple class="form-control" id="typeSelection">
+            <option>Dog</option>
+            <option>Cat</option>
+            <option>Small and Furry</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea [(ngModel)]="content" name="content" class="form-control" id="content" rows="15"></textarea>
+    </div>
+    <button (click) = "addToBlogList()" type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+</div>

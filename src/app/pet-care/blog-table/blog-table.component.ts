@@ -7,6 +7,8 @@ import {Blog} from '../../blog.model';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../dialog/dialog.component';
 import {EventEmitter} from 'events';
+import {ShareDataService} from '../../share-data.service';
+import {User} from '../../user.model';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -23,11 +25,12 @@ export class BlogTableComponent implements OnInit {
   displayedColumns: string[] = ['title', 'petType', 'author', 'date'];
   dataSource: MatTableDataSource<Blog>;
   blogs: Blog[];
+  isAdmin: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private petService: PetService, private dialog: MatDialog) {
+  constructor(private petService: PetService, private shareDataService: ShareDataService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -39,6 +42,10 @@ export class BlogTableComponent implements OnInit {
         this.dataSource.sort = this.sort;
       }
     );
+    if (this.shareDataService.getCurrentUser().role == 'admin'){
+      this.isAdmin = true;
+    }
+    else { this.isAdmin = false; }
   }
 
   applyFilter(event: Event): void {
@@ -51,6 +58,6 @@ export class BlogTableComponent implements OnInit {
   }
 
   openDialog(data: string[]): void {
-    this.dialog.open(DialogComponent, {data: data});
+    this.dialog.open(DialogComponent, {data});
   }
 }

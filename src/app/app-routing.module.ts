@@ -13,6 +13,7 @@ import { AuthGuard } from './auth.guard';
 
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import {NewBlogComponent} from './pet-care/new-blog/new-blog.component';
 
 const routes: Routes = [
   { path: 'home-page', component: HomePageComponent},
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'pet-care', component: PetCareComponent},
   { path: '', redirectTo: 'home-page', pathMatch: 'full'},
   { path: 'register', component: RegisterComponent},
-  { path: 'profile', component: ProfileComponent}
+  { path: 'profile', component: ProfileComponent},
+  { path: 'pet-care/new-blog', component: NewBlogComponent}
 
 ];
 

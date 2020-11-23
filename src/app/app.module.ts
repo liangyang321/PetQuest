@@ -24,8 +24,6 @@ import { PetCareComponent } from './pet-care/pet-care.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PetInquireComponent } from './pet-inquire/pet-inquire.component';
 import { AboutComponent } from './about/about.component';
-
-import { BlogContentComponent } from './pet-care/blog-content/blog-content.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './pet-care/dialog/dialog.component';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
@@ -39,6 +37,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FooterComponent } from './footer/footer.component';
+import { NewBlogComponent } from './pet-care/new-blog/new-blog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,12 +53,12 @@ import { FooterComponent } from './footer/footer.component';
     PetCareComponent,
     PetInquireComponent,
     AboutComponent,
-    BlogContentComponent,
     DialogComponent,
     BlogTableComponent,
     RegisterComponent,
     ProfileComponent,
     FooterComponent,
+    NewBlogComponent,
   ],
   imports: [
     BrowserModule,
