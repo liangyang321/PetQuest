@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ShareDataService } from '../share-data.service';
 import { User } from '../user.model';
 
@@ -8,13 +9,18 @@ import { User } from '../user.model';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+  clickEventsubscription: Subscription;
 
   user: User;
   showUser = false;
   showPet = false;
   showLogout = false;
 
-  constructor(private shareDataService: ShareDataService) { }
+  constructor(private shareDataService: ShareDataService) {
+    this.clickEventsubscription = this.shareDataService.getClickEvent().subscribe(() => {
+      this.ngOnInit();
+      });
+  }
 
   ngOnInit(): void {
     this.user = this.shareDataService.getCurrentUser();
