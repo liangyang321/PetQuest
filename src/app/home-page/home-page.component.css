@@ -1,4 +1,13 @@
-.bg {
+
+.row{
+  margin: 0;
+}
+
+.container-fluid{
+  padding:0;
+}
+
+.topRow{
   background-image: url("../../assets/images/background.jpeg");
   width: 100%;
   height: 100%;
@@ -7,14 +16,12 @@
   background-size: cover;
 }
 
-
 hr{
   background-color: whitesmoke;
 }
 
 .left{
-  margin-top: 250px;
-  width: 45%;
+  margin-top: 100px;
   border-radius: 20px;
   color: rgba(255, 255,255, .7);;
   margin-left: 25px;
@@ -24,20 +31,24 @@ hr{
   font-size: 28px;
   font-weight: bold;
   font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-shadow: 0 1px 1px #9eb0bd, 0 0 3px #c55200;
 }
 
 .intro {
   font-size: small;
+  font-weight: bolder;
+  color: white;
 }
 
 .right{
   float: right;
-  margin-top: 150px;
-  margin-right: 25px;
+  margin-top: 100px;
+  margin-right: 100px;
   width: 50%;
   border-radius: 20px;
   color: white;
   background-color:rgba(255, 255,255, .2);
+  margin-bottom: 25px;
 }
 
 form {
@@ -54,3 +65,21 @@ button{
 }
 
 
+@media (max-width: 992px) {
+  .left{
+    width: 75%;
+    margin: auto;
+    margin-top: 100px;
+  }
+
+  .right{
+    margin: auto;
+    float: none;
+    margin-top: 100px;
+    /* margin-right: 50px; */
+    width: 75%;
+    border-radius: 20px;
+    background-color: rgba(255, 255,255, .2);
+    margin-bottom: 25px;
+  }
+}
