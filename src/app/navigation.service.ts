@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Location} from '@angular/common';
+import {NavigationEnd, Router} from '@angular/router';
 
 
 @Injectable({
@@ -16,10 +16,10 @@ export class NavigationService {
         this.history.push(event.urlAfterRedirects);
       }
     });
-   }
+  }
 
-   back(): void {
-    if (this.history.length !== 1){
+  back(): void {
+    if (this.history.length !== 1) {
       this.history.pop();
     }
     if (this.history.length > 0) {

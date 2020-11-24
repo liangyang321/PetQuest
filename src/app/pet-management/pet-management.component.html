@@ -1,123 +1,135 @@
-
 <div class="container-fluid pt-4 pl-0 pr-0 pt-4">
   <div class="row">
 
     <div class="col-lg-3 ">
 
       <div class=" rounded display-pet-type">
-        <p class="list-group-item border-0 bg-transparent text-left user"><i class="fas fa-user-alt"></i> {{user?.name}}</p>
+        <p class="list-group-item border-0 bg-transparent text-left user"><i class="fas fa-user-alt"></i> {{user?.name}}
+        </p>
 
-            <div *ngIf="isAdmin">
-              <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="onPetFinderApi()">Petfinder API ({{totalPetFromAPI}})</a></li>
-                    <div *ngIf="isSourceFromAPI" >
-                      <ul class="list-group pl-4" *ngFor="let pet of petTypesFromAPI; let i = index">
-                        <li class="list-group-item align-items-center">
-                          <a class="type" href="javascript:;" routerLink="/pet-management"
-                          (click)="onApiType(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
-                        </li>
-                      </ul>
-                    </div>
+        <div *ngIf="isAdmin" class="petFinderList">
+          <ul class="list-group">
+            <li class="list-group-item source"><a href="javascript:;" (click)="onPetFinderApi()">Petfinder API
+              ({{totalPetFromAPI}})</a></li>
+            <div *ngIf="isSourceFromAPI">
+              <ul class="list-group pl-4" *ngFor="let pet of petTypesFromAPI; let i = index">
+                <li class="list-group-item align-items-center">
+                  <a class="type" href="javascript:;" routerLink="/pet-management"
+                     (click)="onApiType(i)">{{pet.type}} <span>({{pet.total}})</span> </a>
+                </li>
               </ul>
             </div>
+          </ul>
+        </div>
 
+        <div>
+          <ul class="list-group">
+            <li class="list-group-item source"><a href="javascript:;" (click)="onPetSupplier()">{{petsFrom}}
+              ({{allPetsFromFirebase.length || 0}})</a></li>
             <div>
-              <ul class="list-group">
-                <li class="list-group-item source"><a href="javascript:;" (click)="onPetSupplier()">{{petsFrom}} ({{allPetsFromFirebase.length || 0}})</a></li>
-                    <div>
-                      <ul class="list-group pl-4" *ngFor="let s of petTypesFromFirebase">
-                        <li class="list-group-item align-items-center">
-                          <a class="type" href="javascript:;" (click)="onPetSupplierType(s.type)">{{s.type}} <span>({{s.total}})</span> </a>
-                        </li>
-                      </ul>
-                    </div>
+              <ul class="list-group pl-4" *ngFor="let s of petTypesFromFirebase">
+                <li class="list-group-item align-items-center">
+                  <a class="type" href="javascript:;" (click)="onPetSupplierType(s.type)">{{s.type}} <span>({{s.total}}
+                    )</span> </a>
+                </li>
               </ul>
             </div>
+          </ul>
+        </div>
 
       </div>
     </div>
 
     <div class="col-lg-9 pet-table pt-4">
-       <div class="row">
-          <div class="col-10">
-            <div class="col-8 input-group search-input">
-                <input type="text" class="form-control search-bar " placeholder="Pet ID" aria-describedby="basic-addon2"
-                #pet (keyup.enter)="search(pet.value)" (blur)="search(pet.value); pet.value='' ">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary search-icon" type="button" (click)="search(pet.value)" ><i class="fas fa-search"></i></button>
-                </div>
+      <div class="row">
+        <div class="col-10">
+          <div class="col-8 input-group search-input">
+            <input type="text" class="form-control search-bar " placeholder="Pet ID" aria-describedby="basic-addon2"
+                   #pet (keyup.enter)="search(pet.value)" (blur)="search(pet.value); pet.value='' ">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary search-icon" type="button" (click)="search(pet.value)"><i
+                class="fas fa-search"></i></button>
             </div>
           </div>
+        </div>
 
-          <div class="col-2 ">
-              <div class="text-right">
-                <button routerLink="/pet-management-add" routerLinkActive="active" type="button" class="btn btn-primary btn-default mr-4 custom-btn" (click)="setCurrentPageInfo()">Add a Pet</button>
-              </div>
-           </div>
-       </div>
+        <div class="col-2 ">
+          <div class="text-right">
+            <button routerLink="/pet-management-add" routerLinkActive="active" type="button"
+                    class="btn btn-primary btn-default mr-4 custom-btn" (click)="setCurrentPageInfo()">Add a Pet
+            </button>
+          </div>
+        </div>
+      </div>
 
-       <div class="row pt-4 mt-2">
+      <div class="row pt-4 mt-2">
         <div class="table-div">
-          <table  class="table table-condensed table-hover">
+          <table class="table table-condensed table-hover">
             <thead>
-              <tr>
-                <th width="15%">Image</th>
-                <th width="15%">Name</th>
-                <th width="15%">ID</th>
-                <th width="15%">Type</th>
-                <th width="20%">Organization ID</th>
-                <th width="20%" scope="col">Action</th>
-              </tr>
+            <tr>
+              <th width="15%">Image</th>
+              <th width="15%">Name</th>
+              <th width="15%">ID</th>
+              <th width="15%">Type</th>
+              <th width="20%">Organization ID</th>
+              <th width="20%" scope="col">Action</th>
+            </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let animal of animals | paginate: {
+            <tr *ngFor="let animal of animals | paginate: {
                 id: 'listing_pagination',
                 itemsPerPage: 20,
                 currentPage: page,
                 totalItems: totalPets
               }">
-                <td>
-                  <img src={{animal?.photos[0].small}}  onerror="this.onerror=null;this.src='assets/images/notfound.png';" alt="" class="pet-img">
-                </td>
-                <td>{{animal?.name}}</td>
-                <td>{{animal?.id}}</td>
-                <td>{{animal?.type}}</td>
-                <td>{{animal?.organization_id}}</td>
-                <td>
-                  <a [routerLink]="['/pet-management-view', 0]" routerLinkActive="active" (click)="setSharedData(animal)" >View</a>
-                  <span *ngIf="isSourceFromFirebase"> / </span>
-                  <a *ngIf="isSourceFromFirebase" routerLink="/pet-management-edit" (click)="editAnimal(animal)" >Edit</a>
-                  <span *ngIf="isSourceFromFirebase"> / </span>
-                  <a *ngIf="isSourceFromFirebase" data-toggle="modal" data-target="#exampleModalCenter" (click)="setDeletePet(animal)" >Delete</a>
-                  <!-- modal -->
-                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLongTitle">Confirm delete</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          Are you sure you want to delete {{deleteAnimal?.name}}?
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
-                          <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal" (click)="delete()" >Delete</button>
-                        </div>
+              <td>
+                <img src={{animal?.photos[0].small}} onerror="this.onerror=null;this.src='assets/images/notfound.png';"
+                     alt="" class="pet-img">
+              </td>
+              <td>{{animal?.name}}</td>
+              <td>{{animal?.id}}</td>
+              <td>{{animal?.type}}</td>
+              <td>{{animal?.organization_id}}</td>
+              <td>
+                <a [routerLink]="['/pet-management-view', 0]" routerLinkActive="active" (click)="setSharedData(animal)">View</a>
+                <span *ngIf="isSourceFromFirebase"> / </span>
+                <a *ngIf="isSourceFromFirebase" routerLink="/pet-management-edit" (click)="editAnimal(animal)">Edit</a>
+                <span *ngIf="isSourceFromFirebase"> / </span>
+                <a *ngIf="isSourceFromFirebase" data-toggle="modal" data-target="#exampleModalCenter"
+                   (click)="setDeletePet(animal)">Delete</a>
+                <!-- modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete {{deleteAnimal?.name}}?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-danger" data-dismiss="modal"
+                                (click)="delete()">Delete
+                        </button>
                       </div>
                     </div>
                   </div>
-                </td>
-              </tr>
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
-    </div>
+      </div>
 
-    <div class="text-center">
-      <pagination-controls class="pagination justify-content-center" id="listing_pagination" maxSize=5  directionLinks="true" (pageChange)="pageChange($event)"></pagination-controls>
+      <div class="text-center">
+        <pagination-controls class="pagination justify-content-center" id="listing_pagination" maxSize=5
+                             directionLinks="true" (pageChange)="pageChange($event)"></pagination-controls>
+      </div>
     </div>
   </div>
-</div>
 

@@ -1,13 +1,10 @@
-import { Observable } from 'rxjs';
-import { GeolocationService } from './../geolocation.service';
-import { PetService } from './../pet.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Animal, Geos } from '../animal.model';
-import { Pagination, Photo, Address } from './../animal.model';
-import { Breeds} from '../breeds';
-
-
+import {GeolocationService} from './../geolocation.service';
+import {PetService} from './../pet.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Animal, Geos} from '../animal.model';
+import {Pagination, Photo} from './../animal.model';
+import {Breeds} from '../breeds';
 
 
 export class PetInfo {
@@ -41,32 +38,33 @@ export class PetSearchComponent implements OnInit {
     full: null
   };
 
-  constructor(private router: Router, private petService: PetService, private geoService: GeolocationService) { }
+  constructor(private router: Router, private petService: PetService, private geoService: GeolocationService) {
+  }
 
   model = new PetInfo();
 
-  href  = '';
+  href = '';
 
-  reverseGeo(lat: any, lon: any): void{
-    this.geoService.getZipcode(lat, lon).subscribe( info => {
+  reverseGeo(lat: any, lon: any): void {
+    this.geoService.getZipcode(lat, lon).subscribe(info => {
       this.geoData = info;
       this.model.location = info.address.postcode;
       console.log('postcode: ', this.model.location);
       this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, '',
-            '', '', '', this.page).subscribe( data => {
-              this.animals = data.animals;
-              this.pagination = data.pagination;
-              this.page = data.pagination.current_page;
-              this.totalPets = data.pagination.total_count;
-              this.animals.forEach(element => {
-                this.setAnimal(element);
-              });
-          });
+        '', '', '', this.page).subscribe(data => {
+        this.animals = data.animals;
+        this.pagination = data.pagination;
+        this.page = data.pagination.current_page;
+        this.totalPets = data.pagination.total_count;
+        this.animals.forEach(element => {
+          this.setAnimal(element);
+        });
+      });
     });
   }
 
   getBreeds(): void {
-    this.petService.getAnimalBreed(this.model.type).subscribe( data => {
+    this.petService.getAnimalBreed(this.model.type).subscribe(data => {
       this.breeds = data.breeds;
       console.log(this.breeds);
 
@@ -74,50 +72,51 @@ export class PetSearchComponent implements OnInit {
   }
 
   getPetsFromAPI(): void {
-    if (this.model.breed === 'any'){
+    if (this.model.breed === 'any') {
       this.model.breed = '';
     }
-    if (this.model.age === 'any'){
+    if (this.model.age === 'any') {
       this.model.age = '';
     }
-    if (this.model.size === 'any'){
+    if (this.model.size === 'any') {
       this.model.size = '';
     }
-    if (this.model.gender === 'any'){
+    if (this.model.gender === 'any') {
       this.model.gender = '';
     }
     // console.log('page: ', this.page);
     this.petService.getAnimalByType(this.model.type, this.model.location, this.model.distance, this.model.breed,
-      this.model.age, this.model.size, this.model.gender, this.page).subscribe( data => {
-        this.animals = data.animals;
-        console.log('Data: ', data);
-        this.pagination = data.pagination;
-        this.page = data.pagination.current_page;
-        this.totalPets = data.pagination.total_count;
-        this.animals.forEach(element => {
-          this.setAnimal(element);
-        });
+      this.model.age, this.model.size, this.model.gender, this.page).subscribe(data => {
+      this.animals = data.animals;
+      console.log('Data: ', data);
+      this.pagination = data.pagination;
+      this.page = data.pagination.current_page;
+      this.totalPets = data.pagination.total_count;
+      this.animals.forEach(element => {
+        this.setAnimal(element);
+      });
     }, error => {
-        console.log('ERROR HERE', error);
-        this.animals = [];
-        this.page = 1; });
+      console.log('ERROR HERE', error);
+      this.animals = [];
+      this.page = 1;
+    });
   }
 
-  setAnimal(element: any): void{
+  setAnimal(element: any): void {
     if (element.photos.length === 0 || element.photos === undefined) {
       element.photos.push(this.image);
     }
 
-    if (element.name.includes('-')){
+    if (element.name.includes('-')) {
       const n = element.name;
       element.name = n.split('-')[0];
     }
-    if (element.name.includes(' is')){
+    if (element.name.includes(' is')) {
       const n = element.name;
       element.name = n.split(' is')[0];
     }
 
-    if (element.name.includes('~')){
+    if (element.name.includes('~')) {
       const n = element.name;
       element.name = n.split('~')[0];
     }
@@ -134,23 +133,22 @@ export class PetSearchComponent implements OnInit {
   }
 
 
-
-  locError(err: any): void{
+  locError(err: any): void {
     console.log(err);
   }
 
 
-  getLocation(callback): void{
+  getLocation(callback): void {
     if (navigator.geolocation) {
-      const latLon = navigator.geolocation.getCurrentPosition( position => {
+      const latLon = navigator.geolocation.getCurrentPosition(position => {
         const userPosition = {lat: null, lng: null};
         userPosition.lat = position.coords.latitude;
         userPosition.lng = position.coords.longitude;
         callback(userPosition);
       });
-  } else {
+    } else {
       alert('Geolocation is not supported by this browser.');
-  }
+    }
   }
 
 
@@ -162,10 +160,9 @@ export class PetSearchComponent implements OnInit {
     this.model.size = '';
     this.href = this.router.url;
     this.model.type = this.href.substr(1, this.href.indexOf('-') - 1);
-    if (this.model.type === 'small'){
+    if (this.model.type === 'small') {
       this.model.type = 'small-furry';
-    }
-    else if (this.model.type === 'scales'){
+    } else if (this.model.type === 'scales') {
       this.model.type = 'scales-fins-other';
     }
     this.model.distance = '10';

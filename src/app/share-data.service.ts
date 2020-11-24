@@ -1,7 +1,7 @@
-import { Animal} from './animal.model';
-import { Injectable } from '@angular/core';
-import { User } from './user.model';
-import { Observable, Subject } from 'rxjs';
+import {Animal} from './animal.model';
+import {Injectable} from '@angular/core';
+import {User} from './user.model';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,23 +13,22 @@ export class ShareDataService {
   selectedUser = null;
   private subject = new Subject<any>();
 
-  constructor() { }
+  constructor() {
+  }
 
-  saveViewPet(sharedPet: Animal): void{
+  saveViewPet(sharedPet: Animal): void {
     sessionStorage.setItem('pet', JSON.stringify(sharedPet));
   }
 
-  getViewPet(): any{
-    console.log(JSON.parse(sessionStorage.getItem('pet')));
+  getViewPet(): any {
     return JSON.parse(sessionStorage.getItem('pet'));
   }
 
-  saveCurrentUser(user: User): void{
+  saveCurrentUser(user: User): void {
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
-  getCurrentUser(): any{
-    console.log(JSON.parse(sessionStorage.getItem('user')));
+  getCurrentUser(): any {
     return JSON.parse(sessionStorage.getItem('user'));
   }
 
@@ -37,7 +36,8 @@ export class ShareDataService {
   sendClickEvent(): void {
     this.subject.next();
   }
-  getClickEvent(): Observable<any>{
+
+  getClickEvent(): Observable<any> {
     return this.subject.asObservable();
   }
 

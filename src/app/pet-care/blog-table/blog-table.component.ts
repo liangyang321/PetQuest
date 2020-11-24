@@ -1,14 +1,13 @@
-import {AfterViewInit, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {PetService} from '../../pet.service';
 import {Blog} from '../../blog.model';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../dialog/dialog.component';
-import {EventEmitter} from 'events';
 import {ShareDataService} from '../../share-data.service';
-import {User} from '../../user.model';
+import {NewBlogComponent} from './new-blog/new-blog.component';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -20,13 +19,15 @@ import {User} from '../../user.model';
   templateUrl: 'blog-table.component.html',
 })
 export class BlogTableComponent implements OnInit {
-  // @Input() blogContent: string;
+  // @Input() newBlogPost: any;
   // @Output() blogContentChange = new EventEmitter<string>();
   displayedColumns: string[] = ['title', 'petType', 'author', 'date'];
   dataSource: MatTableDataSource<Blog>;
   blogs: Blog[];
   isAdmin: boolean;
+  // selection = new SelectionModel<Blog>(true, []);
 
+  @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -42,10 +43,11 @@ export class BlogTableComponent implements OnInit {
         this.dataSource.sort = this.sort;
       }
     );
-    if (this.shareDataService.getCurrentUser().role == 'admin'){
-      this.isAdmin = true;
-    }
-    else { this.isAdmin = false; }
+    // if (this.shareDataService.getCurrentUser().role == 'admin') {
+    //   this.isAdmin = true;
+    // } else {
+    //   this.isAdmin = false;
+    // }
   }
 
   applyFilter(event: Event): void {
@@ -60,4 +62,33 @@ export class BlogTableComponent implements OnInit {
   openDialog(data: string[]): void {
     this.dialog.open(DialogComponent, {data});
   }
+
+  // isAllSelected(): boolean {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.data.length;
+  //   return numSelected === numRows;
+  // }
+  //
+  // masterToggle(): void {
+  //   this.isAllSelected() ?
+  //     this.selection.clear() :
+  //     this.dataSource.data.forEach(row => this.selection.select(row));
+  // }
+  // openNewBlogDialog(): void {
+  //   this.dialog.open(NewBlogComponent).updateSize('1000px');
+  // }
+
+  refreshBlog(): void {
+    const newBlog = this.petService.getNewBlog();
+    this.blogs.push(newBlog);
+    this.dataSource.data = this.blogs;
+    this.table.renderRows();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  // addToList(): void {
+  //   const newBlog = this.petService.getNewBlog();
+  //   this.blogs.push(newBlog);
+  // }
 }

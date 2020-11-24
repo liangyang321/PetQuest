@@ -1,12 +1,12 @@
-import { AngularFireStorage  } from '@angular/fire/storage';
-import { FirebaseService} from './../firebase.service';
-import { Address, Animal, Attributes, Breeds, Colors, Contact, Environment, Photo } from './../animal.model';
-import { Component, OnInit } from '@angular/core';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {FirebaseService} from './../firebase.service';
+import {Address, Animal, Attributes, Breeds, Colors, Contact, Environment, Photo} from './../animal.model';
+import {Component, OnInit} from '@angular/core';
 import * as data from '../../assets/states.json';
-import { ShareDataService } from '../share-data.service';
-import { finalize } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { User } from '../user.model';
+import {ShareDataService} from '../share-data.service';
+import {finalize} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {User} from '../user.model';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class PetManagementAddComponent implements OnInit {
   Types: string[] = ['Dog', 'Cat', 'Bird', 'Rabbit', 'Horse', 'Barnyard', 'Small & Furry', 'Scales, Fins & Other'];
   Age: string[] = ['Baby', 'Young', 'Adult', 'Senior'];
   Gender: string[] = ['Male', 'Female'];
-  Size: string[] = ['Small (0 - 6 lbs)', 'Medium (7 - 11 lbs)', 'Large (12 - 16 lbs)', 'Extra Large (17 or above)' ];
+  Size: string[] = ['Small (0 - 6 lbs)', 'Medium (7 - 11 lbs)', 'Large (12 - 16 lbs)', 'Extra Large (17 or above)'];
   Coat: string[] = ['Hairless', 'Short', 'Medium', 'Long'];
   State: any[] = (data as any).default;
 
@@ -33,7 +33,8 @@ export class PetManagementAddComponent implements OnInit {
     private shareDataService: ShareDataService,
     private fireStorage: AngularFireStorage,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     const animal = this.shareDataService.editPet;
@@ -41,7 +42,7 @@ export class PetManagementAddComponent implements OnInit {
       this.isEdit = true;
       this.isAdd = false;
       this.pet = animal;
-      if (this.pet.contact.address === undefined){
+      if (this.pet.contact.address === undefined) {
         this.pet.contact.address = new Address();
       }
 
@@ -72,18 +73,17 @@ export class PetManagementAddComponent implements OnInit {
     }
   }
 
-  getID(): any{
-    return Date.now() + ( (Math.random() * 100000).toFixed());
+  getID(): any {
+    return Date.now() + ((Math.random() * 100000).toFixed());
   }
 
-  uploadImage(event): void{
+  uploadImage(event): void {
     const id = Math.random().toString(36).substring(2);
     const ref = this.fireStorage.ref(id);
     const task = ref.put(event.target.files[0]);
     const uploadState = task.snapshotChanges().pipe(
       finalize(() => {
-         ref.getDownloadURL().subscribe(url => {
-          console.log(url);
+        ref.getDownloadURL().subscribe(url => {
           this.imageUrl = url;
         });
       })
@@ -91,35 +91,30 @@ export class PetManagementAddComponent implements OnInit {
   }
 
   onSubmit(form): void {
-    if (this.imageUrl != null){
+    if (this.imageUrl != null) {
       this.pet.photos[0].small = this.imageUrl;
       this.pet.photos[0].medium = this.imageUrl;
     }
 
-    if (this.isEdit){
+    if (this.isEdit) {
       this.update();
 
     } else {
       const val = JSON.parse(JSON.stringify(this.pet));
       this.firebaseService.createAnimal(val).then(res => {
-        console.log('success message');
+        console.log('');
       });
     }
     this.reloadComponent();
   }
 
   update(): void {
-    console.log(this.pet.key);
-
     this.firebaseService.updateAnimal(this.pet.key, this.pet)
-      .then(() => console.log('Update sucessefully'))
+      .then(() => console.log(''))
       .catch(err => console.log(err));
-
-    console.log('Update');
-    console.log(this.pet);
   }
 
-  reloadComponent(): void{
+  reloadComponent(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/pet-management']);

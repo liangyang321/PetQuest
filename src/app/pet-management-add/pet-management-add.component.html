@@ -6,257 +6,272 @@
   <h3 class="text-center info">Pet Information</h3>
   <hr class="text-center">
   <form class="pt-3 pl-3 pr-3 pb-3" #myForm="ngForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)">
-      <div class="row">
-          <div class="col-6 pr-4">
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label for="petID">Pet ID</label>
-                <input type="text" name="id" class="form-control" value="4567889" [(ngModel)]="pet.id" disabled>
-              </div>
-
-              <div class="col-md-6 mb-3">
-                <label for="petName">Pet name</label>
-                <input type="text" class="form-control" id="petName" name="name" [(ngModel)]="pet.name" #name="ngModel"
-                [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label for="type">Type</label>
-                <select class="custom-select"  name="type" [(ngModel)]="pet.type" #name="ngModel"
-                [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
-                  <option *ngFor="let type of Types" [value]="type">
-                    {{type}}
-                  </option>
-              </select>
-
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="species">Species</label>
-                <input type="text" class="form-control" id="species" name="species" [(ngModel)]="pet.species">
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label for="breed">Breed</label>
-                <input type="text" class="form-control" placeholder="primary" name="primary" [(ngModel)]="pet?.breeds.primary">
-              </div>
-
-              <div class="form-check form-check-inline mt-3 ml-2">
-                <input class="form-check-input" type="checkbox" name="mixed" [(ngModel)]="pet.breeds.mixed">
-                <label class="form-check-label" for="inlineRadio1">Mixed</label>
-              </div>
-              <div class="form-check form-check-inline mt-3 ml-4 pl-4">
-                <input class="form-check-input" type="checkbox" name="unknown" id="inlineRadio2" value="option2"
-                [(ngModel)]="pet.breeds.unknown">
-                <label class="form-check-label" for="inlineRadio2">Unknown</label>
-              </div>
-            </div>
-
-
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label>Color</label>
-                <input type="text" class="form-control" placeholder="primary" name="secondary" [(ngModel)]="pet.colors.secondary">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label></label>
-                <input type="text" class="form-control mt-2" placeholder="secondary" name="tertiary" [(ngModel)]="pet.colors.tertiary">
-              </div>
-            </div>
-
-
-            <div class="form-row">
-
-              <div class="col-md-6 mb-3">
-                <label for="age">Age</label>
-                <select class="custom-select"  name="age" [(ngModel)]="pet.age">
-                  <option *ngFor="let age of Age" [value]="age">
-                    {{age}}
-                  </option>
-              </select>
-              </div>
-
-              <div class="col-md-6 mb-3">
-                <label for="gender">Gender</label>
-                <select class="custom-select" id="gender" name="gender" [(ngModel)]="pet.gender">
-                  <option *ngFor="let gender of Gender" [value]="gender">
-                    {{gender}}
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label for="size">Size</label>
-                <select class="custom-select"  name="size" id="size" name="size" [(ngModel)]="pet.size">
-                  <option *ngFor="let size of Size" [value]="size">
-                    {{size}}
-                  </option>
-              </select>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="coat">Coat Length</label>
-                <select class="custom-select" id="coat" name="coat" [(ngModel)]="pet.coat">
-                  <option *ngFor="let coat of Coat" [value]="coat">
-                    {{coat}}
-                  </option>
-                </select>
-              </div>
-            </div>
-
+    <div class="row">
+      <div class="col-6 pr-4">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="petID">Pet ID</label>
+            <input type="text" name="id" class="form-control" value="4567889" [(ngModel)]="pet.id" disabled>
           </div>
 
-          <div class="col-6 pl-4">
-            <div class="form-row">
-              <div class="col-md-12 mb-12">
-                <div>
-                  <label for="size">Care & Behavior</label>
-                </div>
-                <div class="col-md-12 mb-12">
-                  <div class="form-check form-check-inline col-md-6 mb-2">
-                    <input class="form-check-input" type="checkbox" name="spayed_neutered" [(ngModel)]="pet.attributes.spayed_neutered" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">Spayed-neutered</label>
-                  </div>
-                  <div class="form-check form-check-inline col-md-5">
-                    <input class="form-check-input" type="checkbox" name="house_trained" [(ngModel)]="pet.attributes.house_trained" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">House-trained</label>
-                  </div>
-                </div>
-                <div class="col-md-12 mb-12">
-                  <div class="form-check form-check-inline col-md-6 mb-3">
-                    <input class="form-check-input" type="checkbox" name="special_needs" [(ngModel)]="pet.attributes.special_needs" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">Special Needs</label>
-                  </div>
-                  <div class="form-check form-check-inline col-md-5 mb-3">
-                    <input class="form-check-input" type="checkbox" name="shots_current" [(ngModel)]="pet.attributes.shots_current" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">Shorts current</label>
-                  </div>
-                </div>
-            </div>
+          <div class="col-md-6 mb-3">
+            <label for="petName">Pet name</label>
+            <input type="text" class="form-control" id="petName" name="name" [(ngModel)]="pet.name" #name="ngModel"
+                   [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="type">Type</label>
+            <select class="custom-select" name="type" [(ngModel)]="pet.type" #name="ngModel"
+                    [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+              <option *ngFor="let type of Types" [value]="type">
+                {{type}}
+              </option>
+            </select>
+
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="species">Species</label>
+            <input type="text" class="form-control" id="species" name="species" [(ngModel)]="pet.species">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="breed">Breed</label>
+            <input type="text" class="form-control" placeholder="primary" name="primary"
+                   [(ngModel)]="pet?.breeds.primary">
           </div>
 
+          <div class="form-check form-check-inline mt-3 ml-2">
+            <input class="form-check-input" type="checkbox" name="mixed" [(ngModel)]="pet.breeds.mixed">
+            <label class="form-check-label" for="inlineRadio1">Mixed</label>
+          </div>
+          <div class="form-check form-check-inline mt-3 ml-4 pl-4">
+            <input class="form-check-input" type="checkbox" name="unknown" id="inlineRadio2" value="option2"
+                   [(ngModel)]="pet.breeds.unknown">
+            <label class="form-check-label" for="inlineRadio2">Unknown</label>
+          </div>
+        </div>
 
 
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label>Color</label>
+            <input type="text" class="form-control" placeholder="primary" name="secondary"
+                   [(ngModel)]="pet.colors.secondary">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label></label>
+            <input type="text" class="form-control mt-2" placeholder="secondary" name="tertiary"
+                   [(ngModel)]="pet.colors.tertiary">
+          </div>
+        </div>
 
-            <div class="form-row">
-              <div class="col-md-12 mb-12">
-                <div>
-                  <label for="size">Good with</label>
-                </div>
 
-                <div class="col-md-12 mb-12">
-                  <div class="form-check form-check-inline col-md-4 mb-3">
-                    <input class="form-check-input" type="checkbox" name="children" [(ngModel)]="pet.environment.children" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">Children</label>
-                  </div>
-                  <div class="form-check form-check-inline col-md-4">
-                    <input class="form-check-input" type="checkbox" name="dogs" [(ngModel)]="pet.environment.dogs" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">Dogs</label>
-                  </div>
+        <div class="form-row">
 
-                  <div class="form-check form-check-inline col-md-3 mb-3">
-                    <input class="form-check-input" type="checkbox" name="cats" [(ngModel)]="pet.environment.cats" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">Cats</label>
-                  </div>
-                </div>
-            </div>
+          <div class="col-md-6 mb-3">
+            <label for="age">Age</label>
+            <select class="custom-select" name="age" [(ngModel)]="pet.age">
+              <option *ngFor="let age of Age" [value]="age">
+                {{age}}
+              </option>
+            </select>
           </div>
 
-            <div class="form-row">
-              <div class="col-md-12 mb-4">
-                <label for="type">Upload Images</label>
-                <input type="file" class="form-control-file upload-img" (change)="uploadImage($event)" accept="*.png.jpg" name="small">
-              </div>
-            </div>
-
-
-            <div class="form-row">
-              <div class="col-md-12">
-                <label for="des">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="description" [(ngModel)]="pet.description" rows="8"></textarea>
-                <br>
-              </div>
-
-            </div>
+          <div class="col-md-6 mb-3">
+            <label for="gender">Gender</label>
+            <select class="custom-select" id="gender" name="gender" [(ngModel)]="pet.gender">
+              <option *ngFor="let gender of Gender" [value]="gender">
+                {{gender}}
+              </option>
+            </select>
           </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="size">Size</label>
+            <select class="custom-select" name="size" id="size" name="size" [(ngModel)]="pet.size">
+              <option *ngFor="let size of Size" [value]="size">
+                {{size}}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="coat">Coat Length</label>
+            <select class="custom-select" id="coat" name="coat" [(ngModel)]="pet.coat">
+              <option *ngFor="let coat of Coat" [value]="coat">
+                {{coat}}
+              </option>
+            </select>
+          </div>
+        </div>
+
       </div>
 
-
-
-      <h3 class="mt-4 text-center info">Contact Information</h3>
-      <hr>
-      <div class="row pt-2">
-        <div class="col-6 pr-4">
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="shelter">Organization Name</label>
-              <input type="text" class="form-control" id="shelter" name="organization_name" [(ngModel)]="pet.organization_name">
+      <div class="col-6 pl-4">
+        <div class="form-row">
+          <div class="col-md-12 mb-12">
+            <div>
+              <label for="size">Care & Behavior</label>
             </div>
-            <div class="col-md-6 mb-3">
-              <label for="organization">Organization ID</label>
-              <input type="text" class="form-control" id="organization" name="organization_id" [(ngModel)]="pet.organization_id">
+            <div class="col-md-12 mb-12">
+              <div class="form-check form-check-inline col-md-6 mb-2">
+                <input class="form-check-input" type="checkbox" name="spayed_neutered"
+                       [(ngModel)]="pet.attributes.spayed_neutered" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Spayed-neutered</label>
+              </div>
+              <div class="form-check form-check-inline col-md-5">
+                <input class="form-check-input" type="checkbox" name="house_trained"
+                       [(ngModel)]="pet.attributes.house_trained" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">House-trained</label>
+              </div>
             </div>
-          </div>
-
-          <div class="form-row">
-            <div class="col-md-12 mb-3">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="pet.contact.email" #name="ngModel"
-              [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="phone">Phone</label>
-              <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="pet.contact.phone">
-
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="text">Text</label>
-              <input type="text" class="form-control" id="text" name="phone" [(ngModel)]="pet.contact.phone">
+            <div class="col-md-12 mb-12">
+              <div class="form-check form-check-inline col-md-6 mb-3">
+                <input class="form-check-input" type="checkbox" name="special_needs"
+                       [(ngModel)]="pet.attributes.special_needs" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Special Needs</label>
+              </div>
+              <div class="form-check form-check-inline col-md-5 mb-3">
+                <input class="form-check-input" type="checkbox" name="shots_current"
+                       [(ngModel)]="pet.attributes.shots_current" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">Shorts current</label>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="col-6 pl-4">
-          <div class="form-row">
-            <div class="col-md-12 mb-3">
-              <label for="address-one">Address 1</label>
-              <input type="email" class="form-control" id="address-one" name="address1" [(ngModel)]="pet.contact.address.address1">
-            </div>
-          </div>
 
-          <div class="form-row">
-            <div class="col-md-12 mb-3">
-              <label for="address-two">Address 2</label>
-              <input type="email" class="form-control" id="address-two" name="address2" [(ngModel)]="pet.contact.address.address2" >
+        <div class="form-row">
+          <div class="col-md-12 mb-12">
+            <div>
+              <label for="size">Good with</label>
             </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="inputCity">City</label>
-              <input type="text" class="form-control" id="inputCity" name="city" [(ngModel)]="pet.contact.address.city">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="inputState">State</label>
-              <select id="inputState" class="form-control" name="state" [(ngModel)]="pet.contact.address.state">
-                <option *ngFor="let state of State" [value]="state">
-                  {{state}}
-                </option>
-              </select>
-            </div>
-            <div class="form-group col-md-2">
-              <label for="inputZip">Zip</label>
-              <input type="text" class="form-control" id="inputZip" name="postcode" [(ngModel)]="pet.contact.address.postcode">
+            <div class="col-md-12 mb-12">
+              <div class="form-check form-check-inline col-md-4 mb-3">
+                <input class="form-check-input" type="checkbox" name="children" [(ngModel)]="pet.environment.children"
+                       id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Children</label>
+              </div>
+              <div class="form-check form-check-inline col-md-4">
+                <input class="form-check-input" type="checkbox" name="dogs" [(ngModel)]="pet.environment.dogs"
+                       id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">Dogs</label>
+              </div>
+
+              <div class="form-check form-check-inline col-md-3 mb-3">
+                <input class="form-check-input" type="checkbox" name="cats" [(ngModel)]="pet.environment.cats"
+                       id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Cats</label>
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="form-row">
+          <div class="col-md-12 mb-4">
+            <label for="type">Upload Images</label>
+            <input type="file" class="form-control-file upload-img" (change)="uploadImage($event)" accept="*.png.jpg"
+                   name="small">
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <label for="des">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="description"
+                      [(ngModel)]="pet.description" rows="8"></textarea>
+            <br>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <h3 class="mt-4 text-center info">Contact Information</h3>
+    <hr>
+    <div class="row pt-2">
+      <div class="col-6 pr-4">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="shelter">Organization Name</label>
+            <input type="text" class="form-control" id="shelter" name="organization_name"
+                   [(ngModel)]="pet.organization_name">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="organization">Organization ID</label>
+            <input type="text" class="form-control" id="organization" name="organization_id"
+                   [(ngModel)]="pet.organization_id">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="pet.contact.email"
+                   #name="ngModel"
+                   [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="pet.contact.phone">
+
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="text">Text</label>
+            <input type="text" class="form-control" id="text" name="phone" [(ngModel)]="pet.contact.phone">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 pl-4">
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="address-one">Address 1</label>
+            <input type="email" class="form-control" id="address-one" name="address1"
+                   [(ngModel)]="pet.contact.address.address1">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="address-two">Address 2</label>
+            <input type="email" class="form-control" id="address-two" name="address2"
+                   [(ngModel)]="pet.contact.address.address2">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" class="form-control" id="inputCity" name="city" [(ngModel)]="pet.contact.address.city">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <select id="inputState" class="form-control" name="state" [(ngModel)]="pet.contact.address.state">
+              <option *ngFor="let state of State" [value]="state">
+                {{state}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Zip</label>
+            <input type="text" class="form-control" id="inputZip" name="postcode"
+                   [(ngModel)]="pet.contact.address.postcode">
+          </div>
+        </div>
+      </div>
     </div>
 
 

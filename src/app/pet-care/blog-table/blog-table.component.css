@@ -10,6 +10,10 @@ table {
 
 }
 
+.mat-column-select {
+  overflow: initial;
+}
+
 .title {
   width: 40%;
 }
@@ -25,6 +29,14 @@ table {
 .date {
   width: 15%;
 }
+
 /*td, th {*/
 /*  width: 25%;*/
 /*}*/
+
+@media (max-width: 992px) {
+  .btnGreen{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}

@@ -12,39 +12,40 @@
 </div>
 <div class="container-lg">
   <div class="row">
-      <div class="col-md-10 mx-auto">
-          <div class="contact-form">
-              <form #myForm="ngForm"  (ngSubmit)="myForm.form.valid && onSubmit(myForm)">
-                  <div class="row">
-                      <div class="col-sm-4">
-                          <div class="form-group">
-                              <label for="inputName">Name</label>
-                              <input type="text" class="form-control" id="inputName" name="name" [(ngModel)]="user.name"
-                              #name="ngModel" [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }"required>
-                          </div>
-                      </div>
-                      <div class="col-sm-4">
-                          <div class="form-group">
-                              <label for="inputEmail">Email</label>
-                              <input type="email" class="form-control" id="inputEmail" name="email" [(ngModel)]="user.email"
-                              #name="ngModel" [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }"required>
-                          </div>
-                      </div>
-                      <div class="col-sm-4">
-                          <div class="form-group">
-                              <label for="inputPhone">Phone</label>
-                              <input type="text" class="form-control" id="inputPhone"  name="phone" [(ngModel)]="phone" required>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="inputMessage">Message</label>
-                      <textarea class="form-control" id="inputMessage" rows="5"  name="message" [(ngModel)]="message" required placeholder="I'm wondering if {{pet.name}} is..."></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Send Message</button>
-                  <h4 *ngIf=isSubmitted class="mt-2 message">  Thank you, we will contact you soon! </h4>
-              </form>
+    <div class="col-md-10 mx-auto">
+      <div class="contact-form">
+        <form #myForm="ngForm" (ngSubmit)="myForm.form.valid && onSubmit(myForm)">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="inputName">Name</label>
+                <input type="text" class="form-control" id="inputName" name="name" [(ngModel)]="user.name"
+                       #name="ngModel" [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" class="form-control" id="inputEmail" name="email" [(ngModel)]="user.email"
+                       #name="ngModel" [ngClass]="{ 'is-invalid': myForm.submitted && name.invalid }" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="inputPhone">Phone</label>
+                <input type="text" class="form-control" id="inputPhone" name="phone" [(ngModel)]="phone" required>
+              </div>
+            </div>
           </div>
+          <div class="form-group">
+            <label for="inputMessage">Message</label>
+            <textarea class="form-control" id="inputMessage" rows="5" name="message" [(ngModel)]="message" required
+                      placeholder="I'm wondering if {{pet.name}} is..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Send Message</button>
+          <h4 *ngIf=isSubmitted class="mt-2 message"> Thank you, we will contact you soon! </h4>
+        </form>
       </div>
+    </div>
   </div>
 </div>

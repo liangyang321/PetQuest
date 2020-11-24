@@ -1,9 +1,8 @@
-import { NavigationService } from './../navigation.service';
-import { Breed } from './../breeds';
-import { Animal, Photo, Colors } from './../animal.model';
-import { Component, OnInit } from '@angular/core';
-import { ShareDataService } from '../share-data.service';
-import {Router, ActivatedRoute} from '@angular/router';
+import {NavigationService} from './../navigation.service';
+import {Photo} from './../animal.model';
+import {Component, OnInit} from '@angular/core';
+import {ShareDataService} from '../share-data.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PetService} from '../pet.service';
 
 @Component({
@@ -25,42 +24,35 @@ export class PetManagementViewComponent implements OnInit {
 
   constructor(
     private shareDataService: ShareDataService,
-
     // delete following if using shareDataService;
     private router: Router,
     private route: ActivatedRoute,
     private petService: PetService,
     private navService: NavigationService
-    ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    // this.pet = this.shareDataService.getViewPet();
-
-    // delete following if using shareDataService;
     const id = this.route.snapshot.params.id;
-    console.log('id: ' + id);
 
-    if (id === '0'){
+    if (id === '0') {
       this.pet = this.shareDataService.getViewPet();
-      console.log(this.pet);
-      // console.log(this.pet.Breed.mixed);
     } else {
       this.getAnimalById(id);
     }
   }
 
-  goBack(): void{
+  goBack(): void {
     this.navService.back();
   }
 
   // delete getAnimalById() if using shareDataService;
-  getAnimalById(id: any): void{
+  getAnimalById(id: any): void {
     this.petService.getAnimalById(id).subscribe(data => {
       this.pet = data.animal;
-      if (this.pet.photos.length === 0){
+      if (this.pet.photos.length === 0) {
         this.pet.photos.push(this.image);
       }
-      console.log(this.pet);
     });
   }
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Animal, Photo } from '../animal.model';
-import { FirebaseService } from '../firebase.service';
-import { ShareDataService } from '../share-data.service';
-import { User } from '../user.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {map} from 'rxjs/operators';
+import {Animal} from '../animal.model';
+import {FirebaseService} from '../firebase.service';
+import {ShareDataService} from '../share-data.service';
+import {User} from '../user.model';
 
 @Component({
   selector: 'app-pet-inquire',
@@ -23,15 +23,14 @@ export class PetInquireComponent implements OnInit {
   constructor(
     private firebaseService: FirebaseService,
     private shareDataServce: ShareDataService
-) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.user = this.shareDataServce.getCurrentUser();
-    console.log('ngOnInit');
-    console.log(this.user);
     if (this.user === null) {
       this.user = new User();
-      this.user.id = 'TP' + Date.now() + ( (Math.random() * 100000).toFixed());
+      this.user.id = 'TP' + Date.now() + ((Math.random() * 100000).toFixed());
       this.user.role = 'Visitor';
       this.isVisitor = true;
     } else {
@@ -39,14 +38,11 @@ export class PetInquireComponent implements OnInit {
     }
   }
 
-  onSubmit(form): void{
-    console.log(this.user);
-    console.log(this.message);
+  onSubmit(form): void {
     if (this.user.message === undefined || this.user.message === null) {
       this.user.message = [];
     }
     this.user.message.push('Pet ID: ' + this.pet.id + '  Phone: ' + this.phone + '  Message: ' + this.message);
-    console.log(this.user);
     if (this.isVisitor) {
       this.firebaseService.createUser(this.user);
     } else {
@@ -56,15 +52,15 @@ export class PetInquireComponent implements OnInit {
     this.message = '';
   }
 
-  getUserWithKeyFromFirebase(email): void{
+  getUserWithKeyFromFirebase(email): void {
     this.firebaseService.getAllUsers().snapshotChanges().pipe(
-      map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
+      map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        data.forEach(element => {
-          if (element.email === email){
-            this.user = element;
-          }
-        });
+      data.forEach(element => {
+        if (element.email === email) {
+          this.user = element;
+        }
       });
+    });
   }
 }

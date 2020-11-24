@@ -7,10 +7,10 @@
         <div class="form-group">
           <label for="location">Location</label>
           <input
-          pattern ='([0-9]{5})'
-          type="text"
-          placeholder="Zip Code"
-          required
+            pattern='([0-9]{5})'
+            type="text"
+            placeholder="Zip Code"
+            required
             class="form-control"
             id="location"
             name="location"
@@ -65,7 +65,10 @@
             <option *ngIf="href === '/dog-search'">Puppy</option>
             <option *ngIf="href === '/cat-search'" value="baby">Kitten</option>
             <option *ngIf="href === '/horse-search'">Foal</option>
-            <option *ngIf="href === '/rabbit-search' || href === '/small-furry-search' || href === '/scales-fins-other-search' || href === '/bird-search' || href === '/barnyard-search'">Baby</option>
+            <option
+              *ngIf="href === '/rabbit-search' || href === '/small-furry-search' || href === '/scales-fins-other-search' || href === '/bird-search' || href === '/barnyard-search'">
+              Baby
+            </option>
             <option>Young</option>
             <option>Adult</option>
             <option>Senior</option>
@@ -131,7 +134,8 @@
             </ul>
           </div>
         </div>
+      </div>
     </div>
   </div>
-</div>
-<pagination-controls class="pagination justify-content-center" id="listing_pagination" maxSize=5  directionLinks="true" (pageChange)="pageChange($event)"></pagination-controls>
+  <pagination-controls class="pagination justify-content-center" id="listing_pagination" maxSize=5 directionLinks="true"
+                       (pageChange)="pageChange($event)"></pagination-controls>
