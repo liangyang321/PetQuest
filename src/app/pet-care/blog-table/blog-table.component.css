@@ -33,3 +33,10 @@ table {
 /*td, th {*/
 /*  width: 25%;*/
 /*}*/
+
+@media (max-width: 992px) {
+  .btnGreen{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
