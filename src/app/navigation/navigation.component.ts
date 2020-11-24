@@ -17,7 +17,7 @@ export class NavigationComponent implements OnInit {
   showLogout = false;
 
   constructor(private shareDataService: ShareDataService) {
-    this.clickEventsubscription = this.shareDataService.getClickEvent().subscribe(() => {
+    this.shareDataService.getClickEvent().subscribe(() => {
       this.ngOnInit();
       });
   }
