@@ -2,7 +2,7 @@ export interface Blogs {
   blogs: Blog[];
 }
 
-export interface Blog {
+export class Blog {
   title: string;
   author: string;
   date: string;

@@ -13,7 +13,8 @@ import { AuthGuard } from './auth.guard';
 
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import {NewBlogComponent} from './pet-care/new-blog/new-blog.component';
+import {NewBlogComponent} from './pet-care/blog-table/new-blog/new-blog.component';
+import {BlogTableComponent} from './pet-care/blog-table/blog-table.component';
 
 const routes: Routes = [
   { path: 'home-page', component: HomePageComponent},
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home-page', pathMatch: 'full'},
   { path: 'register', component: RegisterComponent},
   { path: 'profile', component: ProfileComponent},
-  { path: 'pet-care/new-blog', component: NewBlogComponent}
+  { path: 'pet-care/blog-table/new-blog', component: NewBlogComponent},
+  { path: 'pet-care/blog-table', component: BlogTableComponent}
 
 ];
 
