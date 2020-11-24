@@ -120,7 +120,6 @@ export class PetManagementComponent implements OnInit {
   getPetsFromAPI(request: string): void {
     this.currentQuery = request;
     this.isSourceFromFirebase = false;
-    console.log(request);
 
     this.petService.getAnimal(request).subscribe( data => {
       this.animals = data.animals;
@@ -139,11 +138,9 @@ export class PetManagementComponent implements OnInit {
   }
 
   getPetFromFirebase(): void {
-    // this.isSourceFromFirebase = true;
     this.firebaseService.getAllAnimals().snapshotChanges().pipe(
       map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        console.log(data);
         if (this.isAdmin){
           this.allPetsFromFirebase = data;
         } else {
@@ -152,7 +149,6 @@ export class PetManagementComponent implements OnInit {
               this.allPetsFromFirebase.push(element);
             }
           });
-          console.log(this.allPetsFromFirebase);
         }
         this.totalPets = this.allPetsFromFirebase.length;
         this.page = this.totalPets === 0 ? 0 : 1;
@@ -184,7 +180,6 @@ export class PetManagementComponent implements OnInit {
          }
 
         if (this.petService.currentPageInfo != null){
-          console.log(this.petService.currentPageInfo);
           this.animals = this.petService.currentPageInfo.pets;
           this.totalPets = this.animals.length;
           this.page = this.petService.currentPageInfo.page;
@@ -205,7 +200,6 @@ export class PetManagementComponent implements OnInit {
     this.isAllTypeFromAPI = false;
     this.isSourceFromFirebase = false;
     this.currectTypeAPI = this.petTypesFromAPI[index].param;
-    console.log('onApiType');
     this.getPetsFromAPI('/v2/animals/?type=' + this.petTypesFromAPI[index].param);
   }
 
@@ -258,8 +252,6 @@ export class PetManagementComponent implements OnInit {
 
   setDeletePet(animal): any {
     this.setCurrentPageInfo();
-    console.log('delete pet name = ' + animal.name);
-    console.log('delete pet key = ' + animal.key);
     this.deleteAnimal = animal;
   }
 
@@ -267,8 +259,7 @@ export class PetManagementComponent implements OnInit {
     this.setCurrentPageInfo();
     this.firebaseService.deleteAnimal(this.deleteAnimal.key)
     .then(() => {
-        this.reloadComponent();
-        console.log('delete ' + this.deleteAnimal.key); })
+        this.reloadComponent(); })
       .catch(err => console.log(err));
   }
 
@@ -279,8 +270,6 @@ export class PetManagementComponent implements OnInit {
   }
 
   pageChange(newPage: number): void {
-    console.log('New Page Number:' + newPage);
-    console.log(this.isSourceFromFirebase);
     if (this.isSourceFromFirebase){
       this.page = newPage;
     } else {
