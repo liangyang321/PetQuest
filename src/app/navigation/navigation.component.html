@@ -8,16 +8,16 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav left-menu">
       <li class="nav-item active">
-        <a routerLink="/home-page" routerLinkActive="active" class="nav-item nav-link active left-a petquest">
+        <a routerLink="/home-page" routerLinkActive="active" class="nav-item nav-link active left-a petquest" data-toggle="collapse" data-target=".navbar-collapse.show">
           <img src="assets/images/logo.png" alt="" width="50px"> PetQuest</a>
       </li>
 
       <li class="nav-item">
-        <a routerLink="/dog-search" routerLinkActive="active" class="nav-item nav-link left-a">Find A Dog</a>
+        <a routerLink="/dog-search" routerLinkActive="active" class="nav-item nav-link left-a" data-toggle="collapse" data-target=".navbar-collapse.show">Find A Dog</a>
       </li>
 
       <li class="nav-item">
-        <a routerLink="/cat-search" routerLinkActive="active" class="nav-item nav-link left-a">Find A Cat</a>
+        <a routerLink="/cat-search" routerLinkActive="active" class="nav-item nav-link left-a" data-toggle="collapse" data-target=".navbar-collapse.show">Find A Cat</a>
       </li>
 
       <li class="nav-item dropdown">
@@ -26,41 +26,39 @@
           Find Other Pets
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a routerLink="/rabbit-search" class="dropdown-item">Rabbits</a>
-          <a routerLink="/small-furry-search" class="dropdown-item">Small & Fury</a>
-          <a routerLink="/scales-fins-other-search" class="dropdown-item">Scales, Fins, & Other</a>
-          <a routerLink="/bird-search" class="dropdown-item">Birds</a>
-          <a routerLink="/horse-search" class="dropdown-item">Horses</a>
-          <a routerLink="/barnyard-search" class="dropdown-item">Barnyard</a>
+          <a routerLink="/rabbit-search" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show">Rabbits</a>
+          <a routerLink="/small-furry-search" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show">Small & Fury</a>
+          <a routerLink="/scales-fins-other-search" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show">Scales, Fins, & Other</a>
+          <a routerLink="/bird-search" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show">Birds</a>
+          <a routerLink="/horse-search" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show">Horses</a>
+          <a routerLink="/barnyard-search" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show">Barnyard</a>
         </div>
       </li>
 
       <li class="nav-item">
-        <a routerLink="/pet-care" routerLinkActive="active" class="nav-item nav-link left-a">Pet Care</a>
+        <a routerLink="/pet-care" routerLinkActive="active" class="nav-item nav-link left-a" data-toggle="collapse" data-target=".navbar-collapse.show">Pet Care</a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto right-menu">
       <li class="nav-item">
-        <a *ngIf=showUser routerLink="/user-management" routerLinkActive="active" class="nav-item nav-link"><i
-          class="fas fa-users"></i> User Management</a>
+        <a *ngIf=showUser routerLink = "/user-management" routerLinkActive = "active" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"><i class="fas fa-users" ></i> User Management</a>
       </li>
       <li class="nav-item">
-        <a *ngIf=showPet routerLink="/pet-management" routerLinkActive="active" class="nav-item nav-link"><i
-          class="fas fa-paw"></i> Pet Management</a>
+        <a *ngIf=showPet routerLink="/pet-management" routerLinkActive="active" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"><i class="fas fa-paw"></i> Pet Management</a>
       </li>
       <!-- <li class="nav-item">
        <a routerLink="/log-in-page" routerLinkActive="active" href="#" class="nav-item nav-link" (click)="logout()" ><i class="fas fa-user"></i> {{signup}}</a>
      </li> -->
 
-      <li class="nav-item">
-        <a routerLink="/profile" *ngIf=showLogout href="#" class="nav-item nav-link"> <i class="fas fa-user"></i>
-          Profile </a>
-      </li>
+     <li class="nav-item">
+      <a  routerLink="/profile"  *ngIf=showLogout href="#" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"> <i class="fas fa-user"></i> Profile </a>
+    </li>
 
-      <li class="nav-item">
-        <a *ngIf=showLogout href="#" class="nav-item nav-link" (click)="logout()">Log out</a>
-      </li>
+     <li class="nav-item">
+      <a *ngIf=showLogout href="#" class="nav-item nav-link" (click)="logout()">Log out</a>
+    </li>
+
 
     </ul>
   </div>

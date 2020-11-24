@@ -76,3 +76,9 @@ li {
 h5 {
   font-size: medium;
 }
+
+@media (max-width: 992px) {
+  .petFinderList{
+    float: left;
+  }
+}

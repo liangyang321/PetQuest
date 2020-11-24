@@ -7,7 +7,7 @@
         <p class="list-group-item border-0 bg-transparent text-left user"><i class="fas fa-user-alt"></i> {{user?.name}}
         </p>
 
-        <div *ngIf="isAdmin">
+        <div *ngIf="isAdmin" class="petFinderList">
           <ul class="list-group">
             <li class="list-group-item source"><a href="javascript:;" (click)="onPetFinderApi()">Petfinder API
               ({{totalPetFromAPI}})</a></li>
