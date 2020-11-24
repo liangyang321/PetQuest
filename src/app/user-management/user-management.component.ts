@@ -55,7 +55,6 @@ export class UserManagementComponent implements OnInit {
     this.firebaseService.getAllUsers().snapshotChanges().pipe(
       map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        console.log(data);
         data.forEach(element => {
           if (element.message === undefined){
             element.message = [];
@@ -70,8 +69,6 @@ export class UserManagementComponent implements OnInit {
   }
 
   setDeleteUser(user): void{
-    console.log(user.key);
-    // this.firebaseService.deleteUser(user.key);
     this.deleteUser = user;
 
   }

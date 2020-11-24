@@ -27,8 +27,6 @@ export class PetInquireComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.shareDataServce.getCurrentUser();
-    console.log('ngOnInit');
-    console.log(this.user);
     if (this.user === null) {
       this.user = new User();
       this.user.id = 'TP' + Date.now() + ( (Math.random() * 100000).toFixed());
@@ -40,13 +38,10 @@ export class PetInquireComponent implements OnInit {
   }
 
   onSubmit(form): void{
-    console.log(this.user);
-    console.log(this.message);
     if (this.user.message === undefined || this.user.message === null) {
       this.user.message = [];
     }
     this.user.message.push('Pet ID: ' + this.pet.id + '  Phone: ' + this.phone + '  Message: ' + this.message);
-    console.log(this.user);
     if (this.isVisitor) {
       this.firebaseService.createUser(this.user);
     } else {

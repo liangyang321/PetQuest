@@ -20,7 +20,6 @@ export class ShareDataService {
   }
 
   getViewPet(): any{
-    console.log(JSON.parse(sessionStorage.getItem('pet')));
     return JSON.parse(sessionStorage.getItem('pet'));
   }
 
@@ -29,7 +28,6 @@ export class ShareDataService {
   }
 
   getCurrentUser(): any{
-    console.log(JSON.parse(sessionStorage.getItem('user')));
     return JSON.parse(sessionStorage.getItem('user'));
   }
 

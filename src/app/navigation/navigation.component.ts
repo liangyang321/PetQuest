@@ -25,15 +25,10 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.shareDataService.getCurrentUser();
     this.checkUser();
-
-    console.log('this is NavigationComponent');
-    console.log(this.user);
   }
 
   checkUser(): void {
-    console.log('this is checkUser');
     if (this.user != null){
-      // this.signup = 'Log out';
       if (this.user.role === 'admin'){
         this.showPet = true;
         this.showUser = true;
