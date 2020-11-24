@@ -51,3 +51,11 @@
 .submitBtn {
   padding-top: 15px;
 }
+
+@media (max-width: 992px) {
+  .searchBar {
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-bottom: 50px;
+}
+}

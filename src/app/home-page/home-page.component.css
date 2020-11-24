@@ -64,6 +64,10 @@ button{
   color: red;
 }
 
+.isLogin{
+  margin-bottom: 200px;
+}
+
 
 @media (max-width: 992px) {
   .left{
