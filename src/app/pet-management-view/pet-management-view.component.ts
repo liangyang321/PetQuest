@@ -34,16 +34,10 @@ export class PetManagementViewComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    // this.pet = this.shareDataService.getViewPet();
-
-    // delete following if using shareDataService;
     const id = this.route.snapshot.params.id;
-    console.log('id: ' + id);
 
     if (id === '0'){
       this.pet = this.shareDataService.getViewPet();
-      console.log(this.pet);
-      // console.log(this.pet.Breed.mixed);
     } else {
       this.getAnimalById(id);
     }
@@ -60,7 +54,6 @@ export class PetManagementViewComponent implements OnInit {
       if (this.pet.photos.length === 0){
         this.pet.photos.push(this.image);
       }
-      console.log(this.pet);
     });
   }
 }

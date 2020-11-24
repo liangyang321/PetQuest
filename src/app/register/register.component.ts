@@ -98,8 +98,7 @@ export class RegisterComponent implements OnInit {
     if (form.valid && this.isExisted === false) {
       this.shareDataService.saveCurrentUser(this.user);
       const val = JSON.parse(JSON.stringify(this.user));
-      this.firebaseService.createUser(val).then(res => {
-          console.log('created a user'); });
+      this.firebaseService.createUser(val);
 
       this.reloadComponent();
     }

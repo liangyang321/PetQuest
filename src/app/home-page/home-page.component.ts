@@ -33,14 +33,11 @@ export class HomePageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.email);
-    console.log(this.password);
     this.users.forEach(element => {
       if (!element.id.startsWith('T') && element.email === this.email && element.password === this.password){
           this.shareDataService.saveCurrentUser(element);
           this.isLogin = false;
           this.shareDataService.sendClickEvent();
-          // window.location.reload();
       } else {
         this.isExisted = true;
       }

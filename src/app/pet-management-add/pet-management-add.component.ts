@@ -83,7 +83,6 @@ export class PetManagementAddComponent implements OnInit {
     const uploadState = task.snapshotChanges().pipe(
       finalize(() => {
          ref.getDownloadURL().subscribe(url => {
-          console.log(url);
           this.imageUrl = url;
         });
       })
@@ -102,21 +101,16 @@ export class PetManagementAddComponent implements OnInit {
     } else {
       const val = JSON.parse(JSON.stringify(this.pet));
       this.firebaseService.createAnimal(val).then(res => {
-        console.log('success message');
+        console.log('');
       });
     }
     this.reloadComponent();
   }
 
   update(): void {
-    console.log(this.pet.key);
-
     this.firebaseService.updateAnimal(this.pet.key, this.pet)
-      .then(() => console.log('Update sucessefully'))
+      .then(() => console.log(''))
       .catch(err => console.log(err));
-
-    console.log('Update');
-    console.log(this.pet);
   }
 
   reloadComponent(): void{
