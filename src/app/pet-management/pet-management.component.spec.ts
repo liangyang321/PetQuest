@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PetManagementComponent } from './pet-management.component';
+import {PetManagementComponent} from './pet-management.component';
 
 describe('PetManagementComponent', () => {
   let component: PetManagementComponent;
@@ -8,9 +8,9 @@ describe('PetManagementComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PetManagementComponent ]
+      declarations: [PetManagementComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

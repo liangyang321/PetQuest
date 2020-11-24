@@ -35,6 +35,6 @@ jobs:
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
-          FOLDER : dist
+          FOLDER: dist
           branch: gh-pages
-          github_token : ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

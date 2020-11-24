@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import * as data from '../assets/credential.json';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class TokenService {
     });
   }
 
-  set(token: string, value: string): void{
+  set(token: string, value: string): void {
     sessionStorage.setItem(token, value);
   }
 

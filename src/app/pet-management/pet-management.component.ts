@@ -1,11 +1,11 @@
-import { FirebaseService } from './../firebase.service';
-import { Photo, Animal } from './../animal.model';
-import { Component, OnInit } from '@angular/core';
+import {FirebaseService} from './../firebase.service';
+import {Animal, Photo} from './../animal.model';
+import {Component, OnInit} from '@angular/core';
 import {PetService} from '../pet.service';
-import { map } from 'rxjs/operators';
-import { ShareDataService } from '../share-data.service';
-import { Router } from '@angular/router';
-import { User } from '../user.model';
+import {map} from 'rxjs/operators';
+import {ShareDataService} from '../share-data.service';
+import {Router} from '@angular/router';
+import {User} from '../user.model';
 
 export class PetType {
   type: string;
@@ -13,7 +13,7 @@ export class PetType {
   param: string = null;
 }
 
-export class PageInfo{
+export class PageInfo {
   pets: any[];
   isSourceFromFirebase: boolean;
   page: number;
@@ -62,13 +62,14 @@ export class PetManagementComponent implements OnInit {
     private firebaseService: FirebaseService,
     private shareDataService: ShareDataService,
     private router: Router
-    ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.user = this.shareDataService.getCurrentUser();
     const currentPageInfo = this.petService.currentPageInfo;
 
-    if (this.user.role === 'admin'){
+    if (this.user.role === 'admin') {
       this.isAdmin = true;
       this.petsFrom = 'Firebase';
 
@@ -86,7 +87,7 @@ export class PetManagementComponent implements OnInit {
       this.getPetFromFirebase();
     }
 
-    if (this.user.role === 'shelter'){
+    if (this.user.role === 'shelter') {
       this.isAdmin = false;
       this.petsFrom = 'My Pets';
       this.isSourceFromFirebase = true;
@@ -94,24 +95,24 @@ export class PetManagementComponent implements OnInit {
     }
   }
 
-  getAllPetTypesFromAPI(): void{
-    this.petService.getTypes().subscribe( data => {
+  getAllPetTypesFromAPI(): void {
+    this.petService.getTypes().subscribe(data => {
       this.types = data.types;
       data.types.forEach(element => {
-          let param: string = element.name;
-          if (element.name === 'Small & Furry'){
-            param = 'Small-Furry';
-          }
-          if (element.name === 'Scales, Fins & Other'){
-            param = 'Scales-Fins-Other';
-          }
-          this.petService.getAnimal('/v2/animals?type=' + param).subscribe(data => {
-            const t = new PetType();
-            t.type = element.name;
-            t.total = data.pagination.total_count;
-            t.param = param;
-            this.petTypesFromAPI.push(t);
-          });
+        let param: string = element.name;
+        if (element.name === 'Small & Furry') {
+          param = 'Small-Furry';
+        }
+        if (element.name === 'Scales, Fins & Other') {
+          param = 'Scales-Fins-Other';
+        }
+        this.petService.getAnimal('/v2/animals?type=' + param).subscribe(data => {
+          const t = new PetType();
+          t.type = element.name;
+          t.total = data.pagination.total_count;
+          t.param = param;
+          this.petTypesFromAPI.push(t);
+        });
       });
     });
   }
@@ -121,14 +122,14 @@ export class PetManagementComponent implements OnInit {
     this.currentQuery = request;
     this.isSourceFromFirebase = false;
 
-    this.petService.getAnimal(request).subscribe( data => {
+    this.petService.getAnimal(request).subscribe(data => {
       this.animals = data.animals;
       this.animals.forEach(element => {
         if (element.photos.length === 0 || element.photos === undefined) {
           element.photos.push(this.image);
         }
       });
-      if (this.isTotal){
+      if (this.isTotal) {
         this.totalPetFromAPI = data.pagination.total_count;
         this.isTotal = false;
       }
@@ -139,56 +140,56 @@ export class PetManagementComponent implements OnInit {
 
   getPetFromFirebase(): void {
     this.firebaseService.getAllAnimals().snapshotChanges().pipe(
-      map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
+      map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        if (this.isAdmin){
-          this.allPetsFromFirebase = data;
-        } else {
-          data.forEach(element => {
-            if (element.organization_id === this.user.id){
-              this.allPetsFromFirebase.push(element);
-            }
-          });
-        }
-        this.totalPets = this.allPetsFromFirebase.length;
-        this.page = this.totalPets === 0 ? 0 : 1;
-
-        this.allPetsFromFirebase.forEach( element => {
-          if (element.photos === undefined || element.photos.length === 0) {
-            const photos: Photo[] = [];
-            photos.push(this.image);
-            element.photos = photos;
-          }
-
-          if (this.petsFromFirebaseByType.has(element.type)){
-            this.petsFromFirebaseByType.get(element.type).push(element);
-          } else {
-            const animals = [];
-            animals.push(element);
-            this.petsFromFirebaseByType.set(element.type, animals);
+      if (this.isAdmin) {
+        this.allPetsFromFirebase = data;
+      } else {
+        data.forEach(element => {
+          if (element.organization_id === this.user.id) {
+            this.allPetsFromFirebase.push(element);
           }
         });
+      }
+      this.totalPets = this.allPetsFromFirebase.length;
+      this.page = this.totalPets === 0 ? 0 : 1;
 
-
-        this.animals = this.allPetsFromFirebase;
-
-        for (const key of this.petsFromFirebaseByType.keys()) {
-          const s = new PetType();
-          s.type = key;
-          s.total = this.petsFromFirebaseByType.get(key).length;
-          this.petTypesFromFirebase.push(s);
-         }
-
-        if (this.petService.currentPageInfo != null){
-          this.animals = this.petService.currentPageInfo.pets;
-          this.totalPets = this.animals.length;
-          this.page = this.petService.currentPageInfo.page;
-          this.petService.currentPageInfo = null;
+      this.allPetsFromFirebase.forEach(element => {
+        if (element.photos === undefined || element.photos.length === 0) {
+          const photos: Photo[] = [];
+          photos.push(this.image);
+          element.photos = photos;
         }
+
+        if (this.petsFromFirebaseByType.has(element.type)) {
+          this.petsFromFirebaseByType.get(element.type).push(element);
+        } else {
+          const animals = [];
+          animals.push(element);
+          this.petsFromFirebaseByType.set(element.type, animals);
+        }
+      });
+
+
+      this.animals = this.allPetsFromFirebase;
+
+      for (const key of this.petsFromFirebaseByType.keys()) {
+        const s = new PetType();
+        s.type = key;
+        s.total = this.petsFromFirebaseByType.get(key).length;
+        this.petTypesFromFirebase.push(s);
+      }
+
+      if (this.petService.currentPageInfo != null) {
+        this.animals = this.petService.currentPageInfo.pets;
+        this.totalPets = this.animals.length;
+        this.page = this.petService.currentPageInfo.page;
+        this.petService.currentPageInfo = null;
+      }
     });
   }
 
-  onPetFinderApi(): void{
+  onPetFinderApi(): void {
     this.isAllTypeFromAPI = true;
     this.isSourceFromFirebase = false;
     this.currectTypeAPI = null;
@@ -196,7 +197,7 @@ export class PetManagementComponent implements OnInit {
   }
 
 
-  onApiType(index): void{
+  onApiType(index): void {
     this.isAllTypeFromAPI = false;
     this.isSourceFromFirebase = false;
     this.currectTypeAPI = this.petTypesFromAPI[index].param;
@@ -220,10 +221,10 @@ export class PetManagementComponent implements OnInit {
   }
 
   search(id: any): void {
-    if (id){
-      if (this.isSourceFromFirebase){
+    if (id) {
+      if (this.isSourceFromFirebase) {
         this.allPetsFromFirebase.forEach(pet => {
-          if (pet.id === id){
+          if (pet.id === id) {
             this.animals = [];
             this.animals.push(pet);
           }
@@ -233,12 +234,12 @@ export class PetManagementComponent implements OnInit {
           const pet = data.animal;
           this.animals = [];
           this.animals.push(pet);
-       });
+        });
       }
     }
   }
 
-  setSharedData(animal: Animal): void{
+  setSharedData(animal: Animal): void {
     this.setCurrentPageInfo();
     this.shareDataService.saveViewPet(animal);
   }
@@ -249,7 +250,6 @@ export class PetManagementComponent implements OnInit {
   }
 
 
-
   setDeletePet(animal): any {
     this.setCurrentPageInfo();
     this.deleteAnimal = animal;
@@ -258,23 +258,24 @@ export class PetManagementComponent implements OnInit {
   delete(): void {
     this.setCurrentPageInfo();
     this.firebaseService.deleteAnimal(this.deleteAnimal.key)
-    .then(() => {
-        this.reloadComponent(); })
+      .then(() => {
+        this.reloadComponent();
+      })
       .catch(err => console.log(err));
   }
 
-  reloadComponent(): void{
+  reloadComponent(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/pet-management']);
   }
 
   pageChange(newPage: number): void {
-    if (this.isSourceFromFirebase){
+    if (this.isSourceFromFirebase) {
       this.page = newPage;
     } else {
       const queryType = this.currectTypeAPI == null ? '' : '&type=' + this.currectTypeAPI;
-      const currentAPIQuery = '/v2/animals?page=' + newPage + '&type='  + queryType;
+      const currentAPIQuery = '/v2/animals?page=' + newPage + '&type=' + queryType;
       this.getPetsFromAPI(currentAPIQuery);
     }
   }

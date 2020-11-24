@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ShareDataService } from '../share-data.service';
-import { User } from '../user.model';
+import {Component, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {ShareDataService} from '../share-data.service';
+import {User} from '../user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -19,7 +19,7 @@ export class NavigationComponent implements OnInit {
   constructor(private shareDataService: ShareDataService) {
     this.clickEventsubscription = this.shareDataService.getClickEvent().subscribe(() => {
       this.ngOnInit();
-      });
+    });
   }
 
   ngOnInit(): void {
@@ -28,14 +28,14 @@ export class NavigationComponent implements OnInit {
   }
 
   checkUser(): void {
-    if (this.user != null){
-      if (this.user.role === 'admin'){
+    if (this.user != null) {
+      if (this.user.role === 'admin') {
         this.showPet = true;
         this.showUser = true;
 
       }
 
-      if (this.user.role === 'shelter'){
+      if (this.user.role === 'shelter') {
         this.showPet = true;
       }
 

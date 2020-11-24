@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { FirebaseService } from '../firebase.service';
-import { ShareDataService } from '../share-data.service';
-import { User } from '../user.model';
+import {Component, OnInit} from '@angular/core';
+import {map} from 'rxjs/operators';
+import {FirebaseService} from '../firebase.service';
+import {ShareDataService} from '../share-data.service';
+import {User} from '../user.model';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +16,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private shareDataService: ShareDataService,
     private firebaseService: FirebaseService,
-    ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     if (this.shareDataService.selectedUser !== null) {
@@ -30,16 +31,16 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  getCurrentUserFromFirebase(email): void{
+  getCurrentUserFromFirebase(email): void {
     this.firebaseService.getAllUsers().snapshotChanges().pipe(
-      map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
+      map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        data.forEach(element => {
-          if (element.email === email){
-            this.user = element;
-          }
-        });
+      data.forEach(element => {
+        if (element.email === email) {
+          this.user = element;
+        }
       });
+    });
   }
 
   onUpdate(): void {

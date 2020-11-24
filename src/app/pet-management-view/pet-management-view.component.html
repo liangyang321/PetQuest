@@ -1,5 +1,5 @@
 <div class="mt-4 ml-4">
-  <a class="backBtn" (click)="goBack()"  routerLinkActive="active" ><i class="fas fa-chevron-left"></i> Back</a>
+  <a class="backBtn" (click)="goBack()" routerLinkActive="active"><i class="fas fa-chevron-left"></i> Back</a>
 </div>
 
 <div class="container mt-4 mb-4">
@@ -8,7 +8,8 @@
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item" *ngFor="let image of pet?.photos let i = index" [ngClass]="{'active' : i == 0}">
-            <img class="d-block img-responsive w-100" [src]="image.medium" onerror="this.src='assets/images/notfound.png'" alt="First slide">
+            <img class="d-block img-responsive w-100" [src]="image.medium"
+                 onerror="this.src='assets/images/notfound.png'" alt="First slide">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -25,115 +26,115 @@
     <!-- Information -->
 
     <div class="col-8">
-        <h3 class="text-center pb-4">My Name is {{pet?.name}}</h3>
-        <hr>
-        <h4>Facts About Me</h4>
+      <h3 class="text-center pb-4">My Name is {{pet?.name}}</h3>
+      <hr>
+      <h4>Facts About Me</h4>
 
-        <table class="table">
-          <tr>
-            <td class="describe">Breed</td>
-            <td class="success">
-              {{pet?.breeds?.primary || ''}}
-              {{pet?.breeds?.secondary || ''}}
-              {{pet?.breeds?.mixed? 'Mixed': '' }}
-              {{pet?.breeds?.unknown? 'Unknown': '' }}
-            </td>
-            <td class="describe">Size</td>
-            <td class="danger">{{pet?.size}}</td>
-          </tr>
+      <table class="table">
+        <tr>
+          <td class="describe">Breed</td>
+          <td class="success">
+            {{pet?.breeds?.primary || ''}}
+            {{pet?.breeds?.secondary || ''}}
+            {{pet?.breeds?.mixed ? 'Mixed' : '' }}
+            {{pet?.breeds?.unknown ? 'Unknown' : '' }}
+          </td>
+          <td class="describe">Size</td>
+          <td class="danger">{{pet?.size}}</td>
+        </tr>
 
-          <tr>
-            <td class="describe">Color</td>
-            <td class="success">
-              {{pet?.colors?.primary || ''}}
-              {{pet?.colors?.secondary || ''}}
-              {{pet?.colors?.tertiary || ''}}
-            </td>
-            <td class="describe">Gender</td>
-            <td class="danger">{{pet?.gender}}</td>
-          </tr>
+        <tr>
+          <td class="describe">Color</td>
+          <td class="success">
+            {{pet?.colors?.primary || ''}}
+            {{pet?.colors?.secondary || ''}}
+            {{pet?.colors?.tertiary || ''}}
+          </td>
+          <td class="describe">Gender</td>
+          <td class="danger">{{pet?.gender}}</td>
+        </tr>
 
-          <tr>
-            <td class="describe">Age</td>
-            <td class="success">{{pet?.age}}</td>
-            <td class="describe">Coat Length</td>
-            <td class="danger">{{pet?.coat}}</td>
-          </tr>
+        <tr>
+          <td class="describe">Age</td>
+          <td class="success">{{pet?.age}}</td>
+          <td class="describe">Coat Length</td>
+          <td class="danger">{{pet?.coat}}</td>
+        </tr>
 
-          <tr>
-            <td class="describe">Pet ID</td>
-            <td class="success">{{pet?.id}}</td>
-            <td class="describe">Good With</td>
-            <td class="danger">
-              {{pet?.environment.dogs ? 'Dogs' : ''}}
-              {{pet?.environment.cats ? (pet?.environment.dogs ? ', Cats':'Cats') : ''}}
-              {{pet?.environment.children ? (pet?.environment.cats || pet?.environment.cats ? ', Children':'Children') : ''}}
-            </td>
-          </tr>
-        </table>
+        <tr>
+          <td class="describe">Pet ID</td>
+          <td class="success">{{pet?.id}}</td>
+          <td class="describe">Good With</td>
+          <td class="danger">
+            {{pet?.environment.dogs ? 'Dogs' : ''}}
+            {{pet?.environment.cats ? (pet?.environment.dogs ? ', Cats' : 'Cats') : ''}}
+            {{pet?.environment.children ? (pet?.environment.cats || pet?.environment.cats ? ', Children' : 'Children') : ''}}
+          </td>
+        </tr>
+      </table>
 
-        <hr>
-        <h4>My Info</h4>
+      <hr>
+      <h4>My Info</h4>
 
-        <div class="row">
-          <div class="col-4 pt-2" *ngIf="pet?.attributes?.house_trained">
-            <i class="fas fa-check">&nbsp;&nbsp;</i>House trained
-          </div>
-
-          <div class="col-4 pt-2" *ngIf="pet?.attributes?.spayed_neutered">
-            <i class="fas fa-check">&nbsp;&nbsp;</i>Spayed neutered
-          </div>
-
-          <div class="col-4 pt-2" *ngIf="pet?.attributes?.shots_current">
-            <i class="fas fa-check">&nbsp;&nbsp;</i>Vaccinations up to date
-          </div>
-
-          <div class="col-4 pt-2" *ngIf="pet?.attributes?.declawed">
-            <i class="fas fa-check">&nbsp;&nbsp;</i>Declawed
-          </div>
-
-          <div class="col-4 pt-2" *ngIf="pet?.attributes?.special_needs">
-            <i class="fas fa-check">&nbsp;&nbsp;</i>Special needs
-          </div>
+      <div class="row">
+        <div class="col-4 pt-2" *ngIf="pet?.attributes?.house_trained">
+          <i class="fas fa-check">&nbsp;&nbsp;</i>House trained
         </div>
 
-        <hr>
-        <h4>My Story</h4>
-        <div class="pl-3">
-          <p>{{pet?.description}}</p>
-
+        <div class="col-4 pt-2" *ngIf="pet?.attributes?.spayed_neutered">
+          <i class="fas fa-check">&nbsp;&nbsp;</i>Spayed neutered
         </div>
 
+        <div class="col-4 pt-2" *ngIf="pet?.attributes?.shots_current">
+          <i class="fas fa-check">&nbsp;&nbsp;</i>Vaccinations up to date
+        </div>
 
-        <hr>
-        <h4>Contact Info</h4>
-        <table class="table">
-          <tr>
-            <td class="describe">Rescue</td>
-            <td class="success">{{pet?.organization_id}}</td>
-            <td class="describe">Email</td>
-            <td class="danger">{{pet?.contact.email}}</td>
-          </tr>
+        <div class="col-4 pt-2" *ngIf="pet?.attributes?.declawed">
+          <i class="fas fa-check">&nbsp;&nbsp;</i>Declawed
+        </div>
 
-          <tr>
-            <td class="describe">Phone</td>
-            <td class="success">{{pet?.contact.phone}}</td>
-            <td class="describe">Address</td>
-            <td class="danger">
-              {{pet?.contact?.address?.address1}}
-              {{pet?.contact?.address?.address2}}
-            </td>
-          </tr>
+        <div class="col-4 pt-2" *ngIf="pet?.attributes?.special_needs">
+          <i class="fas fa-check">&nbsp;&nbsp;</i>Special needs
+        </div>
+      </div>
 
-          <tr>
-            <td class="describe">City</td>
-            <td class="success">{{pet?.contact?.address?.city}}</td>
-            <td class="describe">State</td>
-            <td class="success">{{pet?.contact?.address?.state}}</td>
-          </tr>
-        </table>
+      <hr>
+      <h4>My Story</h4>
+      <div class="pl-3">
+        <p>{{pet?.description}}</p>
 
+      </div>
+
+
+      <hr>
+      <h4>Contact Info</h4>
+      <table class="table">
+        <tr>
+          <td class="describe">Rescue</td>
+          <td class="success">{{pet?.organization_id}}</td>
+          <td class="describe">Email</td>
+          <td class="danger">{{pet?.contact.email}}</td>
+        </tr>
+
+        <tr>
+          <td class="describe">Phone</td>
+          <td class="success">{{pet?.contact.phone}}</td>
+          <td class="describe">Address</td>
+          <td class="danger">
+            {{pet?.contact?.address?.address1}}
+            {{pet?.contact?.address?.address2}}
+          </td>
+        </tr>
+
+        <tr>
+          <td class="describe">City</td>
+          <td class="success">{{pet?.contact?.address?.city}}</td>
+          <td class="describe">State</td>
+          <td class="success">{{pet?.contact?.address?.state}}</td>
+        </tr>
+      </table>
+
+    </div>
   </div>
-</div>
 
-<app-pet-inquire [pet]='pet'></app-pet-inquire>
+  <app-pet-inquire [pet]='pet'></app-pet-inquire>

@@ -1,11 +1,11 @@
-.form-check{
+.form-check {
   font-size: 15px;
 }
 
 
 .info {
   font-size: 30px;
-  padding-top:10px;
+  padding-top: 10px;
   padding-bottom: 10px;
 }
 
@@ -13,22 +13,22 @@
   color: #659DBD;
 }
 
-input, select,.btn {
-  border: 1px solid  #659DBD;
+input, select, .btn {
+  border: 1px solid #659DBD;
 }
 
 
-.upload-img{
+.upload-img {
   border: none;
 }
 
-.btn{
+.btn {
   background-color: #659DBD;
   width: 50%;
 }
 
 
-a{
+a {
   font-size: 18px;
   color: #659DBD;
 }

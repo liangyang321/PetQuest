@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
@@ -6,9 +6,7 @@ import {PetService} from '../../pet.service';
 import {Blog} from '../../blog.model';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../dialog/dialog.component';
-import {EventEmitter} from 'events';
 import {ShareDataService} from '../../share-data.service';
-import {SelectionModel} from '@angular/cdk/collections';
 import {NewBlogComponent} from './new-blog/new-blog.component';
 
 /**

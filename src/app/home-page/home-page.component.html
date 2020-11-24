@@ -1,48 +1,52 @@
 <div class="container-fluid bg">
-    <div class="row topRow">
-      <div class="col-lg-6">
-        <div class="left pb-4 pt-4" [ngClass]="{'isLogin':!isLogin}">
-          <p class="title">Welcome to PetQuest</p>
-          <hr>
-          <h4 class="intro">
-            We help over than 1000 shelters, pet rescue groups, and pet adoption agencies advertise their homeless pets to millions of adopters a month, for free. We're all about getting homeless pets into homes.
-          </h4>
-        </div>
+  <div class="row topRow">
+    <div class="col-lg-6">
+      <div class="left pb-4 pt-4" [ngClass]="{'isLogin':!isLogin}">
+        <p class="title">Welcome to PetQuest</p>
+        <hr>
+        <h4 class="intro">
+          We help over than 1000 shelters, pet rescue groups, and pet adoption agencies advertise their homeless pets to
+          millions of adopters a month, for free. We're all about getting homeless pets into homes.
+        </h4>
       </div>
+    </div>
 
-      <div class="col-lg-6" *ngIf=isLogin>
-        <div class="right pb-4 pt-4 shadow-lg">
-          <h2 class="text-center">Login</h2>
-          <form (submit)="onSubmit()">
-            <hr>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" [(ngModel)]="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Password" required>
+    <div class="col-lg-6" *ngIf=isLogin>
+      <div class="right pb-4 pt-4 shadow-lg">
+        <h2 class="text-center">Login</h2>
+        <form (submit)="onSubmit()">
+          <hr>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" [(ngModel)]="email" name="email" aria-describedby="emailHelp"
+                   placeholder="Enter email" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Password"
+                   required>
 
-            </div>
+          </div>
 
-            <div *ngIf=isExisted class="form-group">
-              <p class="alert"><i class="fas fa-exclamation-circle"> </i>
-                Incorrect email address or password
-              </p>
-            </div>
+          <div *ngIf=isExisted class="form-group">
+            <p class="alert"><i class="fas fa-exclamation-circle"> </i>
+              Incorrect email address or password
+            </p>
+          </div>
 
-            <div class="form-group mt-4">
-              <button type="submit" class="btn btn-block btn-primary login">LOGIN</button>
-            </div>
-           <div class="form-group">
-            <p class="text-center">Don't have account? <a routerLink="/register" routerLinkActive="active" href="#" id="signup">Sign up here</a></p>
-           </div>
-          </form>
-        </div>
+          <div class="form-group mt-4">
+            <button type="submit" class="btn btn-block btn-primary login">LOGIN</button>
+          </div>
+          <div class="form-group">
+            <p class="text-center">Don't have account? <a routerLink="/register" routerLinkActive="active" href="#"
+                                                          id="signup">Sign up here</a></p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-<app-about></app-about>
-<app-footer></app-footer>
+  <app-about></app-about>
+  <app-footer></app-footer>
 </div>
 
 

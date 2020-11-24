@@ -9,9 +9,11 @@ table {
   margin-left: 30px;
 
 }
+
 .mat-column-select {
   overflow: initial;
 }
+
 .title {
   width: 40%;
 }
@@ -27,6 +29,7 @@ table {
 .date {
   width: 15%;
 }
+
 /*td, th {*/
 /*  width: 25%;*/
 /*}*/

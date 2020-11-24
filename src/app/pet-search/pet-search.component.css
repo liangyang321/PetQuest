@@ -1,19 +1,19 @@
-.container-fluid{
-    padding-top:60px;
+.container-fluid {
+  padding-top: 60px;
 }
 
-.form-group{
-    text-align:center;
+.form-group {
+  text-align: center;
 }
 
 .displayResults {
-    padding-left:35px;
-    padding-right: 35px;
+  padding-left: 35px;
+  padding-right: 35px;
 }
 
 .searchBar {
-    padding-left: 30px;
-    padding-right: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .petBox img {
@@ -23,19 +23,19 @@
 }
 
 /* Background color of boxes under pet images */
-.card-body, .list-group-item{
-    background-color: #fbeec1;
+.card-body, .list-group-item {
+  background-color: #fbeec1;
 }
 
-.card{
+.card {
   margin-bottom: 10%;
 }
 
-.petBox{
+.petBox {
   cursor: pointer;
 }
 
-.card-title{
+.card-title {
   font-size: large;
   font-weight: bold;
 }
@@ -45,7 +45,7 @@
 }
 
 .textInvalid {
-  color:red;
+  color: red;
 }
 
 .submitBtn {
@@ -57,5 +57,5 @@
     padding-left: 100px;
     padding-right: 100px;
     margin-bottom: 50px;
-}
+  }
 }

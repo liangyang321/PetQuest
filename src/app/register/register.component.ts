@@ -1,11 +1,9 @@
-import { FirebaseService } from './../firebase.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { v4 as uuidv4 } from 'uuid';
-import { ShareDataService } from '../share-data.service';
-import { User } from '../user.model';
-import { map } from 'rxjs/operators';
-import { element } from 'protractor';
+import {FirebaseService} from './../firebase.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ShareDataService} from '../share-data.service';
+import {User} from '../user.model';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +24,8 @@ export class RegisterComponent implements OnInit {
     private firebaseService: FirebaseService,
     private shareDataService: ShareDataService,
     private router: Router
-    ) { }
+  ) {
+  }
 
 
   ngOnInit(): void {
@@ -43,10 +42,10 @@ export class RegisterComponent implements OnInit {
         this.shareDataService.isEditUser = false;
       } else {
         this.user = new User();
-        this.user.id = 'PQ' + Date.now() + ( (Math.random() * 100000).toFixed());
+        this.user.id = 'PQ' + Date.now() + ((Math.random() * 100000).toFixed());
         this.user.role = 'user';
         this.firebaseService.getAllUsers().snapshotChanges().pipe(
-          map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
+          map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()})
           ))).subscribe(data => this.allUsers = data);
       }
 
@@ -54,27 +53,27 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  getCurrentUserFromFirebase(email): void{
+  getCurrentUserFromFirebase(email): void {
     this.firebaseService.getAllUsers().snapshotChanges().pipe(
-      map (changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val()})
+      map(changes => changes.map(c => ({key: c.payload.key, ...c.payload.val()})
       ))).subscribe(data => {
-        data.forEach(element => {
-          if (element.email === email){
-            this.user = element;
-          }
-        });
+      data.forEach(element => {
+        if (element.email === email) {
+          this.user = element;
+        }
       });
+    });
   }
 
-  onSubmit(form): void{
-    if (this.isEdit){
+  onSubmit(form): void {
+    if (this.isEdit) {
       this.updateUser();
     } else {
       this.createNewUser(form);
     }
   }
 
-  updateUser(): void{
+  updateUser(): void {
     const val = JSON.parse(JSON.stringify(this.user));
     this.firebaseService.updateUser(this.user.key, this.user);
 
@@ -85,10 +84,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  createNewUser(form): void{
+  createNewUser(form): void {
     this.allUsers.forEach(element => {
       if (element.email === this.user.email) {
-        if (!element.id.startsWith('T')){
+        if (!element.id.startsWith('T')) {
           this.isExisted = true;
           this.user.email = '';
         }
@@ -104,7 +103,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  reloadComponent(): void{
+  reloadComponent(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/home-page']).then(() => {

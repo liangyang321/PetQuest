@@ -6,12 +6,12 @@
   object-fit: cover;
 }
 
-.inquire{
+.inquire {
   background-color: #79b8dc;
   color: white;
 }
 
-.textBreed{
+.textBreed {
   font-size: medium;
 }
 
@@ -19,6 +19,6 @@
   font-size: small;
 }
 
-.message{
-  color:#659DBD;
+.message {
+  color: #659DBD;
 }

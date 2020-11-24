@@ -8,18 +8,18 @@ td > a:hover, .type:hover {
   border: 1px solid #659DBD;
 }
 
-.form-control{
+.form-control {
   border: 1px solid #659DBD;
-  color:#659DBD
+  color: #659DBD
 }
 
-.search-icon{
+.search-icon {
   border: 1px solid #659DBD;
   background-color: #659DBD;
   color: white;
 }
 
-.table-div, .table-div > a{
+.table-div, .table-div > a {
   border-radius: 10px;
   color: #659DBD;
   width: 98%;
@@ -27,19 +27,20 @@ td > a:hover, .type:hover {
   font-size: 15px;
 }
 
-.table, th , td > a,  .table-hover tbody tr:hover td{
-  color:#659DBD;
+.table, th, td > a, .table-hover tbody tr:hover td {
+  color: #659DBD;
 }
 
-.pet-img{
-  width: 50px; height: 60px;
+.pet-img {
+  width: 50px;
+  height: 60px;
 }
 
-td{
+td {
   line-height: 50px;
 }
 
-.display-pet-type{
+.display-pet-type {
   padding-left: 40px;
 }
 
@@ -60,11 +61,11 @@ td{
   font-size: 18px;
 }
 
-.pet-table{
+.pet-table {
   padding-right: 50px;
 }
 
-.search-bar{
+.search-bar {
   margin-left: 0;
 }
 
@@ -72,6 +73,6 @@ li {
   border: none;
 }
 
-h5{
+h5 {
   font-size: medium;
 }

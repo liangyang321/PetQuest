@@ -1,13 +1,13 @@
 
-.row{
+.row {
   margin: 0;
 }
 
-.container-fluid{
-  padding:0;
+.container-fluid {
+  padding: 0;
 }
 
-.topRow{
+.topRow {
   background-image: url("../../assets/images/background.jpeg");
   width: 100%;
   height: 100%;
@@ -16,18 +16,18 @@
   background-size: cover;
 }
 
-hr{
+hr {
   background-color: whitesmoke;
 }
 
-.left{
+.left {
   margin-top: 100px;
   border-radius: 20px;
-  color: rgba(255, 255,255, .7);;
+  color: rgba(255, 255, 255, .7);;
   margin-left: 25px;
 }
 
-.title{
+.title {
   font-size: 28px;
   font-weight: bold;
   font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -40,14 +40,14 @@ hr{
   color: white;
 }
 
-.right{
+.right {
   float: right;
   margin-top: 100px;
   margin-right: 100px;
   width: 50%;
   border-radius: 20px;
   color: white;
-  background-color:rgba(255, 255,255, .2);
+  background-color: rgba(255, 255, 255, .2);
   margin-bottom: 25px;
 }
 
@@ -55,35 +55,35 @@ form {
   margin: 25px;
 }
 
-button{
+button {
   background-color: #659DBD;
   border: 1px solid #659DBD;
 }
 
-.alert{
+.alert {
   color: red;
 }
 
-.isLogin{
+.isLogin {
   margin-bottom: 200px;
 }
 
 
 @media (max-width: 992px) {
-  .left{
+  .left {
     width: 75%;
     margin: auto;
     margin-top: 100px;
   }
 
-  .right{
+  .right {
     margin: auto;
     float: none;
     margin-top: 100px;
     /* margin-right: 50px; */
     width: 75%;
     border-radius: 20px;
-    background-color: rgba(255, 255,255, .2);
+    background-color: rgba(255, 255, 255, .2);
     margin-bottom: 25px;
   }
 }

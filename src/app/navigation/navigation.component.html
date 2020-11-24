@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-xl">
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -20,7 +21,8 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
           Find Other Pets
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -40,22 +42,25 @@
 
     <ul class="navbar-nav ml-auto right-menu">
       <li class="nav-item">
-        <a *ngIf=showUser routerLink = "/user-management" routerLinkActive = "active" class="nav-item nav-link"><i class="fas fa-users"></i> User Management</a>
+        <a *ngIf=showUser routerLink="/user-management" routerLinkActive="active" class="nav-item nav-link"><i
+          class="fas fa-users"></i> User Management</a>
       </li>
       <li class="nav-item">
-        <a *ngIf=showPet routerLink="/pet-management" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-paw"></i> Pet Management</a>
+        <a *ngIf=showPet routerLink="/pet-management" routerLinkActive="active" class="nav-item nav-link"><i
+          class="fas fa-paw"></i> Pet Management</a>
       </li>
       <!-- <li class="nav-item">
        <a routerLink="/log-in-page" routerLinkActive="active" href="#" class="nav-item nav-link" (click)="logout()" ><i class="fas fa-user"></i> {{signup}}</a>
      </li> -->
 
-     <li class="nav-item">
-      <a  routerLink="/profile"  *ngIf=showLogout href="#" class="nav-item nav-link"> <i class="fas fa-user"></i> Profile </a>
-    </li>
+      <li class="nav-item">
+        <a routerLink="/profile" *ngIf=showLogout href="#" class="nav-item nav-link"> <i class="fas fa-user"></i>
+          Profile </a>
+      </li>
 
-     <li class="nav-item">
-      <a *ngIf=showLogout href="#" class="nav-item nav-link" (click)="logout()" >Log out</a>
-    </li>
+      <li class="nav-item">
+        <a *ngIf=showLogout href="#" class="nav-item nav-link" (click)="logout()">Log out</a>
+      </li>
 
     </ul>
   </div>

@@ -60,63 +60,63 @@ export class Next {
 }
 
 export class Breeds {
-      primary: string = '';
-      secondary?: any = null;
-      mixed: boolean = false;
-      unknown: boolean = false;
-  }
+  primary: string = '';
+  secondary?: any = null;
+  mixed: boolean = false;
+  unknown: boolean = false;
+}
 
 export class Colors {
-      primary?: any = '';
-      secondary?: any = null;
-      tertiary?: any = null;
+  primary?: any = '';
+  secondary?: any = null;
+  tertiary?: any = null;
 }
 
 export class Attributes {
-      spayed_neutered = false;
-      house_trained = false;
-      declawed?: any = false;
-      special_needs = false;
-      shots_current = false;
+  spayed_neutered = false;
+  house_trained = false;
+  declawed?: any = false;
+  special_needs = false;
+  shots_current = false;
 }
 
 export class Environment {
-      children?: any = false;
-      dogs?: any = false ;
-      cats?: any = false;
+  children?: any = false;
+  dogs?: any = false;
+  cats?: any = false;
 }
 
 export class Photo {
-      small: string = 'assets/images/notfound.png';
-      medium: string = 'assets/images/notfound.png';
-      large: string;
-      full: string;
+  small: string = 'assets/images/notfound.png';
+  medium: string = 'assets/images/notfound.png';
+  large: string;
+  full: string;
 }
 
 export interface PrimaryPhotoCropped {
-      small: string;
-      medium: string;
-      large: string;
-      full: string;
+  small: string;
+  medium: string;
+  large: string;
+  full: string;
 }
 
 export class Address {
-      address1: string = null;
-      address2?: any = null;
-      city: string = null;
-      state: string = null;
-      postcode: string = null;
-      country: string = null;
+  address1: string = null;
+  address2?: any = null;
+  city: string = null;
+  state: string = null;
+  postcode: string = null;
+  country: string = null;
 }
 
 export class Contact {
-      email: string;
-      phone: string = null;
-      address: Address = null;
+  email: string;
+  phone: string = null;
+  address: Address = null;
 }
 
 export interface Self {
-      href: string;
+  href: string;
 }
 
 export interface Type {
@@ -124,13 +124,13 @@ export interface Type {
 }
 
 export class Organization {
-      href: string = null;
+  href: string = null;
 }
 
 export interface Links {
-      self: Self;
-      type: Type;
-      organization: Organization;
+  self: Self;
+  type: Type;
+  organization: Organization;
 }
 
 
@@ -152,6 +152,7 @@ export class Geos {
   importance: number;
   address: {};
 }
+
 export interface Geo {
   geos: [Geo];
 }
