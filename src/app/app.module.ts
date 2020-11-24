@@ -37,7 +37,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FooterComponent } from './footer/footer.component';
-import { NewBlogComponent } from './pet-care/new-blog/new-blog.component';
+import { NewBlogComponent } from './pet-care/blog-table/new-blog/new-blog.component';
+
 @NgModule({
   declarations: [
     AppComponent,

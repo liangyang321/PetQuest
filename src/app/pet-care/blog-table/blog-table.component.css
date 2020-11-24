@@ -9,7 +9,9 @@ table {
   margin-left: 30px;
 
 }
-
+.mat-column-select {
+  overflow: initial;
+}
 .title {
   width: 40%;
 }

@@ -10,6 +10,7 @@ import {Blog, Blogs} from './blog.model';
 })
 export class PetService {
   currentPageInfo = null;
+  newBlog: any;
 
   constructor(
     private http: HttpClient,
@@ -53,5 +54,13 @@ export class PetService {
 
   getBlogs(): Observable<Blog[]> {
     return this.http.get<Blog[]>('assets/petBlog.json');
+  }
+
+  setNewBlog(blog: any): void {
+    this.newBlog = blog;
+  }
+
+  getNewBlog(): any {
+    return this.newBlog;
   }
 }
