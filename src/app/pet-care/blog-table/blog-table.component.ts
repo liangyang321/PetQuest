@@ -19,7 +19,7 @@ import {NewBlogComponent} from './new-blog/new-blog.component';
   templateUrl: 'blog-table.component.html',
 })
 export class BlogTableComponent implements OnInit {
-  @Input() newBlogPost: any;
+  // @Input() newBlogPost: any;
   // @Output() blogContentChange = new EventEmitter<string>();
   displayedColumns: string[] = ['title', 'petType', 'author', 'date'];
   dataSource: MatTableDataSource<Blog>;
@@ -43,11 +43,11 @@ export class BlogTableComponent implements OnInit {
         this.dataSource.sort = this.sort;
       }
     );
-    if (this.shareDataService.getCurrentUser().role == 'admin') {
-      this.isAdmin = true;
-    } else {
-      this.isAdmin = false;
-    }
+    // if (this.shareDataService.getCurrentUser().role == 'admin') {
+    //   this.isAdmin = true;
+    // } else {
+    //   this.isAdmin = false;
+    // }
   }
 
   applyFilter(event: Event): void {
@@ -74,15 +74,17 @@ export class BlogTableComponent implements OnInit {
   //     this.selection.clear() :
   //     this.dataSource.data.forEach(row => this.selection.select(row));
   // }
-  openNewBlogDialog(): void {
-    this.dialog.open(NewBlogComponent).updateSize('1000px');
-  }
+  // openNewBlogDialog(): void {
+  //   this.dialog.open(NewBlogComponent).updateSize('1000px');
+  // }
 
   refreshBlog(): void {
     const newBlog = this.petService.getNewBlog();
     this.blogs.push(newBlog);
     this.dataSource.data = this.blogs;
     this.table.renderRows();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   // addToList(): void {
